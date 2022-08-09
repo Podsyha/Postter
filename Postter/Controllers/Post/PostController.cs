@@ -13,17 +13,5 @@ public class PostController : ControllerBase
     }
     
     private readonly ILogger<PostController> _logger;
-
-    [HttpGet]
-    public PostUi GetPost(Guid id)
-    {
-        return new PostUi()
-        {
-            Id = id,
-            Likes = 1,
-            Reposts = 1,
-            DateAdd = DateTime.Now,
-            DateUpdate = DateTime.Now
-        };
-    }
+    
 }

@@ -12,7 +12,7 @@
 
     <ItemGroup>
       <Folder Include="Infrastructure" />
-      <Folder Include="Middleware\Model" />
+      <Folder Include="Middlewares\Model" />
       <Folder Include="UseCases" />
     </ItemGroup>
 

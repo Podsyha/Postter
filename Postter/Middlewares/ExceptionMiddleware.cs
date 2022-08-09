@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Postter.BusinessLogic.Exceptions;
 
-namespace Postter.Middleware;
+namespace Postter.Middlewares;
 
 public class ExceptionMiddleware
 {

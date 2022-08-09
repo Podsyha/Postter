@@ -1,4 +1,4 @@
-using Postter.Middleware;
+using Postter.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
