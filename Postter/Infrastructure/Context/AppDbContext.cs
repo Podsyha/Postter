@@ -20,5 +20,5 @@ public class AppDbContext : DbContext
     }
 
 
-    private DbSet<User> User { get; set; }
+    public virtual DbSet<User> User { get; set; }
 }

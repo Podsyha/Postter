@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Postter.BusinessLogic.Assert;
 using Postter.Infrastructure.Context;
 using Postter.Middlewares;
 
@@ -15,6 +16,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+builder.Services.AddTransient<IAssert, Assert>();
 
 var app = builder.Build();
 

@@ -1,17 +1,18 @@
-﻿using Postter.BusinessLogic.Exceptions;
+﻿using Microsoft.AspNetCore.Components.Web;
+using Postter.BusinessLogic.Exceptions;
 
-namespace Postter.BusinessLogic;
+namespace Postter.BusinessLogic.Assert;
 
-public class Assert
+public class Assert : IAssert
 {
     /// <summary>
     /// NullReferenceException если объект null
     /// </summary>
-    /// <param name="obj">Объект</param>
+    /// <param name="value">Объект</param>
     /// <exception cref="NullReferenceException"></exception>
-    public void IsNull(object? obj)
+    public void IsNull<T>(T value)
     {
-        if (obj == null)
+        if (value == null)
             throw new NullReferenceException("Object is null");
     }
 

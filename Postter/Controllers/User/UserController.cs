@@ -18,8 +18,8 @@ public class UserController : ControllerBase
     
     
     [HttpGet]
-    public Infrastructure.DAO.User Get(Guid id)
+    public Task<Infrastructure.DAO.User> Get(Guid id)
     {
-        return null;
-    } 
+        return _dbContext.User.FirstAsync(x => x.Id == id);
+    }
 }
