@@ -26,8 +26,8 @@ public class ExceptionMiddleware
 
             response.StatusCode = error switch
             {
-                NullReferenceException e => (int)HttpStatusCode.BadRequest,
-                RequestLogicException e => (int)HttpStatusCode.BadRequest,
+                NullReferenceException x => (int)HttpStatusCode.BadRequest,
+                RequestLogicException x => (int)HttpStatusCode.BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

@@ -18,6 +18,6 @@ namespace Postter.Infrastructure.Context
 		/// Получить транзакцию.
 		/// </summary>
 		/// <returns></returns>
-		public IDbContextTransaction GetTransaction();
+		IDbContextTransaction GetTransaction();
 	}
 }
