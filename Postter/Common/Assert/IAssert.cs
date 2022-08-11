@@ -1,6 +1,6 @@
-﻿using Postter.BusinessLogic.Exceptions;
+﻿using Postter.Common.Exceptions;
 
-namespace Postter.BusinessLogic.Assert;
+namespace Postter.Common.Assert;
 
 public interface IAssert
 {

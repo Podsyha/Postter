@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Postter.BusinessLogic.Assert;
+using Postter.Common.Assert;
+using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
-using Postter.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

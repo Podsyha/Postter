@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using Postter.BusinessLogic.Exceptions;
+﻿using Postter.Common.Exceptions;
 
-namespace Postter.BusinessLogic.Assert;
+namespace Postter.Common.Assert;
 
 public class Assert : IAssert
 {

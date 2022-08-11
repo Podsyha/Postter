@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Postter.BusinessLogic.Assert;
+using Postter.Common.Assert;
 
 namespace Postter.Infrastructure.Context
 {

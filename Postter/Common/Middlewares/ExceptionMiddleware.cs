@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Postter.BusinessLogic.Exceptions;
+using Postter.Common.Exceptions;
 
-namespace Postter.Middlewares;
+namespace Postter.Common.Middlewares;
 
 public class ExceptionMiddleware
 {

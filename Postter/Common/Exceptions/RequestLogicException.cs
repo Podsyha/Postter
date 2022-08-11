@@ -1,4 +1,4 @@
-﻿namespace Postter.BusinessLogic.Exceptions;
+﻿namespace Postter.Common.Exceptions;
 
 [Serializable]
 public class RequestLogicException : Exception
