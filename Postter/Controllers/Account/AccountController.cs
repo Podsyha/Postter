@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Postter.Common.Auth;
@@ -7,6 +8,8 @@ using Postter.Infrastructure.DAO;
 
 namespace Postter.Controllers.Account;
 
+[ApiController]
+[Route("[controller]")]
 public class AccountController : ControllerBase
 {
     public AccountController()
@@ -46,6 +49,20 @@ public class AccountController : ControllerBase
         };
 
         return Ok(response);
+    }
+    
+    [HttpGet("/authorize")]
+    [Authorize]
+    public IActionResult GetTestAuth()
+    {
+        return Ok("Test");
+    }
+    
+    [HttpGet("/admin")]
+    [Authorize(Roles = "admin")]
+    public IActionResult GetTest()
+    {
+        return Ok("Test");
     }
 
     private ClaimsIdentity GetIdentity(string username, string password)
