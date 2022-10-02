@@ -4,5 +4,7 @@ namespace Postter.Infrastructure.DAO;
 
 public sealed class User : EntityBase
 {
-    public string Login { get; set; }
+    public int Id { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }

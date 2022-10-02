@@ -15,8 +15,9 @@ builder.Services.AddSwaggerGen();
 // Connect to PostgreSQL Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(connectionString), ServiceLifetime.Transient);
 
+// Other services
 builder.Services.AddTransient<IAssert, Assert>();
 
 var app = builder.Build();
@@ -29,9 +30,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+
+// Custom middleware
 app.UseMiddleware<ExceptionMiddleware>();
 app.Run();

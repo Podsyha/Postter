@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using Postter.Common.Assert;
 
 namespace Postter.Infrastructure.Context
@@ -33,11 +34,23 @@ namespace Postter.Infrastructure.Context
 		/// </summary>
 		/// <typeparam name="T">Тип данных.</typeparam>
 		/// <param name="model">Модель данных.</param>
-		public async Task AddModelToDb<T>(T model)
+		public async Task AddModel<T>(T model)
 		{
 			_assert.IsNull(model);
 
 			await _dbContext.AddAsync(model);
+		}
+		
+		/// <summary>
+		/// Удалить данные из БД
+		/// </summary>
+		/// <param name="model">Модель данных</param>
+		/// <typeparam name="T">Тип данных</typeparam>
+		public void RemoveModel<T>(T model)
+		{
+			_assert.IsNull(model);
+
+			_dbContext.Remove(model);
 		}
 	}
 }
