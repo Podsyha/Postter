@@ -5,24 +5,27 @@ using Postter.Common.Exceptions;
 using Postter.Controllers.User.Model;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
+using Postter.Infrastructure.DTO;
+using Postter.Infrastructure.Repository;
 
 namespace Postter.UseCases;
 
 public class UseCaseAccount
 {
-    public UseCaseAccount(AppDbContext dbContext)
+    public UseCaseAccount(AppDbContext dbContext, IUserRepository userRepository)
     {
         _dbContext = dbContext;
+        _userRepository = userRepository;
     }
 
     private readonly AppDbContext _dbContext;
+    private readonly IUserRepository _userRepository;
 
 
     
     public async Task Login(LoginModel model)
     {
-        User user = await _dbContext.User.FirstOrDefaultAsync(u =>
-            u.Email == model.Email && u.Password == model.Password);
+        UserDto user = await _userRepository.GetUserAsync(model.Password, model.Email);
         if (user != null)
             Authenticate(model.Email);
         else
@@ -31,11 +34,10 @@ public class UseCaseAccount
 
     public async Task Register(RegisterModel model)
     {
-        User user = await _dbContext.User.FirstOrDefaultAsync(u => u.Email == model.Email);
+        UserDto user = await _userRepository.GetUserAsync(model.Password, model.Email);
         if (user == null)
         {
-            _dbContext.User.Add(new User { Email = model.Email, Password = model.Password });
-            await _dbContext.SaveChangesAsync();
+            await _userRepository.AddUserAsync(user.Email, user.Password);
 
             Authenticate(model.Email);
         }
@@ -43,7 +45,7 @@ public class UseCaseAccount
             throw new RequestLogicException("Некорректные логин и(или) пароль");
     }
 
-    private ClaimsIdentity Authenticate(string userName)
+    private static ClaimsIdentity Authenticate(string userName)
     {
         var claims = new List<Claim>
         {

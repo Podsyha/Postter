@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
+using Postter.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Other services
 builder.Services.AddTransient<IAssert, Assert>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

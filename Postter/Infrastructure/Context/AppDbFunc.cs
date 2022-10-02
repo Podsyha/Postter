@@ -7,9 +7,9 @@ namespace Postter.Infrastructure.Context
 	/// <summary>
 	/// Абстрактный класс описания функциональности взаимодействия с БД.
 	/// </summary>
-	public class ADbFunc : IRepository
+	public class AppDbFunc : IRepository
 	{
-		public ADbFunc(AppDbContext dbContext, IAssert assert)
+		public AppDbFunc(AppDbContext dbContext, IAssert assert)
 		{
 			_dbContext = dbContext;
 			_assert = assert;
