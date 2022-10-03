@@ -7,7 +7,7 @@ public class EntityBase
 {
     protected EntityBase()
     {
-        DateAdded = DateTime.Now;
+        DateAdded = DateTime.UtcNow;
     }
 
     /// <summary>

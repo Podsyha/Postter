@@ -54,7 +54,7 @@ public class AccountController : ControllerBase
     /// </summary>
     /// <param name="email">Почта</param>
     /// <param name="password">Пароль</param>
-    [HttpPost("/GiveAdminRole")]
+    [HttpPost("/Register")]
     [AllowAnonymous]
     public async Task<IActionResult> Register(string email, string password)
     {

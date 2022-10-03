@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Helpers;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
@@ -20,8 +17,7 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         RegistrationHelper registrationHelper = new();
-        MD5 md5 = MD5.Create();
-        
+
         string adminEmail = "admin@gmail.com";
         string userEmail = "user@gmail.com";
         string moderEmail = "moder@gmail.com";
@@ -30,13 +26,13 @@ public class AppDbContext : DbContext
         string userSalt = registrationHelper.generateSalt();
         string moderSalt = registrationHelper.generateSalt();
 
-        string adminPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(adminSalt + "admin")).ToString();
-        string userPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(userSalt + "user")).ToString();
-        string moderPassword = md5.ComputeHash(Encoding.ASCII.GetBytes(moderSalt + "moder")).ToString();
+        string adminPassword = registrationHelper.generateHashPass("admin", adminSalt);
+        string userPassword = registrationHelper.generateHashPass("user", userSalt);
+        string moderPassword = registrationHelper.generateHashPass("moder", moderSalt);
         
-        Role adminRole = new(){ Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.GetDisplayName() };
-        Role userRole = new(){ Id = (int)RolesEnum.User, Name = RolesEnum.User.GetDisplayName() };
-        Role moderRole = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.GetDisplayName() };
+        Role adminRole = new(){ Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
+        Role userRole = new(){ Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
+        Role moderRole = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.ToString() };
         Person adminUser = new(){ Id = Guid.NewGuid(), Email = adminEmail, HashPassword = adminPassword, RoleId = adminRole.Id, Salt = adminSalt};
         Person user = new(){ Id = Guid.NewGuid(), Email = userEmail, HashPassword = userPassword, RoleId = userRole.Id, Salt = userSalt};
         Person moderUser = new(){ Id = Guid.NewGuid(), Email = moderEmail, HashPassword = moderPassword, RoleId = moderRole.Id, Salt = moderSalt};

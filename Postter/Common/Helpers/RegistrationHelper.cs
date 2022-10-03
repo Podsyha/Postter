@@ -28,7 +28,7 @@ public sealed class RegistrationHelper : IRegistrationHelper
             result[i] = ALPHABET[index];
         }
 
-        return result.ToString();
+        return new string(result);
     }
 
     /// <summary>
@@ -41,6 +41,6 @@ public sealed class RegistrationHelper : IRegistrationHelper
     {
         MD5 md5 = MD5.Create();
         
-        return md5.ComputeHash(Encoding.ASCII.GetBytes(salt + password)).ToString();
+        return Convert.ToHexString(md5.ComputeHash(Encoding.ASCII.GetBytes(salt + password)));
     }
 }
