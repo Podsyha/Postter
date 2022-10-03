@@ -4,7 +4,7 @@ using Postter.Common.Exceptions;
 
 namespace Postter.Common.Middlewares;
 
-public class ExceptionMiddleware
+public sealed class ExceptionMiddleware
 {
     public ExceptionMiddleware(RequestDelegate nextRequestDelegate)
     {

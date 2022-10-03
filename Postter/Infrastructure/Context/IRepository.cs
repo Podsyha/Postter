@@ -12,7 +12,7 @@ namespace Postter.Infrastructure.Context
 		/// </summary>
 		/// <typeparam name="T">Тип данных.</typeparam>
 		/// <param name="model">Модель данных.</param>
-		Task AddModel<T>(T model);
+		Task AddModelAsync<T>(T model);
 
 		/// <summary>
 		/// Удалить данные из БД

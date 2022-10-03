@@ -43,9 +43,22 @@ public class AccountController : ControllerBase
 
         return Ok(response);
     }
-    
+
+    public async Task<IActionResult> Register(string email, string password)
+    {
+        await _useCaseAccount.Register(email, password);
+
+        await Token(email, password);
+
+        return Ok();
+    }
+
     [HttpPost("/GiveAdminRole")]
     [Authorize(Roles = "admin")]
-    public async Task GiveTheUserARole(string email, string role) =>
+    public async Task<IActionResult> GiveTheUserARole(string email, string role)
+    {
         await _useCaseAccount.GiveTheUserARole(email, role);
+        
+        return Ok();
+    }
 }

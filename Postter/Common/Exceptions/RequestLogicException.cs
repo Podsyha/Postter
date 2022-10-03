@@ -1,7 +1,7 @@
 ﻿namespace Postter.Common.Exceptions;
 
 [Serializable]
-public class RequestLogicException : Exception
+public sealed class RequestLogicException : Exception
 {
     public RequestLogicException() { }
 

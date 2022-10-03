@@ -39,4 +39,17 @@ public interface IPersonRepository
     /// <param name="email"></param>
     /// <returns></returns>
     Task<Person> FindPersonAsync(string email);
+
+    /// <summary>
+    /// Проверить уникальность почты
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <returns>True - пользователя с постой нет в системе</returns>
+    Task<bool> CheckMailUniqueness(string email);
+
+    /// <summary>
+    /// Добавить сущность пользователя
+    /// </summary>
+    /// <param name="newPerson">Пользователь</param>
+    Task AddPerson(Person newPerson);
 }

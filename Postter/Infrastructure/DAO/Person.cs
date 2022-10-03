@@ -14,15 +14,15 @@ public class Person : EntityBase
     /// <summary>
     /// Хешированный пароль
     /// </summary>
-    public string? Password { get; set; }
+    public string HashPassword { get; set; }
     /// <summary>
     /// Соль
     /// </summary>
-    public string? Salt { get; set; }
+    public string Salt { get; set; }
     /// <summary>
     /// Id роли
     /// </summary>
-    public int? RoleId { get; set; }
+    public int RoleId { get; set; }
     /// <summary>
     /// Роль
     /// </summary>

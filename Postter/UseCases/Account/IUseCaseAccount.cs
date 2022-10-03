@@ -8,4 +8,5 @@ public interface IUseCaseAccount
     JwtSecurityToken GetToken(string email, string password, ClaimsIdentity identity);
     Task<ClaimsIdentity> GetIdentity(string email, string password);
     Task GiveTheUserARole(string email, string role);
+    Task Register(string email, string password);
 }

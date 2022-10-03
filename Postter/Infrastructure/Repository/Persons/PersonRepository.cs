@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
+using Postter.Common.Helpers;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
@@ -7,12 +8,14 @@ namespace Postter.Infrastructure.Repository.Persons;
 
 public class PersonRepository : AppDbFunc, IPersonRepository
 {
-    public PersonRepository(AppDbContext dbContext, IAssert assert) : base(dbContext, assert)
+    public PersonRepository(AppDbContext dbContext, IAssert assert, IRegistrationHelper registrationHelper) : base(dbContext, assert)
     {
         _assert = assert;
+        _registrationHelper = registrationHelper;
     }
 
     private readonly IAssert _assert;
+    private readonly IRegistrationHelper _registrationHelper;
 
 
     /// <summary>
@@ -23,11 +26,17 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     /// <returns></returns>
     public async Task<Person> GetPersonAsync(string email, string password)
     {
-        IQueryable<Person> query = _dbContext.Person
-            .Include(x => x.Role)
-            .Where(person => person.Email == email && person.Password == password);
+        Person currentPerson = await _dbContext.Person
+            .FirstOrDefaultAsync(x => x.Email == email);
         
-        Person person = await query.FirstOrDefaultAsync();
+        _assert.IsNull(currentPerson);
+
+        string hashPass = _registrationHelper.generateHashPass(password, currentPerson.Salt);
+        
+        Person person = await _dbContext.Person
+            .Include(x => x.Role)
+            .Where(person => person.Email == email && person.HashPassword == hashPass)
+            .FirstOrDefaultAsync();
 
         return person;
     }
@@ -68,12 +77,18 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     /// <returns></returns>
     public async Task<Person> FindPersonAsync(string email, string password)
     {
-        IQueryable<Person> query = _dbContext.Person
-            .Include(x => x.Role)
-            .Where(person => person.Email == email && person.Password == password);
-
-        Person person = await query.FirstOrDefaultAsync();
+        Person currentPerson = await _dbContext.Person
+            .FirstOrDefaultAsync(x => x.Email == email);
         
+        _assert.IsNull(currentPerson);
+
+        string hashPass = _registrationHelper.generateHashPass(password, currentPerson.Salt);
+        
+        Person person = await _dbContext.Person
+            .Include(x => x.Role)
+            .Where(person => person.Email == email && person.HashPassword == hashPass)
+            .FirstOrDefaultAsync();
+
         _assert.IsNull(person);
 
         return person;
@@ -95,5 +110,28 @@ public class PersonRepository : AppDbFunc, IPersonRepository
         _assert.IsNull(person);
 
         return person;
+    }
+
+    /// <summary>
+    /// Проверить уникальность почты
+    /// </summary>
+    /// <param name="email">Почта</param>
+    /// <returns>True - пользователя с постой нет в системе</returns>
+    public async Task<bool> CheckMailUniqueness(string email)
+    {
+        Person person = await GetPersonAsync(email);
+
+        return person == null;
+    }
+
+    /// <summary>
+    /// Добавить сущность пользователя
+    /// </summary>
+    /// <param name="newPerson">Пользователь</param>
+    public async Task AddPerson(Person newPerson)
+    {
+        await AddModelAsync(newPerson);
+
+        await SaveChangeAsync();
     }
 }
