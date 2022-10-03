@@ -12,6 +12,13 @@ public interface IAssert
     public void IsNull<T>(T value);
 
     /// <summary>
+    /// InvalidOperationException если в коллекции нет объектов
+    /// </summary>
+    /// <param name="collection">Коллекция</param>
+    /// <typeparam name="T">Тип коллекции</typeparam>
+    public void EmptyCollection<T>(IEnumerable<T> collection);
+
+    /// <summary>
     /// RequestLogicException если true
     /// </summary>
     /// <param name="boolean">boolean значение</param>

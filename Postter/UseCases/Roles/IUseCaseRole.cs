@@ -4,5 +4,5 @@ namespace Postter.UseCases.Roles;
 
 public interface IUseCaseRole
 {
-    Task<Role> GetAllRoles();
+    Task<List<Role>> GetAllRoles();
 }

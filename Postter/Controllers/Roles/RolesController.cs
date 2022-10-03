@@ -19,6 +19,6 @@ public class RoleController : ControllerBase
 
     [HttpGet("/roles")]
     [Authorize(Roles = "admin")]
-    public async Task<Role> GetAllRoles() => 
+    public async Task<List<Role>> GetAllRoles() => 
         await _useCaseRole.GetAllRoles();
 }

@@ -1,16 +1,19 @@
 ﻿using Postter.Infrastructure.DAO;
+using Postter.Infrastructure.Repository.Roles;
 
 namespace Postter.UseCases.Roles;
 
 public class UseCaseRole : IUseCaseRole
 {
-    public UseCaseRole()
+    public UseCaseRole(IRoleRepository roleRepository)
     {
-        
+        _roleRepository = roleRepository;
     }
 
-    public Task<Role> GetAllRoles()
-    {
-        throw new NotImplementedException();
-    }
+    private readonly IRoleRepository _roleRepository;
+
+
+
+    public async Task<List<Role>> GetAllRoles() => 
+        await _roleRepository.GetAllRoles();
 }

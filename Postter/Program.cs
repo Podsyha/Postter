@@ -9,7 +9,9 @@ using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.Repository;
 using Postter.Infrastructure.Repository.Persons;
+using Postter.Infrastructure.Repository.Roles;
 using Postter.UseCases.Account;
+using Postter.UseCases.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,10 +81,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Common
 builder.Services.AddTransient<IAssert, Assert>();
 // Infrasctructure
-builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 // UseCase
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
+builder.Services.AddTransient<IUseCaseRole, UseCaseRole>();
 
 var app = builder.Build();
 
