@@ -1,5 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -23,7 +25,7 @@ public class AccountController : ControllerBase
 
     
     
-    [HttpPost("/token")]
+    [HttpGet("/token")]
     public async Task<IActionResult> Token(string username, string password)
     {
         ClaimsIdentity identity = await _useCaseAccount.GetIdentity(username, password);
@@ -39,6 +41,8 @@ public class AccountController : ControllerBase
             access_token = encodedJwt,
             username = identity.Name
         };
+        
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
         return Ok(response);
     }

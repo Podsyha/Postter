@@ -10,13 +10,11 @@ namespace Postter.UseCases.Account;
 
 public class UseCaseAccount : IUseCaseAccount
 {
-    public UseCaseAccount(AppDbContext dbContext, IPersonRepository personRepository)
+    public UseCaseAccount(IPersonRepository personRepository)
     {
-        _dbContext = dbContext;
         _personRepository = personRepository;
     }
-
-    private readonly AppDbContext _dbContext;
+    
     private readonly IPersonRepository _personRepository;
 
     
