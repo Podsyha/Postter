@@ -1,10 +1,10 @@
-﻿using Postter.Infrastructure.Common;
+﻿namespace Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.DAO;
-
-public class Person : EntityBase
+public class Person
 {
-    public string Login { get; set; }
+    public int Id { get; set; }
+    public string Email { get; set; }
     public string Password { get; set; }
-    public string Role { get; set; }
+    public int? RoleId { get; set; }
+    public Role Role { get; set; }
 }

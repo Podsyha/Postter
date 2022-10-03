@@ -14,7 +14,7 @@ public class UserRepository : AppDbFunc, IUserRepository
     }
 
     private readonly IAssert _assert;
-
+/*
 
 
     /// <summary>
@@ -76,4 +76,5 @@ public class UserRepository : AppDbFunc, IUserRepository
 
         await AddModel(userModel);
     }
+    */
 }

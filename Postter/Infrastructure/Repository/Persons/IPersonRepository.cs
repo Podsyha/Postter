@@ -1,17 +1,16 @@
-﻿using Postter.Infrastructure.DTO;
+﻿using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository;
+namespace Postter.Infrastructure.Repository.Persons;
 
-public interface IUserRepository
+public interface IPersonRepository
 {
-    /*
     /// <summary>
     /// Получить DTO модель пользователя. Без првоерки на null
     /// </summary>
     /// <param name="password">Пароль</param>
     /// <param name="email">Почта</param>
     /// <returns></returns>
-    Task<UserDto> GetUserAsync(string password, string email);
+    Task<Person> GetPersonAsync(string password, string email);
 
     /// <summary>
     /// Найти DTO модель пользователя. Проверка на null
@@ -19,13 +18,5 @@ public interface IUserRepository
     /// <param name="password"></param>
     /// <param name="email"></param>
     /// <returns></returns>
-    Task<UserDto> FindUserAsync(string password, string email);
-
-    /// <summary>
-    /// Добавить пользователя
-    /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    Task AddUserAsync(string email, string password);
-    */
- }
+    Task<Person> FindPersonAsync(string password, string email);
+}
