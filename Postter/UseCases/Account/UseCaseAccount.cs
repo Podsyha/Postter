@@ -18,7 +18,7 @@ public class UseCaseAccount : IUseCaseAccount
     private readonly IPersonRepository _personRepository;
 
     
-    public async Task<JwtSecurityToken> GetToken(string username, string password, ClaimsIdentity identity)
+    public async Task<JwtSecurityToken> GetToken(string email, string password, ClaimsIdentity identity)
     {
         DateTime now = DateTime.UtcNow;
         
@@ -33,9 +33,9 @@ public class UseCaseAccount : IUseCaseAccount
         return jwt;
     }
     
-    public async Task<ClaimsIdentity> GetIdentity(string username, string password)
+    public async Task<ClaimsIdentity> GetIdentity(string email, string password)
     {
-        Person person = await _personRepository.GetPersonAsync(username,password);
+        Person person = await _personRepository.GetPersonAsync(email,password);
 
         if (person == null) return null;
 

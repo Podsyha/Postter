@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using Postter.Common.Auth;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.Repository;
+using Postter.Infrastructure.Repository.Persons;
 using Postter.UseCases.Account;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,11 +68,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString), ServiceLifetime.Transient);
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
+
 // Other services
 // Common
 builder.Services.AddTransient<IAssert, Assert>();
 // Infrasctructure
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 // UseCase
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
 

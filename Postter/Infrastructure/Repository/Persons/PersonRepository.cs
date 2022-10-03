@@ -21,13 +21,13 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     /// <param name="password">Пароль</param>
     /// <param name="email">Почта</param>
     /// <returns></returns>
-    public async Task<Person> GetPersonAsync(string password, string email)
+    public async Task<Person> GetPersonAsync(string email, string password)
     {
         IQueryable<Person> query = _dbContext.Person
             .AsNoTracking()
             .Include(x => x.Role)
             .Where(person => person.Email == email && person.Password == password);
-
+        
         Person person = await query.FirstOrDefaultAsync();
 
         return person;
@@ -39,7 +39,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     /// <param name="password"></param>
     /// <param name="email"></param>
     /// <returns></returns>
-    public async Task<Person> FindPersonAsync(string password, string email)
+    public async Task<Person> FindPersonAsync(string email, string password)
     {
         IQueryable<Person> query = _dbContext.Person
             .AsNoTracking()

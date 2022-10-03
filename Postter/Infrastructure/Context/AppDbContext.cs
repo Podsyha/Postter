@@ -32,12 +32,11 @@ public class AppDbContext : DbContext
         Role userRole = new(){ Id = 2, Name = userRoleName };
         Role moderRole = new() { Id = 3, Name = moderRoleName };
         Person adminUser = new(){ Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
-        Person user = new(){ Id = 1, Email = userEmail, Password = userPassword, RoleId = userRole.Id };
-        Person moderUser = new(){ Id = 1, Email = moderEmail, Password = moderPassword, RoleId = moderRole.Id };
+        Person user = new(){ Id = 2, Email = userEmail, Password = userPassword, RoleId = userRole.Id };
+        Person moderUser = new(){ Id = 3, Email = moderEmail, Password = moderPassword, RoleId = moderRole.Id };
  
         modelBuilder.Entity<Role>().HasData(new[] { adminRole, userRole, moderRole});
         modelBuilder.Entity<Person>().HasData(new[] { adminUser, user, moderUser });
-        base.OnModelCreating(modelBuilder);
     }
 
     
