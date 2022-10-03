@@ -54,10 +54,9 @@ public class UseCaseAccount : IUseCaseAccount
     /// Получить токен аутентификации
     /// </summary>
     /// <param name="email">Почта</param>
-    /// <param name="password">Пароль</param>
     /// <param name="identity">Claim</param>
     /// <returns></returns>
-    public JwtSecurityToken GetToken(string email, string password, ClaimsIdentity identity)
+    public JwtSecurityToken GetToken(string email, ClaimsIdentity identity)
     {
         DateTime now = DateTime.UtcNow;
         

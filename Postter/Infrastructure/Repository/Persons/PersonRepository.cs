@@ -29,7 +29,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
         Person currentPerson = await _dbContext.Person
             .FirstOrDefaultAsync(x => x.Email == email);
         
-        _assert.IsNull(currentPerson);
+        _assert.IsNull(currentPerson, $"Не найден пользователь с email: {email}");
 
         string hashPass = _registrationHelper.generateHashPass(password, currentPerson.Salt);
         
@@ -80,7 +80,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
         Person currentPerson = await _dbContext.Person
             .FirstOrDefaultAsync(x => x.Email == email);
         
-        _assert.IsNull(currentPerson);
+        _assert.IsNull(currentPerson, $"Не найден пользователь с email: {email}");
 
         string hashPass = _registrationHelper.generateHashPass(password, currentPerson.Salt);
         

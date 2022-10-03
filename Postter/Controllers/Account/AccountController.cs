@@ -34,7 +34,7 @@ public class AccountController : ControllerBase
         if (identity == null)
             return BadRequest("Неверная почта или пароль.");
 
-        JwtSecurityToken token = _useCaseAccount.GetToken(email, password, identity);
+        JwtSecurityToken token = _useCaseAccount.GetToken(email, identity);
         
         string encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
 
@@ -66,7 +66,7 @@ public class AccountController : ControllerBase
     }
 
     /// <summary>
-    /// Выдать роль пользователю
+    /// Выдать роль пользователю 
     /// </summary>
     /// <param name="email">Почта пользователя</param>
     /// <param name="role">необходимая роль</param>

@@ -28,6 +28,7 @@ public sealed class ExceptionMiddleware
             {
                 NullReferenceException x => (int)HttpStatusCode.BadRequest,
                 RequestLogicException x => (int)HttpStatusCode.BadRequest,
+                UnauthorizedAccessException x => (int)HttpStatusCode.Unauthorized,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Postter.Common.Attribute;
 using Postter.Infrastructure.DAO;
+using Postter.Infrastructure.DTO;
 using Postter.UseCases.Roles;
 
 namespace Postter.Controllers.Roles;
@@ -23,21 +25,21 @@ public class RoleController : ControllerBase
         await _useCaseRole.GetAllRoles();
     
     [HttpGet("/adminCheck")]
-    [Authorize(Roles = "admin")]
+    [CustomAuthorize(RolesEnum.Admin)]
     public IActionResult CheckAdmin()
     {
         return Ok("u are an admin");
     }
     
     [HttpGet("/moderCheck")]
-    [Authorize(Roles = "moder")]
+    [CustomAuthorize(RolesEnum.Moder)]
     public IActionResult CheckModer()
     {
         return Ok("u are an moder");
     }
     
     [HttpGet("/userCheck")]
-    [Authorize(Roles = "user")]
+    [CustomAuthorize(RolesEnum.User)]
     public IActionResult CheckUser()
     {
         return Ok("u are an user");
