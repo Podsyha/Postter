@@ -52,4 +52,9 @@ public class UseCaseAccount : IUseCaseAccount
         
         return claimsIdentity;
     }
+    
+    public async Task GiveTheUserARole(string email, string role)
+    {
+        
+    }
 }

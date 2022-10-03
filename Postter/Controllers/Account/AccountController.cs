@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Postter.Common.Auth;
-using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.Repository.Persons;
 using Postter.UseCases.Account;
 
 namespace Postter.Controllers.Account;
@@ -49,21 +45,7 @@ public class AccountController : ControllerBase
 
     [HttpPost("/GiveAdminRole")]
     [Authorize(Roles = "admin")]
-    public async Task GiveAdminRole(string email)
-    {
-        
-    }
-    
-    [HttpPost("/GiveModerRole")]
-    [Authorize(Roles = "admin")]
-    public async Task GiveModerRole(string email)
-    {
-        
-    }
-    
-    [HttpPost("/GiveUserRole")]
-    [Authorize(Roles = "admin")]
-    public async Task GiveUserRole(string email)
+    public async Task GiveTheUserARole(string email, string role)
     {
         
     }
@@ -79,20 +61,20 @@ public class AccountController : ControllerBase
     [Authorize(Roles = "admin")]
     public IActionResult CheckAdmin()
     {
-        return Ok("u art an admin");
+        return Ok("u are an admin");
     }
     
     [HttpGet("/moder")]
     [Authorize(Roles = "moder")]
     public IActionResult CheckModer()
     {
-        return Ok("u art an moder");
+        return Ok("u are an moder");
     }
     
     [HttpGet("/user")]
     [Authorize(Roles = "user")]
     public IActionResult CheckUser()
     {
-        return Ok("u art an user");
+        return Ok("u are an user");
     }
 }
