@@ -46,18 +46,53 @@ public class AccountController : ControllerBase
 
         return Ok(response);
     }
+
+    [HttpPost("/GiveAdminRole")]
+    [Authorize(Roles = "admin")]
+    public async Task GiveAdminRole(string email)
+    {
+        
+    }
     
+    [HttpPost("/GiveModerRole")]
+    [Authorize(Roles = "admin")]
+    public async Task GiveModerRole(string email)
+    {
+        
+    }
+    
+    [HttpPost("/GiveUserRole")]
+    [Authorize(Roles = "admin")]
+    public async Task GiveUserRole(string email)
+    {
+        
+    }
+
     [HttpGet("/authorize")]
     [Authorize]
-    public IActionResult GetTestAuth()
+    public IActionResult CheckAuth()
     {
         return Ok("Test");
     }
     
     [HttpGet("/admin")]
     [Authorize(Roles = "admin")]
-    public IActionResult GetTest()
+    public IActionResult CheckAdmin()
     {
-        return Ok("Test");
+        return Ok("u art an admin");
+    }
+    
+    [HttpGet("/moder")]
+    [Authorize(Roles = "moder")]
+    public IActionResult CheckModer()
+    {
+        return Ok("u art an moder");
+    }
+    
+    [HttpGet("/user")]
+    [Authorize(Roles = "user")]
+    public IActionResult CheckUser()
+    {
+        return Ok("u art an user");
     }
 }
