@@ -5,6 +5,7 @@ namespace Postter.UseCases.Account;
 
 public interface IUseCaseAccount
 {
-    Task<JwtSecurityToken> GetToken(string email, string password, ClaimsIdentity identity);
+    JwtSecurityToken GetToken(string email, string password, ClaimsIdentity identity);
     Task<ClaimsIdentity> GetIdentity(string email, string password);
+    Task GiveTheUserARole(string email, string role);
 }

@@ -1,10 +1,30 @@
-﻿namespace Postter.Infrastructure.DAO;
+﻿using Postter.Infrastructure.Common;
 
-public class Person
+namespace Postter.Infrastructure.DAO;
+
+/// <summary>
+/// Сущность пользователя
+/// </summary>
+public class Person : EntityBase
 {
-    public int Id { get; set; }
+    /// <summary>
+    /// Почта
+    /// </summary>
     public string Email { get; set; }
-    public string Password { get; set; }
+    /// <summary>
+    /// Хешированный пароль
+    /// </summary>
+    public string? Password { get; set; }
+    /// <summary>
+    /// Соль
+    /// </summary>
+    public string? Salt { get; set; }
+    /// <summary>
+    /// Id роли
+    /// </summary>
     public int? RoleId { get; set; }
+    /// <summary>
+    /// Роль
+    /// </summary>
     public Role Role { get; set; }
 }

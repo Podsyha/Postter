@@ -7,7 +7,6 @@ using Postter.Common.Assert;
 using Postter.Common.Auth;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
-using Postter.Infrastructure.Repository;
 using Postter.Infrastructure.Repository.Persons;
 using Postter.Infrastructure.Repository.Roles;
 using Postter.UseCases.Account;

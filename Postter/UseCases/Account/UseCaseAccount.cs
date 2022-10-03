@@ -1,24 +1,29 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using Postter.Common.Assert;
 using Postter.Common.Auth;
-using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.Repository.Persons;
+using Postter.Infrastructure.Repository.Roles;
 
 namespace Postter.UseCases.Account;
 
 public class UseCaseAccount : IUseCaseAccount
 {
-    public UseCaseAccount(IPersonRepository personRepository)
+    public UseCaseAccount(IPersonRepository personRepository, IAssert assert, IRoleRepository roleRepository)
     {
         _personRepository = personRepository;
+        _assert = assert;
+        _roleRepository = roleRepository;
     }
     
     private readonly IPersonRepository _personRepository;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IAssert _assert;
 
     
-    public async Task<JwtSecurityToken> GetToken(string email, string password, ClaimsIdentity identity)
+    public JwtSecurityToken GetToken(string email, string password, ClaimsIdentity identity)
     {
         DateTime now = DateTime.UtcNow;
         
@@ -53,8 +58,23 @@ public class UseCaseAccount : IUseCaseAccount
         return claimsIdentity;
     }
     
+    /// <summary>
+    /// Выдать роль пользователю
+    /// </summary>
+    /// <param name="email">Почта пользователя</param>
+    /// <param name="role">необходимая роль</param>
     public async Task GiveTheUserARole(string email, string role)
     {
+        Person person = await _personRepository.GetPersonAsync(email);
         
+        _assert.IsNull(person, $"Не найден пользователь с email: {email}");
+
+        List<Role> roles = await _roleRepository.GetAllRoles();
+        Role currentRole = roles.FirstOrDefault(x => x.Name == role);
+        
+        _assert.IsNull(currentRole, $"Не найдена роль: {role}");
+        
+        person.RoleId = currentRole.Id;
+        await _personRepository.UpdatePersonInfo(person);
     }
 }

@@ -14,6 +14,18 @@ public class Assert : IAssert
         if (value == null)
             throw new NullReferenceException("Object is null");
     }
+    
+    /// <summary>
+    /// NullReferenceException если объект null
+    /// </summary>
+    /// <param name="value">Объект</param>
+    /// <param name="message">Текст ошибки</param>
+    /// <exception cref="NullReferenceException"></exception>
+    public void IsNull<T>(T value, string message)
+    {
+        if (value == null)
+            throw new NullReferenceException(message);
+    }
 
     /// <summary>
     /// InvalidOperationException если в коллекции нет объектов

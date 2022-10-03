@@ -21,4 +21,32 @@ public class RoleController : ControllerBase
     [Authorize(Roles = "admin")]
     public async Task<List<Role>> GetAllRoles() => 
         await _useCaseRole.GetAllRoles();
+    
+    [HttpGet("/adminCheck")]
+    [Authorize(Roles = "admin")]
+    public IActionResult CheckAdmin()
+    {
+        return Ok("u are an admin");
+    }
+    
+    [HttpGet("/moderCheck")]
+    [Authorize(Roles = "moder")]
+    public IActionResult CheckModer()
+    {
+        return Ok("u are an moder");
+    }
+    
+    [HttpGet("/userCheck")]
+    [Authorize(Roles = "user")]
+    public IActionResult CheckUser()
+    {
+        return Ok("u are an user");
+    }
+    
+    [HttpGet("/authorizeCheck")]
+    [Authorize]
+    public IActionResult CheckAuth()
+    {
+        return Ok("Test");
+    }
 }
