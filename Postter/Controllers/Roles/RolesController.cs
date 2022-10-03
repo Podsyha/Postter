@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
+using Postter.Common.Helpers.ApiResponse;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
 using Postter.UseCases.Roles;
@@ -9,7 +10,7 @@ namespace Postter.Controllers.Roles;
 
 [ApiController]
 [Route("[controller]")]
-public class RoleController : ControllerBase
+public class RoleController : CustomController
 {
     public RoleController(IUseCaseRole useCaseRole)
     {

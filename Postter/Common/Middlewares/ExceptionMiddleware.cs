@@ -1,9 +1,13 @@
 ﻿using System.Net;
 using System.Text.Json;
 using Postter.Common.Exceptions;
+using Postter.Common.Helpers.ApiResponse;
 
 namespace Postter.Common.Middlewares;
 
+/// <summary>
+/// Обработчик ошибок
+/// </summary>
 public sealed class ExceptionMiddleware
 {
     public ExceptionMiddleware(RequestDelegate nextRequestDelegate)
@@ -12,7 +16,8 @@ public sealed class ExceptionMiddleware
     }
 
     private readonly RequestDelegate _nextRequestDelegate;
-
+    
+    
     public async Task InvokeAsync(HttpContext context)
     {
         try
@@ -32,7 +37,7 @@ public sealed class ExceptionMiddleware
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
-            string result = JsonSerializer.Serialize(new { message = error?.Message });
+            string result = JsonSerializer.Serialize(new ApiResponse{ message = null, error = error?.Message});
             await response.WriteAsync(result);
         }
     }
