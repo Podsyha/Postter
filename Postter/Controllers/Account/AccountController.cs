@@ -9,6 +9,9 @@ using Postter.UseCases.Account;
 
 namespace Postter.Controllers.Account;
 
+/// <summary>
+/// Контроллер аккаунтов
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class AccountController : CustomController
@@ -67,7 +70,7 @@ public class AccountController : CustomController
     /// </summary>
     /// <param name="email">Почта пользователя</param>
     /// <param name="role">необходимая роль</param>
-    [HttpPost("/giveAdminRole")]
+    [HttpPost("/giveTheUserARole")]
     [CustomAuthorize(RolesEnum.Admin)]
     public async Task<IActionResult> GiveTheUserARole(string email, string role)
     {

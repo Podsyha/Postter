@@ -14,4 +14,15 @@ public class CustomController : ControllerBase
         
         return base.Ok(response);
     }
+
+    public override BadRequestObjectResult BadRequest(object error)
+    {
+        ApiResponse response = new()
+        {
+            message = null, 
+            error = error
+        };
+        
+        return base.BadRequest(response);
+    }
 }

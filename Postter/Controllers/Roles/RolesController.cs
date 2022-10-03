@@ -8,6 +8,9 @@ using Postter.UseCases.Roles;
 
 namespace Postter.Controllers.Roles;
 
+/// <summary>
+/// Контроллер ролей
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class RoleController : CustomController
@@ -21,7 +24,7 @@ public class RoleController : CustomController
 
 
     [HttpGet("/roles")]
-    [Authorize(Roles = "admin")]
+    [CustomAuthorize(RolesEnum.Admin)]
     public async Task<List<Role>> GetAllRoles() => 
         await _useCaseRole.GetAllRoles();
     
