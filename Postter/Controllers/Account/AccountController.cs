@@ -92,7 +92,6 @@ public class AccountController : CustomController
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
         Guid currentUserId = new Guid(HttpContext.User.Identity.GetUserId());
-
         if (currentUserId != model.Id)
             throw new UnauthorizedAccessException();
         

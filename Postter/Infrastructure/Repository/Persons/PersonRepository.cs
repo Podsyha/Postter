@@ -122,7 +122,6 @@ public class PersonRepository : AppDbFunc, IPersonRepository
             .Where(person => person.Email == email);
 
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
-        
         _assert.IsNull(accountEntity);
 
         return accountEntity;
@@ -140,7 +139,6 @@ public class PersonRepository : AppDbFunc, IPersonRepository
             .Where(person => person.Id == accountId);
 
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
-        
         _assert.IsNull(accountEntity);
 
         return accountEntity;
@@ -177,7 +175,8 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     public async Task DeleteAccount(Guid accountId)
     {
         AccountEntity account = await FindPersonAsync(accountId);
-
         account.IsActive = false;
+        
+        await SaveChangeAsync();
     }
 }
