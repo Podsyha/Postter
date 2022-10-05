@@ -90,7 +90,7 @@ public class AccountController : CustomController
     [HttpPatch("/updateAccountInfo")]
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
-        string currentUserId = HttpContext.User.Identity.GetUserId();
+        CheckCurrentUser(model.Id);
         
         await _useCaseAccount.UpdateAccountInfo(model);
         

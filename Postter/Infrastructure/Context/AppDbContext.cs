@@ -48,13 +48,15 @@ public class AppDbContext : DbContext
             .IsRequired();
 
 
-
-
         RegistrationHelper registrationHelper = new();
 
         string adminEmail = "admin@gmail.com";
         string userEmail = "user@gmail.com";
         string moderEmail = "moder@gmail.com";
+
+        string adminName = "Admin Adminskiy";
+        string userName = "User Prostetskiy";
+        string moderName = "Moderator Zloy i Derzkiy";
 
         string adminSalt = registrationHelper.generateSalt();
         string userSalt = registrationHelper.generateSalt();
@@ -63,19 +65,46 @@ public class AppDbContext : DbContext
         string adminPassword = registrationHelper.generateHashPass("admin", adminSalt);
         string userPassword = registrationHelper.generateHashPass("user", userSalt);
         string moderPassword = registrationHelper.generateHashPass("moder", moderSalt);
-        
-        Role adminRole = new(){ Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
-        Role userRole = new(){ Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
+
+        Role adminRole = new() { Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
+        Role userRole = new() { Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
         Role moderRole = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.ToString() };
-        AccountEntity adminUser = new(){ Id = Guid.NewGuid(), Email = adminEmail, HashPassword = adminPassword, RoleId = adminRole.Id, Salt = adminSalt};
-        AccountEntity user = new(){ Id = Guid.NewGuid(), Email = userEmail, HashPassword = userPassword, RoleId = userRole.Id, Salt = userSalt};
-        AccountEntity moderUser = new(){ Id = Guid.NewGuid(), Email = moderEmail, HashPassword = moderPassword, RoleId = moderRole.Id, Salt = moderSalt};
- 
-        modelBuilder.Entity<Role>().HasData(new[] { adminRole, userRole, moderRole});
+        AccountEntity adminUser = new()
+        {
+            Id = Guid.NewGuid(),
+            Email = adminEmail,
+            Name = adminName,
+            IsActive = true,
+            HashPassword = adminPassword,
+            RoleId = adminRole.Id, 
+            Salt = adminSalt
+        };
+        AccountEntity user = new()
+        {
+            Id = Guid.NewGuid(),
+            Email = userEmail,
+            Name = userName,
+            IsActive = true,
+            HashPassword = userPassword,
+            RoleId = userRole.Id,
+            Salt = userSalt
+        };
+        AccountEntity moderUser = new()
+        {
+            Id = Guid.NewGuid(),
+            Email = moderEmail,
+            Name = moderName,
+            IsActive = true,
+            HashPassword = moderPassword,
+            RoleId = moderRole.Id,
+            Salt = moderSalt
+        };
+
+        modelBuilder.Entity<Role>().HasData(new[] { adminRole, userRole, moderRole });
         modelBuilder.Entity<AccountEntity>().HasData(new[] { adminUser, user, moderUser });
     }
 
-    
+
     public virtual DbSet<AccountEntity> Person { get; set; }
     public virtual DbSet<Role> Role { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Postter.Common.Helpers.ApiResponse;
 
@@ -27,5 +28,13 @@ public class CustomController : ControllerBase
         };
         
         return base.BadRequest(response);
+    }
+    
+    public void CheckCurrentUser(Guid accountId)
+    {
+        Guid currentUserId = new Guid(HttpContext.User.Identity.GetUserId());
+
+        if (currentUserId != accountId)
+            throw new UnauthorizedAccessException();
     }
 }
