@@ -16,6 +16,40 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<AccountEntity>()
+            .HasKey(x => x.Id);
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.Email)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.Name)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.Salt)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.HashPassword)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.IsActive)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .Property(x => x.RoleId)
+            .IsRequired();
+        modelBuilder.Entity<AccountEntity>()
+            .HasOne(p => p.Role)
+            .WithMany(b => b.Accounts);
+
+
+        modelBuilder.Entity<Role>()
+            .HasKey(x => x.Id);
+        modelBuilder.Entity<Role>()
+            .Property(x => x.Name)
+            .IsRequired();
+
+
+
+
         RegistrationHelper registrationHelper = new();
 
         string adminEmail = "admin@gmail.com";
