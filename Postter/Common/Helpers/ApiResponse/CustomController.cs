@@ -29,4 +29,13 @@ public class CustomController : ControllerBase
         
         return base.BadRequest(response);
     }
+    
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public void CheckCurrentUser(Guid accountId)
+    {
+        Guid currentUserId = new Guid(HttpContext.User.Identity.GetUserId());
+
+        if (currentUserId != accountId)
+            throw new UnauthorizedAccessException();
+    }
 }
