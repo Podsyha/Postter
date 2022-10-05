@@ -2,6 +2,9 @@
 
 namespace Postter.Common.Assert;
 
+/// <summary>
+/// Класс-утилита с компонентами для проверки условий
+/// </summary>
 public class Assert : IAssert
 {
     /// <summary>

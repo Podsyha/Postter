@@ -33,15 +33,15 @@ public class AppDbContext : DbContext
         Role adminRole = new(){ Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
         Role userRole = new(){ Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
         Role moderRole = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.ToString() };
-        Person adminUser = new(){ Id = Guid.NewGuid(), Email = adminEmail, HashPassword = adminPassword, RoleId = adminRole.Id, Salt = adminSalt};
-        Person user = new(){ Id = Guid.NewGuid(), Email = userEmail, HashPassword = userPassword, RoleId = userRole.Id, Salt = userSalt};
-        Person moderUser = new(){ Id = Guid.NewGuid(), Email = moderEmail, HashPassword = moderPassword, RoleId = moderRole.Id, Salt = moderSalt};
+        AccountEntity adminUser = new(){ Id = Guid.NewGuid(), Email = adminEmail, HashPassword = adminPassword, RoleId = adminRole.Id, Salt = adminSalt};
+        AccountEntity user = new(){ Id = Guid.NewGuid(), Email = userEmail, HashPassword = userPassword, RoleId = userRole.Id, Salt = userSalt};
+        AccountEntity moderUser = new(){ Id = Guid.NewGuid(), Email = moderEmail, HashPassword = moderPassword, RoleId = moderRole.Id, Salt = moderSalt};
  
         modelBuilder.Entity<Role>().HasData(new[] { adminRole, userRole, moderRole});
-        modelBuilder.Entity<Person>().HasData(new[] { adminUser, user, moderUser });
+        modelBuilder.Entity<AccountEntity>().HasData(new[] { adminUser, user, moderUser });
     }
 
     
-    public virtual DbSet<Person> Person { get; set; }
+    public virtual DbSet<AccountEntity> Person { get; set; }
     public virtual DbSet<Role> Role { get; set; }
 }

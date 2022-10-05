@@ -1,12 +1,15 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Postter.Controllers.Account.Models;
 
 namespace Postter.UseCases.Account;
 
 public interface IUseCaseAccount
 {
-    JwtSecurityToken GetToken(string email, ClaimsIdentity identity);
+    JwtSecurityToken GetToken(ClaimsIdentity identity);
     Task<ClaimsIdentity> GetIdentity(string email, string password);
     Task GiveTheUserARole(string email, string role);
-    Task Register(string email, string password);
+    Task Registration(RegistrationModel model);
+    Task DeleteAccount(Guid accountId);
+    Task UpdateAccountInfo(UpdateAccountInfoModel model);
 }

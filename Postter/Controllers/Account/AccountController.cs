@@ -1,9 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
+using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DTO;
 using Postter.UseCases.Account;
 
@@ -38,30 +40,60 @@ public class AccountController : CustomController
         if (identity == null)
             return BadRequest("Неверная почта или пароль.");
 
-        JwtSecurityToken token = _useCaseAccount.GetToken(email, identity);
+        JwtSecurityToken token = _useCaseAccount.GetToken(identity);
         string encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
 
         var response = new
         {
             access_token = encodedJwt,
-            username = identity.Name
+            username = identity.Name,
+            accountId = identity.GetUserId()
         };
 
         return Ok(response);
     }
-
+    
     /// <summary>
     /// Зарегистрировать нового пользователя
     /// </summary>
-    /// <param name="email">Почта</param>
-    /// <param name="password">Пароль</param>
-    [HttpPost("/register")]
+    /// <param name="model">RegistrationModel</param>
+    /// <returns></returns>
+    [HttpPost("/registration")]
     [AllowAnonymous]
-    public async Task<IActionResult> Register(string email, string password)
+    public async Task<IActionResult> Registration(RegistrationModel model)
     {
-        await _useCaseAccount.Register(email, password);
-        await Token(email, password);
+        await _useCaseAccount.Registration(model);
+        await Token(model.Email, model.Password);
 
+        return Ok();
+    }
+
+    /// <summary>
+    /// Удалить аккаунт
+    /// </summary>
+    /// <param name="accountId">Id пользователя</param>
+    /// <returns></returns>
+    [HttpDelete("/deleteAccount")]
+    [CustomAuthorize(RolesEnum.Admin)]
+    public async Task<IActionResult> DeleteAccount(Guid accountId)
+    {
+        await _useCaseAccount.DeleteAccount(accountId);
+        
+        return Ok();
+    }
+
+    /// <summary>
+    /// Обновить базовую информацию о пользователе
+    /// </summary>
+    /// <param name="model">UpdateAccountInfoModel</param>
+    /// <returns></returns>
+    [HttpPatch("/updateAccountInfo")]
+    public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
+    {
+        string currentUserId = HttpContext.User.Identity.GetUserId();
+        
+        await _useCaseAccount.UpdateAccountInfo(model);
+        
         return Ok();
     }
 

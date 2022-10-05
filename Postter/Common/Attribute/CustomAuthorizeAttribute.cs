@@ -5,7 +5,7 @@ using Postter.Infrastructure.DTO;
 namespace Postter.Common.Attribute;
 
 /// <summary>
-/// 
+/// Кастомный аттрибут проверки ролей
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Postter.Common.Assert;
 using Postter.Common.Auth;
 using Postter.Common.Helpers;
+using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
 using Postter.Infrastructure.Repository.Persons;
@@ -19,47 +20,70 @@ public class UseCaseAccount : IUseCaseAccount
         _assert = assert;
         _roleRepository = roleRepository;
     }
-    
+
     private readonly IPersonRepository _personRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IAssert _assert;
 
-    
+
     /// <summary>
     /// Зарегистрировать нового пользователя
     /// </summary>
-    /// <param name="email">Почта</param>
-    /// <param name="password">Пароль</param>
-    public async Task Register(string email, string password)
+    /// <param name="model">RegistrationModel</param>
+    public async Task Registration(RegistrationModel model)
     {
-        bool isUniquenessEmail = await _personRepository.CheckMailUniqueness(email);
-        _assert.ThrowIfFalse(isUniquenessEmail, "Пользователь с данной почтой уже есть в системе");
-        
+        bool isUniquenessEmail = await _personRepository.CheckMailUniqueness(model.Email);
+        _assert.ThrowIfFalse(isUniquenessEmail, "Пользователь с данной почтой уже существует в системе");
+
         RegistrationHelper helper = new();
         string salt = helper.generateSalt();
-        string hashPass = helper.generateHashPass(password, salt);
+        string hashPass = helper.generateHashPass(model.Password, salt);
 
-        Person newPerson = new()
+        AccountEntity newAccountEntity = new()
         {
-            Email = email,
+            Email = model.Email,
+            About = model.About,
+            Name = model.Name,
             HashPassword = hashPass,
             Salt = salt,
             RoleId = (int)RolesEnum.User
         };
 
-        await _personRepository.AddPerson(newPerson);
+        await _personRepository.AddPerson(newAccountEntity);
     }
+
+    /// <summary>
+    /// Удалить аккаунт
+    /// </summary>
+    /// <param name="accountId">Id пользователя</param>
+    /// <returns></returns>
+    public async Task DeleteAccount(Guid accountId) =>
+        await _personRepository.DeleteAccount(accountId);
     
+    /// <summary>
+    /// Обновить базовую информацию о пользователе
+    /// </summary>
+    /// <param name="model">UpdateAccountInfoModel</param>
+    /// <returns></returns>
+    public async Task UpdateAccountInfo(UpdateAccountInfoModel model)
+    {
+        AccountEntity accountEntity = await _personRepository.FindPersonAsync(model.Id);
+
+        accountEntity.About = model.About;
+        accountEntity.Name = model.Name;
+        
+        await _personRepository.UpdatePersonInfo(accountEntity);
+    }
+
     /// <summary>
     /// Получить токен аутентификации
     /// </summary>
-    /// <param name="email">Почта</param>
     /// <param name="identity">Claim</param>
     /// <returns></returns>
-    public JwtSecurityToken GetToken(string email, ClaimsIdentity identity)
+    public JwtSecurityToken GetToken(ClaimsIdentity identity)
     {
         DateTime now = DateTime.UtcNow;
-        
+
         JwtSecurityToken jwt = new(
             issuer: AuthOptions.ISSUER,
             audience: AuthOptions.AUDIENCE,
@@ -70,7 +94,7 @@ public class UseCaseAccount : IUseCaseAccount
 
         return jwt;
     }
-    
+
     /// <summary>
     /// Получить claim пользователя
     /// </summary>
@@ -79,24 +103,25 @@ public class UseCaseAccount : IUseCaseAccount
     /// <returns></returns>
     public async Task<ClaimsIdentity> GetIdentity(string email, string password)
     {
-        Person person = await _personRepository.GetPersonAsync(email,password);
+        AccountEntity accountEntity = await _personRepository.GetPersonAsync(email, password);
 
-        if (person == null) return null;
+        if (accountEntity == null) return null;
 
         List<Claim> claims = new()
         {
-            new(ClaimsIdentity.DefaultNameClaimType, person.Email),
-            new(ClaimsIdentity.DefaultRoleClaimType, person.Role.Name)
+            new(ClaimsIdentity.DefaultNameClaimType, accountEntity.Email),
+            new(ClaimsIdentity.DefaultRoleClaimType, accountEntity.Role.Name),
+            new(ClaimTypes.NameIdentifier, accountEntity.Id.ToString())
         };
 
         ClaimsIdentity claimsIdentity =
-            new(claims, "Token", 
-                ClaimsIdentity.DefaultNameClaimType, 
+            new(claims, "Token",
+                ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
-        
+
         return claimsIdentity;
     }
-    
+
     /// <summary>
     /// Выдать роль пользователю
     /// </summary>
@@ -104,16 +129,16 @@ public class UseCaseAccount : IUseCaseAccount
     /// <param name="role">необходимая роль</param>
     public async Task GiveTheUserARole(string email, string role)
     {
-        Person person = await _personRepository.GetPersonAsync(email);
-        
-        _assert.IsNull(person, $"Не найден пользователь с email: {email}");
+        AccountEntity accountEntity = await _personRepository.GetPersonAsync(email);
+
+        _assert.IsNull(accountEntity, $"Не найден пользователь с email: {email}");
 
         List<Role> roles = await _roleRepository.GetAllRoles();
         Role currentRole = roles.FirstOrDefault(x => x.Name == role);
-        
+
         _assert.IsNull(currentRole, $"Не найдена роль: {role}");
-        
-        person.RoleId = currentRole.Id;
-        await _personRepository.UpdatePersonInfo(person);
+
+        accountEntity.RoleId = currentRole.Id;
+        await _personRepository.UpdatePersonInfo(accountEntity);
     }
 }

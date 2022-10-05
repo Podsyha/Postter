@@ -10,20 +10,27 @@ public interface IPersonRepository
     /// <param name="password">Пароль</param>
     /// <param name="email">Почта</param>
     /// <returns></returns>
-    Task<Person> GetPersonAsync(string password, string email);
+    Task<AccountEntity> GetPersonAsync(string password, string email);
 
     /// <summary>
     /// Получить модель пользователя. Без првоерки на null
     /// </summary>
     /// <param name="email">Почта</param>
     /// <returns></returns>
-    Task<Person> GetPersonAsync(string email);
+    Task<AccountEntity> GetPersonAsync(string email);
+    
+    /// <summary>
+    /// Получить модель пользователя. Без првоерки на null
+    /// </summary>
+    /// <param name="id">Id пользователя</param>
+    /// <returns></returns>
+    Task<AccountEntity> GetPersonAsync(Guid id);
 
     /// <summary>
     /// Обновить сущность пользователя
     /// </summary>
-    /// <param name="person"></param>
-    Task UpdatePersonInfo(Person person);
+    /// <param name="accountEntity"></param>
+    Task UpdatePersonInfo(AccountEntity accountEntity);
 
     /// <summary>
     /// Найти модель пользователя. Проверка на null
@@ -31,14 +38,21 @@ public interface IPersonRepository
     /// <param name="password"></param>
     /// <param name="email"></param>
     /// <returns></returns>
-    Task<Person> FindPersonAsync(string password, string email);
+    Task<AccountEntity> FindPersonAsync(string password, string email);
 
     /// <summary>
     /// Найти модель пользователя. Проверка на null
     /// </summary>
     /// <param name="email"></param>
     /// <returns></returns>
-    Task<Person> FindPersonAsync(string email);
+    Task<AccountEntity> FindPersonAsync(string email);
+    
+    /// <summary>
+    /// Найти модель пользователя. Проверка на null
+    /// </summary>
+    /// <param name="id">Id пользователя</param>
+    /// <returns></returns>
+    Task<AccountEntity> FindPersonAsync(Guid id);
 
     /// <summary>
     /// Проверить уникальность почты
@@ -50,6 +64,12 @@ public interface IPersonRepository
     /// <summary>
     /// Добавить сущность пользователя
     /// </summary>
-    /// <param name="newPerson">Пользователь</param>
-    Task AddPerson(Person newPerson);
+    /// <param name="newAccountEntity">Пользователь</param>
+    Task AddPerson(AccountEntity newAccountEntity);
+    /// <summary>
+    /// Отметить аккаунт удалённым
+    /// </summary>
+    /// <param name="accountId"></param>
+    /// <returns></returns>
+    Task DeleteAccount(Guid accountId);
 }

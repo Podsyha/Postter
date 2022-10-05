@@ -2,14 +2,17 @@
 
 namespace Postter.Common.Helpers.ApiResponse;
 
+/// <summary>
+/// Кастомный контроллер для возврата ответов в своём классе JSON 
+/// </summary>
 public class CustomController : ControllerBase
 {
     public override OkObjectResult Ok(object value)
     {
         ApiResponse response = new()
         {
-            message = value, 
-            error = null
+            Message = value, 
+            Error = null
         };
         
         return base.Ok(response);
@@ -19,8 +22,8 @@ public class CustomController : ControllerBase
     {
         ApiResponse response = new()
         {
-            message = null, 
-            error = error
+            Message = null, 
+            Error = error
         };
         
         return base.BadRequest(response);

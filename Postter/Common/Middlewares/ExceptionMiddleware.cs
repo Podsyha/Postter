@@ -37,7 +37,7 @@ public sealed class ExceptionMiddleware
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
-            string result = JsonSerializer.Serialize(new ApiResponse{ message = null, error = error?.Message});
+            string result = JsonSerializer.Serialize(new ApiResponse{ Message = null, Error = error?.Message});
             await response.WriteAsync(result);
         }
     }

@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Postter.Common.Helpers;
 
+/// <summary>
+/// Класс-утилита с компонентами-хелперами для регистрации
+/// </summary>
 public sealed class RegistrationHelper : IRegistrationHelper
 {
     private static readonly string ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
