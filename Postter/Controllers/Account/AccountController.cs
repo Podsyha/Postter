@@ -88,9 +88,13 @@ public class AccountController : CustomController
     /// <param name="model">UpdateAccountInfoModel</param>
     /// <returns></returns>
     [HttpPatch("/updateAccountInfo")]
+    [Authorize]
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
-        CheckCurrentUser(model.Id);
+        Guid currentUserId = new Guid(HttpContext.User.Identity.GetUserId());
+
+        if (currentUserId != model.Id)
+            throw new UnauthorizedAccessException();
         
         await _useCaseAccount.UpdateAccountInfo(model);
         

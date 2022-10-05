@@ -10,7 +10,7 @@ public class AccountEntity : EntityBase
 {
     public AccountEntity()
     {
-        ImageUri = "testlink.com/testdirectory/testimage.png";
+        ImageUri = $"testlink.com/testdirectory/testimage.png";
         IsActive = true;
     }
     /// <summary>

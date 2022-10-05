@@ -1,9 +1,11 @@
-﻿namespace Postter.Controllers.Account.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Postter.Controllers.Account.Models;
 
 /// <summary>
 /// Модель для регистрации нового пользователя
 /// </summary>
-public class RegistrationModel
+public sealed class RegistrationModel
 {
     /// <summary>
     /// Почта
@@ -16,6 +18,7 @@ public class RegistrationModel
     /// <summary>
     /// Имя
     /// </summary>
+    [MaxLength(80)]
     public string Name { get; set; }
     /// <summary>
     /// О себе

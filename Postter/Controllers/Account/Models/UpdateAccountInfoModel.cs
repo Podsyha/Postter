@@ -3,7 +3,7 @@
 /// <summary>
 /// Модель для обновления базовой информации пользователя
 /// </summary>
-public class UpdateAccountInfoModel
+public sealed class UpdateAccountInfoModel
 {
     /// <summary>
     /// Id пользователя
