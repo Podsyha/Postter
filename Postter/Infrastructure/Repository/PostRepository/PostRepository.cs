@@ -19,6 +19,7 @@ public class PostRepository : AppDbFunc, IPostRepository
     public async Task<PostEntity> GetPostAsync(Guid postId)
     {
         PostEntity post = await _dbContext.Post
+            .Include(x => x.Author)
             .FirstOrDefaultAsync(x => x.Id == postId);
 
         return post;
@@ -38,6 +39,7 @@ public class PostRepository : AppDbFunc, IPostRepository
     public async Task<PostEntity> FindPostAsync(Guid postId)
     {
         PostEntity post = await _dbContext.Post
+            .Include(x => x.Author)
             .FirstOrDefaultAsync(x => x.Id == postId);
 
         _assert.IsNull(post, $"Пост не найден.");
