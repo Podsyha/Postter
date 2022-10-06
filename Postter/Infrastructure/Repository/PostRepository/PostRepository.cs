@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
@@ -43,7 +42,7 @@ public class PostRepository : AppDbFunc, IPostRepository
             .FirstOrDefaultAsync(x => x.Id == postId);
 
         _assert.IsNull(post, $"Пост не найден.");
-        
+
         return post;
     }
 

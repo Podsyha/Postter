@@ -23,13 +23,13 @@ public interface IUseCasePost
     /// <param name="model">Модельс оздания поста</param>
     Task AddPostAsync(AddPostModel model);
     /// <summary>
-    /// Удалить пост
+    /// Удалить пост по ID поста
     /// </summary>
     /// <param name="postId">Id поста</param>
     /// <returns></returns>
     Task DeletePostAsync(Guid postId);
     /// <summary>
-    /// Удалить пост
+    /// Удалить пост по ID поста с проверкой на доступ к удалению
     /// </summary>
     /// <param name="postId">Id поста</param>
     /// <param name="userId">Id пользователя поста</param>

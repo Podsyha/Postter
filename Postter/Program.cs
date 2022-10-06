@@ -10,6 +10,7 @@ using Postter.Common.Auth;
 using Postter.Common.Helpers;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
+using Postter.Infrastructure.Repository.CommentRepository;
 using Postter.Infrastructure.Repository.PersonRepository;
 using Postter.Infrastructure.Repository.PostRepository;
 using Postter.Infrastructure.Repository.RoleRepository;
@@ -95,6 +96,7 @@ builder.Services.AddTransient<IRegistrationHelper, RegistrationHelper>();
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
+builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 // UseCase
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
 builder.Services.AddTransient<IUseCaseRole, UseCaseRole>();
