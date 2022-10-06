@@ -110,7 +110,7 @@ public class UseCaseAccount : IUseCaseAccount
         List<Claim> claims = new()
         {
             new(ClaimsIdentity.DefaultNameClaimType, accountEntity.Email),
-            new(ClaimsIdentity.DefaultRoleClaimType, accountEntity.RoleEntity.Name),
+            new(ClaimsIdentity.DefaultRoleClaimType, accountEntity.Role.Name),
             new(ClaimTypes.NameIdentifier, accountEntity.Id.ToString())
         };
 

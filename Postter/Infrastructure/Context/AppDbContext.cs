@@ -37,10 +37,54 @@ public class AppDbContext : DbContext
             .Property(x => x.RoleId)
             .IsRequired();
         modelBuilder.Entity<AccountEntity>()
-            .HasOne(p => p.RoleEntity)
+            .HasOne(p => p.Role)
             .WithMany(b => b.Accounts);
-
-
+        
+        modelBuilder.Entity<CommentEntity>()
+            .HasKey(x => x.Id);
+        modelBuilder.Entity<CommentEntity>()
+            .Property(x => x.AuthorId)
+            .IsRequired();
+        modelBuilder.Entity<CommentEntity>()
+            .Property(x => x.PostId)
+            .IsRequired();
+        modelBuilder.Entity<CommentEntity>()
+            .Property(x => x.Text)
+            .IsRequired();
+        modelBuilder.Entity<CommentEntity>()
+            .HasOne(p => p.Post)
+            .WithMany(b => b.Comments);
+        modelBuilder.Entity<CommentEntity>()
+            .HasOne(p => p.Author)
+            .WithMany(b => b.Comments);
+        
+        modelBuilder.Entity<LikeEntity>()
+            .HasKey(x => x.Id);
+        modelBuilder.Entity<LikeEntity>()
+            .Property(x => x.AuthorId)
+            .IsRequired();
+        modelBuilder.Entity<LikeEntity>()
+            .Property(x => x.PostId)
+            .IsRequired();
+        modelBuilder.Entity<LikeEntity>()
+            .HasOne(p => p.Post)
+            .WithMany(b => b.Likes);
+        modelBuilder.Entity<LikeEntity>()
+            .HasOne(p => p.Author)
+            .WithMany(b => b.Likes);
+        
+        modelBuilder.Entity<PostEntity>()
+            .HasKey(x => x.Id);
+        modelBuilder.Entity<PostEntity>()
+            .Property(x => x.AuthorId)
+            .IsRequired();
+        modelBuilder.Entity<PostEntity>()
+            .Property(x => x.Text)
+            .IsRequired();
+        modelBuilder.Entity<PostEntity>()
+            .HasOne(p => p.Author)
+            .WithMany(b => b.Posts);
+        
         modelBuilder.Entity<RoleEntity>()
             .HasKey(x => x.Id);
         modelBuilder.Entity<RoleEntity>()
@@ -48,6 +92,7 @@ public class AppDbContext : DbContext
             .IsRequired();
 
 
+        #region Инициализация тестовых данных
         RegistrationHelper registrationHelper = new();
 
         string adminEmail = "admin@gmail.com";
@@ -102,6 +147,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<RoleEntity>().HasData(new[] { adminRoleEntity, userRoleEntity, moderRoleEntity });
         modelBuilder.Entity<AccountEntity>().HasData(new[] { adminUser, user, moderUser });
+        #endregion
     }
 
 

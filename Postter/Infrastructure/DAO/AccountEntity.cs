@@ -53,7 +53,7 @@ public class AccountEntity : EntityBase
     /// <summary>
     /// Роль
     /// </summary>
-    public RoleEntity RoleEntity { get; set; }
+    public RoleEntity Role { get; set; }
     /// <summary>
     /// Лайки, поставленные пользователем
     /// </summary>
