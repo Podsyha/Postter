@@ -1,4 +1,5 @@
-﻿using Postter.Infrastructure.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using Postter.Infrastructure.Common;
 
 namespace Postter.Infrastructure.DAO;
 /// <summary>
@@ -25,5 +26,6 @@ public class CommentEntity : EntityBase
     /// <summary>
     /// Текст комментария
     /// </summary>
+    [MaxLength(140)]
     public string Text { get; set; }
 }
