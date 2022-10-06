@@ -88,7 +88,7 @@ public class AccountController : CustomController
     /// <param name="model">UpdateAccountInfoModel</param>
     /// <returns></returns>
     [HttpPatch("/updateAccountInfo")]
-    [Authorize]
+    [CustomAuthorize]
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
         CheckCurrentUser(model.Id);

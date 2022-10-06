@@ -50,7 +50,7 @@ public class RoleController : CustomController
     }
     
     [HttpGet("/authorizeCheck")]
-    [Authorize]
+    [CustomAuthorize]
     public IActionResult CheckAuth()
     {
         return Ok("Test");

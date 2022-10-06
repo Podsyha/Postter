@@ -18,7 +18,11 @@ public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter
     {
         _roles = roles;
     }
-    
+
+    public CustomAuthorizeAttribute()
+    {
+    }
+
     private readonly RolesEnum _roles;
 
     /// <summary>
@@ -27,12 +31,17 @@ public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter
     /// <param name="context"></param>
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-      // skip authorization if action is decorated with [AllowAnonymous] attribute
         var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
         if (allowAnonymous)
             return;
 
-        if (!context.HttpContext.User.Claims.Any(x => x.Value == _roles.ToString()))
+        if (!context.HttpContext.User.Identity.IsAuthenticated)
             throw new UnauthorizedAccessException();
+
+        if (_roles != 0)
+        {
+            if (!context.HttpContext.User.Claims.Any(x => x.Value == _roles.ToString()))
+                throw new UnauthorizedAccessException();
+        }
     }
 }
