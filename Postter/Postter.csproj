@@ -21,4 +21,11 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\Comment\Model" />
+      <Folder Include="Controllers\Like\Model" />
+      <Folder Include="Controllers\Post\Model" />
+      <Folder Include="Controllers\User\Model" />
+    </ItemGroup>
+
 </Project>
