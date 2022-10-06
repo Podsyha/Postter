@@ -5,6 +5,7 @@ using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
+using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCasePost;
 
 namespace Postter.Controllers.Post;
@@ -36,9 +37,9 @@ public class PostController : CustomController
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorPosts(Guid authorId)
     {
-         List<PostEntity> posts = await _useCasePost.GetAuthorPostsAsync(authorId);
+        List<PostEntity> posts = await _useCasePost.GetAuthorPostsAsync(authorId);
 
-         return Ok(posts);
+        return Ok(posts);
     }
 
     [HttpPost("/addPost")]
@@ -50,8 +51,19 @@ public class PostController : CustomController
 
         return Ok();
     }
-    
-    [HttpDelete]
-    public async Task DeletePost(Guid postId) =>
-        await _useCasePost.DeletePostAsync(postId);
+
+    [HttpDelete("/deletePost")]
+    [CustomAuthorize]
+    public async Task DeletePost(Guid postId)
+    {
+        if (IsCurrentRole(RolesEnum.Admin) || IsCurrentRole(RolesEnum.Moder))
+        {
+            await _useCasePost.DeletePostAsync(postId);
+        }
+        else
+        {
+            Guid authorId = new Guid(HttpContext.User.Identity.GetUserId());
+            await _useCasePost.DeletePostAsync(postId, authorId);
+        }
+    }
 }

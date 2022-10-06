@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Postter.Infrastructure.DTO;
 
 namespace Postter.Common.Helpers.ApiResponse;
 
@@ -18,10 +19,10 @@ public class CustomController : ControllerBase
     public override BadRequestObjectResult BadRequest(object error)
     {
         ApiResponse response = new(null, error);
-        
+
         return base.BadRequest(response);
     }
-    
+
     [ApiExplorerSettings(IgnoreApi = true)]
     public void CheckCurrentUser(Guid accountId)
     {
@@ -30,4 +31,13 @@ public class CustomController : ControllerBase
         if (currentUserId != accountId)
             throw new UnauthorizedAccessException();
     }
+
+    /// <summary>
+    /// Проверить, есть ли у пользователя данная роль
+    /// </summary>
+    /// <param name="role">Роль</param>
+    /// <returns></returns>
+    [ApiExplorerSettings(IgnoreApi = true)]
+    public bool IsCurrentRole(RolesEnum role) =>
+        role != 0 && HttpContext.User.Claims.Any(x => x.Value == role.ToString());
 }

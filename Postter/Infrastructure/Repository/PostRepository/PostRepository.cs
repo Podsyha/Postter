@@ -54,6 +54,7 @@ public class PostRepository : AppDbFunc, IPostRepository
         await SaveChangeAsync();
     }
 
+    
     public async Task DeletePostAsync(Guid postId)
     {
         PostEntity post = await _dbContext.Post

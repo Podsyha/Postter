@@ -28,4 +28,11 @@ public interface IUseCasePost
     /// <param name="postId">Id поста</param>
     /// <returns></returns>
     Task DeletePostAsync(Guid postId);
+    /// <summary>
+    /// Удалить пост
+    /// </summary>
+    /// <param name="postId">Id поста</param>
+    /// <param name="userId">Id пользователя поста</param>
+    /// <returns></returns>
+    Task DeletePostAsync(Guid postId, Guid userId);
 }
