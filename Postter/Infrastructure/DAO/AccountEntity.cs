@@ -54,4 +54,16 @@ public class AccountEntity : EntityBase
     /// Роль
     /// </summary>
     public RoleEntity RoleEntity { get; set; }
+    /// <summary>
+    /// Лайки, поставленные пользователем
+    /// </summary>
+    public ICollection<LikeEntity> Likes { get; set; }
+    /// <summary>
+    /// Посты, написанные пользователем
+    /// </summary>
+    public ICollection<PostEntity> Posts { get; set; }
+    /// <summary>
+    /// Комменты, написанные пользователем
+    /// </summary>
+    public ICollection<CommentEntity> Comments { get; set; }
 }
