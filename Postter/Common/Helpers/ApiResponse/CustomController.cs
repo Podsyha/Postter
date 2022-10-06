@@ -4,28 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace Postter.Common.Helpers.ApiResponse;
 
 /// <summary>
-/// Кастомный контроллер для возврата ответов в своём классе JSON 
+/// Кастомный контроллер для возврата ответов в своём классе в JSON 
 /// </summary>
 public class CustomController : ControllerBase
 {
     public override OkObjectResult Ok(object value)
     {
-        ApiResponse response = new()
-        {
-            Message = value, 
-            Error = null
-        };
-        
+        ApiResponse response = new(value, null);
+
         return base.Ok(response);
     }
 
     public override BadRequestObjectResult BadRequest(object error)
     {
-        ApiResponse response = new()
-        {
-            Message = null, 
-            Error = error
-        };
+        ApiResponse response = new(null, error);
         
         return base.BadRequest(response);
     }
