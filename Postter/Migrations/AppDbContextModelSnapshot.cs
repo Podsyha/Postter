@@ -70,39 +70,39 @@ namespace Postter.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5937eb5f-4278-467e-977b-e7205ed5fd9b"),
-                            DateAdded = new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(625),
+                            Id = new Guid("83ecb682-ddf6-4309-94eb-8d5cd7e1e30b"),
+                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6196),
                             Email = "admin@gmail.com",
-                            HashPassword = "C7284652D08DCF8A1EC9AE5B6FD46E65",
+                            HashPassword = "8AD15CC7E594224A8691705624E072DD",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "Admin Adminskiy",
                             RoleId = 1,
-                            Salt = "t(quhPhBQuXC9amhy(hk"
+                            Salt = "#tGI2DxzWi*(D)#TR2S("
                         },
                         new
                         {
-                            Id = new Guid("ff99309a-8e95-469d-b454-4d5b45819314"),
-                            DateAdded = new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(647),
+                            Id = new Guid("041c34fa-32b3-497c-97af-6f8b83433395"),
+                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6223),
                             Email = "user@gmail.com",
-                            HashPassword = "87753F78463D2521ECDA7B9B8DD32366",
+                            HashPassword = "F92CFA19E5CE73B1BD8CD0B1A90F73B4",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "User Prostetskiy",
                             RoleId = 2,
-                            Salt = "oB#G%h3n^21et9!q(7ok"
+                            Salt = "Ah$ox^4_#MOgfj$sz7Pf"
                         },
                         new
                         {
-                            Id = new Guid("8b1d22ce-e48e-4108-bf00-24c34ee6228b"),
-                            DateAdded = new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(649),
+                            Id = new Guid("1a87ae4d-f46e-4b7b-9da3-e83e5d4b6a85"),
+                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6235),
                             Email = "moder@gmail.com",
-                            HashPassword = "1F533E735DB40963C78494A1E988DC07",
+                            HashPassword = "340C3A063FE3B1328B95D550B2157F1A",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "Moderator Zloy i Derzkiy",
                             RoleId = 3,
-                            Salt = "&iJgwfjwAE!Hp35wEy+e"
+                            Salt = "sDJvHn%qCdmRpLAjAU4P"
                         });
                 });
 
@@ -132,7 +132,7 @@ namespace Postter.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("CommentEntity");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("Postter.Infrastructure.DAO.LikeEntity", b =>
@@ -156,7 +156,7 @@ namespace Postter.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("LikeEntity");
+                    b.ToTable("Like");
                 });
 
             modelBuilder.Entity("Postter.Infrastructure.DAO.PostEntity", b =>
@@ -180,7 +180,7 @@ namespace Postter.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("PostEntity");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("Postter.Infrastructure.DAO.RoleEntity", b =>

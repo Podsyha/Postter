@@ -1,6 +1,6 @@
 ﻿using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository.Persons;
+namespace Postter.Infrastructure.Repository.PersonRepository;
 
 public interface IPersonRepository
 {

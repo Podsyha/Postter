@@ -9,15 +9,15 @@ public sealed class ApiResponse
 {
     public ApiResponse(object message, object error)
     {
-        Message = message;
-        Error = error;
+        this.message = message;
+        this.error = error;
     }
     /// <summary>
     /// Текст ответа
     /// </summary>
-    public object Message { get; set; }
+    public object message { get; set; }
     /// <summary>
     /// Текст ошибки
     /// </summary>
-    public object Error { get; set; }
+    public object error { get; set; }
 }

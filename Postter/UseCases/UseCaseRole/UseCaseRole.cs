@@ -1,7 +1,7 @@
 ﻿using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.Repository.Roles;
+using Postter.Infrastructure.Repository.RoleRepository;
 
-namespace Postter.UseCases.Roles;
+namespace Postter.UseCases.UseCaseRole;
 
 public class UseCaseRole : IUseCaseRole
 {

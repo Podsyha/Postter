@@ -38,7 +38,8 @@ public class AppDbContext : DbContext
             .IsRequired();
         modelBuilder.Entity<AccountEntity>()
             .HasOne(p => p.Role)
-            .WithMany(b => b.Accounts);
+            .WithMany(b => b.Accounts)
+            .HasForeignKey(x => x.RoleId);
         
         modelBuilder.Entity<CommentEntity>()
             .HasKey(x => x.Id);
@@ -53,10 +54,12 @@ public class AppDbContext : DbContext
             .IsRequired();
         modelBuilder.Entity<CommentEntity>()
             .HasOne(p => p.Post)
-            .WithMany(b => b.Comments);
+            .WithMany(b => b.Comments)
+            .HasForeignKey(x => x.PostId);
         modelBuilder.Entity<CommentEntity>()
             .HasOne(p => p.Author)
-            .WithMany(b => b.Comments);
+            .WithMany(b => b.Comments)
+            .HasForeignKey(x => x.AuthorId);
         
         modelBuilder.Entity<LikeEntity>()
             .HasKey(x => x.Id);
@@ -68,10 +71,12 @@ public class AppDbContext : DbContext
             .IsRequired();
         modelBuilder.Entity<LikeEntity>()
             .HasOne(p => p.Post)
-            .WithMany(b => b.Likes);
+            .WithMany(b => b.Likes)
+            .HasForeignKey(x => x.PostId);
         modelBuilder.Entity<LikeEntity>()
             .HasOne(p => p.Author)
-            .WithMany(b => b.Likes);
+            .WithMany(b => b.Likes)
+            .HasForeignKey(x => x.AuthorId);
         
         modelBuilder.Entity<PostEntity>()
             .HasKey(x => x.Id);
@@ -83,7 +88,8 @@ public class AppDbContext : DbContext
             .IsRequired();
         modelBuilder.Entity<PostEntity>()
             .HasOne(p => p.Author)
-            .WithMany(b => b.Posts);
+            .WithMany(b => b.Posts)
+            .HasForeignKey(x => x.AuthorId);
         
         modelBuilder.Entity<RoleEntity>()
             .HasKey(x => x.Id);
@@ -153,4 +159,7 @@ public class AppDbContext : DbContext
 
     public virtual DbSet<AccountEntity> Person { get; set; }
     public virtual DbSet<RoleEntity> Role { get; set; }
+    public virtual DbSet<PostEntity> Post { get; set; }
+    public virtual DbSet<CommentEntity> Comment { get; set; }
+    public virtual DbSet<LikeEntity> Like { get; set; }
 }

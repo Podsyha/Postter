@@ -1,6 +1,6 @@
 ﻿using Postter.Infrastructure.DAO;
 
-namespace Postter.UseCases.Roles;
+namespace Postter.UseCases.UseCaseRole;
 
 public interface IUseCaseRole
 {

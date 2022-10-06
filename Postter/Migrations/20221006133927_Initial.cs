@@ -50,7 +50,7 @@ namespace Postter.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostEntity",
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -60,9 +60,9 @@ namespace Postter.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostEntity", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PostEntity_Person_AuthorId",
+                        name: "FK_Post_Person_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Person",
                         principalColumn: "Id",
@@ -70,7 +70,7 @@ namespace Postter.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentEntity",
+                name: "Comment",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -81,23 +81,23 @@ namespace Postter.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentEntity", x => x.Id);
+                    table.PrimaryKey("PK_Comment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CommentEntity_Person_AuthorId",
+                        name: "FK_Comment_Person_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CommentEntity_PostEntity_PostId",
+                        name: "FK_Comment_Post_PostId",
                         column: x => x.PostId,
-                        principalTable: "PostEntity",
+                        principalTable: "Post",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "LikeEntity",
+                name: "Like",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -107,17 +107,17 @@ namespace Postter.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LikeEntity", x => x.Id);
+                    table.PrimaryKey("PK_Like", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LikeEntity_Person_AuthorId",
+                        name: "FK_Like_Person_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Person",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LikeEntity_PostEntity_PostId",
+                        name: "FK_Like_Post_PostId",
                         column: x => x.PostId,
-                        principalTable: "PostEntity",
+                        principalTable: "Post",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -137,29 +137,29 @@ namespace Postter.Migrations
                 columns: new[] { "Id", "About", "DateAdded", "Email", "HashPassword", "ImageUri", "IsActive", "Name", "RoleId", "Salt" },
                 values: new object[,]
                 {
-                    { new Guid("5937eb5f-4278-467e-977b-e7205ed5fd9b"), null, new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(625), "admin@gmail.com", "C7284652D08DCF8A1EC9AE5B6FD46E65", "testlink.com/testdirectory/testimage.png", true, "Admin Adminskiy", 1, "t(quhPhBQuXC9amhy(hk" },
-                    { new Guid("8b1d22ce-e48e-4108-bf00-24c34ee6228b"), null, new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(649), "moder@gmail.com", "1F533E735DB40963C78494A1E988DC07", "testlink.com/testdirectory/testimage.png", true, "Moderator Zloy i Derzkiy", 3, "&iJgwfjwAE!Hp35wEy+e" },
-                    { new Guid("ff99309a-8e95-469d-b454-4d5b45819314"), null, new DateTime(2022, 10, 6, 11, 33, 26, 737, DateTimeKind.Utc).AddTicks(647), "user@gmail.com", "87753F78463D2521ECDA7B9B8DD32366", "testlink.com/testdirectory/testimage.png", true, "User Prostetskiy", 2, "oB#G%h3n^21et9!q(7ok" }
+                    { new Guid("041c34fa-32b3-497c-97af-6f8b83433395"), null, new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6223), "user@gmail.com", "F92CFA19E5CE73B1BD8CD0B1A90F73B4", "testlink.com/testdirectory/testimage.png", true, "User Prostetskiy", 2, "Ah$ox^4_#MOgfj$sz7Pf" },
+                    { new Guid("1a87ae4d-f46e-4b7b-9da3-e83e5d4b6a85"), null, new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6235), "moder@gmail.com", "340C3A063FE3B1328B95D550B2157F1A", "testlink.com/testdirectory/testimage.png", true, "Moderator Zloy i Derzkiy", 3, "sDJvHn%qCdmRpLAjAU4P" },
+                    { new Guid("83ecb682-ddf6-4309-94eb-8d5cd7e1e30b"), null, new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6196), "admin@gmail.com", "8AD15CC7E594224A8691705624E072DD", "testlink.com/testdirectory/testimage.png", true, "Admin Adminskiy", 1, "#tGI2DxzWi*(D)#TR2S(" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentEntity_AuthorId",
-                table: "CommentEntity",
+                name: "IX_Comment_AuthorId",
+                table: "Comment",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentEntity_PostId",
-                table: "CommentEntity",
+                name: "IX_Comment_PostId",
+                table: "Comment",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LikeEntity_AuthorId",
-                table: "LikeEntity",
+                name: "IX_Like_AuthorId",
+                table: "Like",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LikeEntity_PostId",
-                table: "LikeEntity",
+                name: "IX_Like_PostId",
+                table: "Like",
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
@@ -168,21 +168,21 @@ namespace Postter.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostEntity_AuthorId",
-                table: "PostEntity",
+                name: "IX_Post_AuthorId",
+                table: "Post",
                 column: "AuthorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CommentEntity");
+                name: "Comment");
 
             migrationBuilder.DropTable(
-                name: "LikeEntity");
+                name: "Like");
 
             migrationBuilder.DropTable(
-                name: "PostEntity");
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "Person");

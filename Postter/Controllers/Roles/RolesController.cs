@@ -4,7 +4,7 @@ using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
-using Postter.UseCases.Roles;
+using Postter.UseCases.UseCaseRole;
 
 namespace Postter.Controllers.Roles;
 

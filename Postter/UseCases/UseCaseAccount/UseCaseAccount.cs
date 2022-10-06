@@ -7,10 +7,10 @@ using Postter.Common.Helpers;
 using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
-using Postter.Infrastructure.Repository.Persons;
-using Postter.Infrastructure.Repository.Roles;
+using Postter.Infrastructure.Repository.PersonRepository;
+using Postter.Infrastructure.Repository.RoleRepository;
 
-namespace Postter.UseCases.Account;
+namespace Postter.UseCases.UseCaseAccount;
 
 public class UseCaseAccount : IUseCaseAccount
 {

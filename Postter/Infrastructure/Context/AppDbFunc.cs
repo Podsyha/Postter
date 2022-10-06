@@ -44,11 +44,11 @@ namespace Postter.Infrastructure.Context
         /// <summary>
         /// Сохранить модифицированные сущности в контексте БД
         /// </summary>
-        public async Task SaveChangeAsync() =>
+        protected async Task SaveChangeAsync() =>
             await _dbContext.SaveChangesAsync();
 
         /// <summary>
-        /// Удалить данные из БД
+        /// Удалить данные из БД. С проверкой на null
         /// </summary>
         /// <param name="model">Модель данных</param>
         /// <typeparam name="T">Тип данных</typeparam>

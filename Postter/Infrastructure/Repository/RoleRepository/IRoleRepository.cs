@@ -1,6 +1,6 @@
 ﻿using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository.Roles;
+namespace Postter.Infrastructure.Repository.RoleRepository;
 
 public interface IRoleRepository
 {

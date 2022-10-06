@@ -4,7 +4,7 @@ using Postter.Common.Helpers;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository.Persons;
+namespace Postter.Infrastructure.Repository.PersonRepository;
 
 public class PersonRepository : AppDbFunc, IPersonRepository
 {

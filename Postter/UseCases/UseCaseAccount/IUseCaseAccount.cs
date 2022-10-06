@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Postter.Controllers.Account.Models;
 
-namespace Postter.UseCases.Account;
+namespace Postter.UseCases.UseCaseAccount;
 
 public interface IUseCaseAccount
 {

@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,20 @@ using Postter.Common.Auth;
 using Postter.Common.Helpers;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
-using Postter.Infrastructure.Repository.Persons;
-using Postter.Infrastructure.Repository.Roles;
-using Postter.UseCases.Account;
-using Postter.UseCases.Roles;
+using Postter.Infrastructure.Repository.PersonRepository;
+using Postter.Infrastructure.Repository.PostRepository;
+using Postter.Infrastructure.Repository.RoleRepository;
+using Postter.UseCases.UseCaseAccount;
+using Postter.UseCases.UseCasePost;
+using Postter.UseCases.UseCaseRole;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example API", Version = "v1" });
@@ -89,9 +94,11 @@ builder.Services.AddTransient<IRegistrationHelper, RegistrationHelper>();
 // Infrasctructure
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+builder.Services.AddTransient<IPostRepository, PostRepository>();
 // UseCase
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
 builder.Services.AddTransient<IUseCaseRole, UseCaseRole>();
+builder.Services.AddTransient<IUseCasePost, UseCasePost>();
 
 var app = builder.Build();
 

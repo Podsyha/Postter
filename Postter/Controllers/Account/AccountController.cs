@@ -7,7 +7,7 @@ using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DTO;
-using Postter.UseCases.Account;
+using Postter.UseCases.UseCaseAccount;
 
 namespace Postter.Controllers.Account;
 
