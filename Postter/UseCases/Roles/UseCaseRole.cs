@@ -14,6 +14,6 @@ public class UseCaseRole : IUseCaseRole
 
 
 
-    public async Task<List<Role>> GetAllRoles() => 
+    public async Task<List<RoleEntity>> GetAllRoles() => 
         await _roleRepository.GetAllRoles();
 }

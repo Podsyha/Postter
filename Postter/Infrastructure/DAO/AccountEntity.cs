@@ -53,5 +53,5 @@ public class AccountEntity : EntityBase
     /// <summary>
     /// Роль
     /// </summary>
-    public Role Role { get; set; }
+    public RoleEntity RoleEntity { get; set; }
 }

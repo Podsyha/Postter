@@ -19,9 +19,9 @@ public class RoleRepository : AppDbFunc, IRoleRepository
     /// <summary>
     /// Получить лист всех ролей
     /// </summary>
-    public async Task<List<Role>> GetAllRoles()
+    public async Task<List<RoleEntity>> GetAllRoles()
     {
-        List<Role> roles = await _dbContext.Role.ToListAsync();
+        List<RoleEntity> roles = await _dbContext.Role.ToListAsync();
         
         _assert.EmptyCollection(roles);
 

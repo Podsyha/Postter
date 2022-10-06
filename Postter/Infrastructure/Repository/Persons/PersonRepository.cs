@@ -34,7 +34,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
         string hashPass = _registrationHelper.generateHashPass(password, currentAccountEntity.Salt);
         
         AccountEntity accountEntity = await _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Email == email && person.HashPassword == hashPass)
             .FirstOrDefaultAsync();
 
@@ -49,7 +49,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     public async Task<AccountEntity> GetPersonAsync(string email)
     {
         IQueryable<AccountEntity> query = _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Email == email);
         
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
@@ -65,7 +65,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     public async Task<AccountEntity> GetPersonAsync(Guid id)
     {
         IQueryable<AccountEntity> query = _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Id == id);
         
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
@@ -101,7 +101,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
         string hashPass = _registrationHelper.generateHashPass(password, currentAccountEntity.Salt);
         
         AccountEntity accountEntity = await _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Email == email && person.HashPassword == hashPass)
             .FirstOrDefaultAsync();
 
@@ -118,7 +118,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     public async Task<AccountEntity> FindPersonAsync(string email)
     {
         IQueryable<AccountEntity> query = _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Email == email);
 
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
@@ -135,7 +135,7 @@ public class PersonRepository : AppDbFunc, IPersonRepository
     public async Task<AccountEntity> FindPersonAsync(Guid accountId)
     {
         IQueryable<AccountEntity> query = _dbContext.Person
-            .Include(x => x.Role)
+            .Include(x => x.RoleEntity)
             .Where(person => person.Id == accountId);
 
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();

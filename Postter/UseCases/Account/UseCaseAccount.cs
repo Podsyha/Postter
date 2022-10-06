@@ -110,7 +110,7 @@ public class UseCaseAccount : IUseCaseAccount
         List<Claim> claims = new()
         {
             new(ClaimsIdentity.DefaultNameClaimType, accountEntity.Email),
-            new(ClaimsIdentity.DefaultRoleClaimType, accountEntity.Role.Name),
+            new(ClaimsIdentity.DefaultRoleClaimType, accountEntity.RoleEntity.Name),
             new(ClaimTypes.NameIdentifier, accountEntity.Id.ToString())
         };
 
@@ -133,12 +133,12 @@ public class UseCaseAccount : IUseCaseAccount
 
         _assert.IsNull(accountEntity, $"Не найден пользователь с email: {email}");
 
-        List<Role> roles = await _roleRepository.GetAllRoles();
-        Role currentRole = roles.FirstOrDefault(x => x.Name == role);
+        List<RoleEntity> roles = await _roleRepository.GetAllRoles();
+        RoleEntity currentRoleEntity = roles.FirstOrDefault(x => x.Name == role);
 
-        _assert.IsNull(currentRole, $"Не найдена роль: {role}");
+        _assert.IsNull(currentRoleEntity, $"Не найдена роль: {role}");
 
-        accountEntity.RoleId = currentRole.Id;
+        accountEntity.RoleId = currentRoleEntity.Id;
         await _personRepository.UpdatePersonInfo(accountEntity);
     }
 }

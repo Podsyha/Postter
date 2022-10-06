@@ -37,13 +37,13 @@ public class AppDbContext : DbContext
             .Property(x => x.RoleId)
             .IsRequired();
         modelBuilder.Entity<AccountEntity>()
-            .HasOne(p => p.Role)
+            .HasOne(p => p.RoleEntity)
             .WithMany(b => b.Accounts);
 
 
-        modelBuilder.Entity<Role>()
+        modelBuilder.Entity<RoleEntity>()
             .HasKey(x => x.Id);
-        modelBuilder.Entity<Role>()
+        modelBuilder.Entity<RoleEntity>()
             .Property(x => x.Name)
             .IsRequired();
 
@@ -66,9 +66,9 @@ public class AppDbContext : DbContext
         string userPassword = registrationHelper.generateHashPass("user", userSalt);
         string moderPassword = registrationHelper.generateHashPass("moder", moderSalt);
 
-        Role adminRole = new() { Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
-        Role userRole = new() { Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
-        Role moderRole = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.ToString() };
+        RoleEntity adminRoleEntity = new() { Id = (int)RolesEnum.Admin, Name = RolesEnum.Admin.ToString() };
+        RoleEntity userRoleEntity = new() { Id = (int)RolesEnum.User, Name = RolesEnum.User.ToString() };
+        RoleEntity moderRoleEntity = new() { Id = (int)RolesEnum.Moder, Name = RolesEnum.Moder.ToString() };
         AccountEntity adminUser = new()
         {
             Id = Guid.NewGuid(),
@@ -76,7 +76,7 @@ public class AppDbContext : DbContext
             Name = adminName,
             IsActive = true,
             HashPassword = adminPassword,
-            RoleId = adminRole.Id, 
+            RoleId = adminRoleEntity.Id, 
             Salt = adminSalt
         };
         AccountEntity user = new()
@@ -86,7 +86,7 @@ public class AppDbContext : DbContext
             Name = userName,
             IsActive = true,
             HashPassword = userPassword,
-            RoleId = userRole.Id,
+            RoleId = userRoleEntity.Id,
             Salt = userSalt
         };
         AccountEntity moderUser = new()
@@ -96,15 +96,15 @@ public class AppDbContext : DbContext
             Name = moderName,
             IsActive = true,
             HashPassword = moderPassword,
-            RoleId = moderRole.Id,
+            RoleId = moderRoleEntity.Id,
             Salt = moderSalt
         };
 
-        modelBuilder.Entity<Role>().HasData(new[] { adminRole, userRole, moderRole });
+        modelBuilder.Entity<RoleEntity>().HasData(new[] { adminRoleEntity, userRoleEntity, moderRoleEntity });
         modelBuilder.Entity<AccountEntity>().HasData(new[] { adminUser, user, moderUser });
     }
 
 
     public virtual DbSet<AccountEntity> Person { get; set; }
-    public virtual DbSet<Role> Role { get; set; }
+    public virtual DbSet<RoleEntity> Role { get; set; }
 }

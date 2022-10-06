@@ -25,7 +25,6 @@
       <Folder Include="Controllers\Comment\Model" />
       <Folder Include="Controllers\Like\Model" />
       <Folder Include="Controllers\Post\Model" />
-      <Folder Include="Controllers\User\Model" />
     </ItemGroup>
 
 </Project>
