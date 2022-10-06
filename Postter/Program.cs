@@ -15,6 +15,7 @@ using Postter.Infrastructure.Repository.PersonRepository;
 using Postter.Infrastructure.Repository.PostRepository;
 using Postter.Infrastructure.Repository.RoleRepository;
 using Postter.UseCases.UseCaseAccount;
+using Postter.UseCases.UseCaseComment;
 using Postter.UseCases.UseCasePost;
 using Postter.UseCases.UseCaseRole;
 
@@ -101,6 +102,7 @@ builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
 builder.Services.AddTransient<IUseCaseRole, UseCaseRole>();
 builder.Services.AddTransient<IUseCasePost, UseCasePost>();
+builder.Services.AddTransient<IUseCaseComment, UseCaseComment>();
 
 var app = builder.Build();
 
