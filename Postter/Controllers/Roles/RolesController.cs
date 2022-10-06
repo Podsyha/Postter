@@ -28,28 +28,28 @@ public class RoleController : CustomController
     public async Task<List<RoleEntity>> GetAllRoles() => 
         await _useCaseRole.GetAllRoles();
     
-    [HttpGet("/adminCheck")]
+    [HttpGet("/admin-check")]
     [CustomAuthorize(RolesEnum.Admin)]
     public IActionResult CheckAdmin()
     {
         return Ok("u are an admin");
     }
     
-    [HttpGet("/moderCheck")]
+    [HttpGet("/moder-check")]
     [CustomAuthorize(RolesEnum.Moder)]
     public IActionResult CheckModer()
     {
         return Ok("u are an moder");
     }
     
-    [HttpGet("/userCheck")]
+    [HttpGet("/user-check")]
     [CustomAuthorize(RolesEnum.User)]
     public IActionResult CheckUser()
     {
         return Ok("u are an user");
     }
     
-    [HttpGet("/authorizeCheck")]
+    [HttpGet("/authorize-check")]
     [CustomAuthorize]
     public IActionResult CheckAuth()
     {

@@ -73,7 +73,7 @@ public class AccountController : CustomController
     /// </summary>
     /// <param name="accountId">Id пользователя</param>
     /// <returns></returns>
-    [HttpDelete("/deleteAccount")]
+    [HttpDelete("/delete-account")]
     [CustomAuthorize(RolesEnum.Admin)]
     public async Task<IActionResult> DeleteAccount(Guid accountId)
     {
@@ -87,7 +87,7 @@ public class AccountController : CustomController
     /// </summary>
     /// <param name="model">UpdateAccountInfoModel</param>
     /// <returns></returns>
-    [HttpPatch("/updateAccountInfo")]
+    [HttpPatch("/update-account-info")]
     [CustomAuthorize]
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
@@ -103,7 +103,7 @@ public class AccountController : CustomController
     /// </summary>
     /// <param name="email">Почта пользователя</param>
     /// <param name="role">необходимая роль</param>
-    [HttpPost("/giveTheUserARole")]
+    [HttpPost("/give-the-user-a-role")]
     [CustomAuthorize(RolesEnum.Admin)]
     public async Task<IActionResult> GiveTheUserARole(string email, string role)
     {

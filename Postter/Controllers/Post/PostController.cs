@@ -24,7 +24,7 @@ public class PostController : CustomController
 
     private readonly IUseCasePost _useCasePost;
 
-    [HttpGet("/getPost")]
+    [HttpGet("/get-post")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPost(Guid postId)
     {
@@ -33,7 +33,7 @@ public class PostController : CustomController
         return Ok(post);
     }
 
-    [HttpGet("/getAuthorPosts")]
+    [HttpGet("/get-author-posts")]
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorPosts(Guid authorId)
     {
@@ -42,7 +42,7 @@ public class PostController : CustomController
         return Ok(posts);
     }
 
-    [HttpPost("/addPost")]
+    [HttpPost("/add-post")]
     [CustomAuthorize]
     public async Task<IActionResult> AddPost(AddPostModel model)
     {
@@ -52,7 +52,7 @@ public class PostController : CustomController
         return Ok();
     }
 
-    [HttpDelete("/deletePost")]
+    [HttpDelete("/delete-post")]
     [CustomAuthorize]
     public async Task DeletePost(Guid postId)
     {
