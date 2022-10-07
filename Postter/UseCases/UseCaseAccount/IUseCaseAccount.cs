@@ -15,7 +15,7 @@ public interface IUseCaseAccount
     JwtSecurityToken GetToken(ClaimsIdentity identity);
     Task<ClaimsIdentity> GetIdentity(string email, string password);
     Task GiveTheUserARole(string email, string role);
-    Task Registration(RegistrationModel model);
+    Task<AccountUi> Registration(RegistrationModel model);
     Task DeleteAccount(Guid accountId);
     Task UpdateAccountInfo(UpdateAccountInfoModel model);
 }

@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Postter.Infrastructure.DTO;
+using Postter.Common.Helpers;
 
 namespace Postter.Common.Attribute;
 

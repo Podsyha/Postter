@@ -70,39 +70,39 @@ namespace Postter.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("83ecb682-ddf6-4309-94eb-8d5cd7e1e30b"),
-                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6196),
+                            Id = new Guid("7ac78bb7-f08a-4bcb-86e1-e8dae9fea83f"),
+                            DateAdded = new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3798),
                             Email = "admin@gmail.com",
-                            HashPassword = "8AD15CC7E594224A8691705624E072DD",
+                            HashPassword = "9979D7C69F617A036E3EC961F4D7A9EE",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "Admin Adminskiy",
                             RoleId = 1,
-                            Salt = "#tGI2DxzWi*(D)#TR2S("
+                            Salt = "Xd@ukrgJd1aO_kYFVGnN"
                         },
                         new
                         {
-                            Id = new Guid("041c34fa-32b3-497c-97af-6f8b83433395"),
-                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6223),
+                            Id = new Guid("f6c01696-67b1-48d9-a943-421d280467f9"),
+                            DateAdded = new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3821),
                             Email = "user@gmail.com",
-                            HashPassword = "F92CFA19E5CE73B1BD8CD0B1A90F73B4",
+                            HashPassword = "DBBFB1C16831E0B1D0260E867ABC2CAC",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "User Prostetskiy",
                             RoleId = 2,
-                            Salt = "Ah$ox^4_#MOgfj$sz7Pf"
+                            Salt = "yWH@mt7QgJm^lmcmnuWD"
                         },
                         new
                         {
-                            Id = new Guid("1a87ae4d-f46e-4b7b-9da3-e83e5d4b6a85"),
-                            DateAdded = new DateTime(2022, 10, 6, 13, 39, 27, 696, DateTimeKind.Utc).AddTicks(6235),
+                            Id = new Guid("c58a783e-d856-4f60-927d-7712a22f72a6"),
+                            DateAdded = new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3822),
                             Email = "moder@gmail.com",
-                            HashPassword = "340C3A063FE3B1328B95D550B2157F1A",
+                            HashPassword = "9120EC0BFE6A0136CF53353C7029597D",
                             ImageUri = "testlink.com/testdirectory/testimage.png",
                             IsActive = true,
                             Name = "Moderator Zloy i Derzkiy",
                             RoleId = 3,
-                            Salt = "sDJvHn%qCdmRpLAjAU4P"
+                            Salt = "2#wurZM(71rg*JvE%vWF"
                         });
                 });
 

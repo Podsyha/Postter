@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
+using Postter.Common.Helpers;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Comment.Model;
 using Postter.Controllers.Model;
 using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCaseComment;
 
 namespace Postter.Controllers.Comment;

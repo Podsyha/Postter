@@ -4,9 +4,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
+using Postter.Common.Helpers;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Account.Models;
-using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCaseAccount;
 
 namespace Postter.Controllers.Account;
@@ -63,6 +63,19 @@ public class AccountController : CustomController
         await _useCaseAccount.GetPersonUiAsync(id);
 
     /// <summary>
+    /// Получить свою модель пользователя
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("/self-account")]
+    [CustomAuthorize]
+    public async Task<AccountUi> GetPersonUiAsync()
+    {
+        Guid id = new Guid(HttpContext.User.Identity.GetUserId());
+        
+        return await _useCaseAccount.GetPersonUiAsync(id);
+    }
+
+    /// <summary>
     /// Зарегистрировать нового пользователя
     /// </summary>
     /// <param name="model">RegistrationModel</param>
@@ -71,10 +84,13 @@ public class AccountController : CustomController
     [AllowAnonymous]
     public async Task<IActionResult> Registration(RegistrationModel model)
     {
-        await _useCaseAccount.Registration(model);
-        await Token(model.Email, model.Password);
+        var response = new
+        {
+            account = await _useCaseAccount.Registration(model),
+            token = GetTokenByIdentity(model.Email, model.Password)
+        };
 
-        return Ok();
+        return Ok(response);
     }
 
     /// <summary>
@@ -100,8 +116,7 @@ public class AccountController : CustomController
     [CustomAuthorize]
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
-        CheckCurrentUser(model.Id);
-
+        model.Id = new Guid(HttpContext.User.Identity.GetUserId());
         await _useCaseAccount.UpdateAccountInfo(model);
 
         return Ok();
@@ -119,5 +134,12 @@ public class AccountController : CustomController
         await _useCaseAccount.GiveTheUserARole(email, role);
 
         return Ok();
+    }
+
+    private string GetTokenByIdentity(string email, string password)
+    {
+        ClaimsIdentity identity = _useCaseAccount.GetIdentity(email, password).Result;
+        JwtSecurityToken token = _useCaseAccount.GetToken(identity);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository.PersonRepository;
+namespace Postter.Infrastructure.Repository.AccountRepository;
 
 public interface IAccountRepository
 {
@@ -64,7 +64,7 @@ public interface IAccountRepository
     /// Добавить сущность пользователя
     /// </summary>
     /// <param name="newAccountEntity">Пользователь</param>
-    Task AddPerson(AccountEntity newAccountEntity);
+    Task<AccountUi> AddPerson(AccountEntity newAccountEntity);
     /// <summary>
     /// Отметить аккаунт удалённым
     /// </summary>

@@ -5,7 +5,7 @@ using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
-namespace Postter.Infrastructure.Repository.PersonRepository;
+namespace Postter.Infrastructure.Repository.AccountRepository;
 
 public class AccountRepository : AppDbFunc, IAccountRepository
 {
@@ -185,13 +185,14 @@ public class AccountRepository : AppDbFunc, IAccountRepository
     /// Добавить сущность пользователя
     /// </summary>
     /// <param name="newAccountEntity">Пользователь</param>
-    public async Task AddPerson(AccountEntity newAccountEntity)
+    public async Task<AccountUi> AddPerson(AccountEntity newAccountEntity)
     {
         await AddModelAsync(newAccountEntity);
-
         await SaveChangeAsync();
+
+        return DaoToUi(newAccountEntity);
     }
-    
+
     /// <summary>
     /// Отметить аккаунт удалённым
     /// </summary>
@@ -203,5 +204,21 @@ public class AccountRepository : AppDbFunc, IAccountRepository
         account.IsActive = false;
         
         await SaveChangeAsync();
+    }
+    
+    private AccountUi DaoToUi(AccountEntity newAccountEntity)
+    {
+        var fields = typeof(RolesEnum).GetFields();
+        
+        return new()
+        {
+            Id = newAccountEntity.Id,
+            About = newAccountEntity.About,
+            Email = newAccountEntity.Email,
+            Name = newAccountEntity.Name,
+            ImageUri = newAccountEntity.ImageUri,
+            IsActive = newAccountEntity.IsActive,
+            RoleName = fields[newAccountEntity.RoleId].Name
+        };
     }
 }

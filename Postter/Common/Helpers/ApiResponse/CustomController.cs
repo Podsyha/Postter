@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Postter.Infrastructure.DTO;
 
 namespace Postter.Common.Helpers.ApiResponse;
 

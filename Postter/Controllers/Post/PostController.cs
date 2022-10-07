@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
+using Postter.Common.Helpers;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Model;
 using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCasePost;
 
 namespace Postter.Controllers.Post;

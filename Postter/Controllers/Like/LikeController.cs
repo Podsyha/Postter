@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
+using Postter.Common.Helpers;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Like.Model;
 using Postter.Controllers.Model;
-using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCaseLike;
 
 namespace Postter.Controllers.Like;

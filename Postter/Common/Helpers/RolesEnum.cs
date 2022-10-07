@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Postter.Infrastructure.DTO;
+namespace Postter.Common.Helpers;
 
 /// <summary>
 /// Enum всех ролей в системе

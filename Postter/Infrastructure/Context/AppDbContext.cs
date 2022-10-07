@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Helpers;
 using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.DTO;
 
 namespace Postter.Infrastructure.Context;
 
@@ -16,7 +15,8 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<AccountEntity>()
+        #region FluentAPI
+         modelBuilder.Entity<AccountEntity>()
             .HasKey(x => x.Id);
         modelBuilder.Entity<AccountEntity>()
             .Property(x => x.Email)
@@ -96,8 +96,8 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<RoleEntity>()
             .Property(x => x.Name)
             .IsRequired();
-
-
+        #endregion
+        
         #region Инициализация тестовых данных
         RegistrationHelper registrationHelper = new();
 
@@ -125,7 +125,6 @@ public class AppDbContext : DbContext
             Id = Guid.NewGuid(),
             Email = adminEmail,
             Name = adminName,
-            IsActive = true,
             HashPassword = adminPassword,
             RoleId = adminRoleEntity.Id, 
             Salt = adminSalt
@@ -135,7 +134,6 @@ public class AppDbContext : DbContext
             Id = Guid.NewGuid(),
             Email = userEmail,
             Name = userName,
-            IsActive = true,
             HashPassword = userPassword,
             RoleId = userRoleEntity.Id,
             Salt = userSalt
@@ -145,7 +143,6 @@ public class AppDbContext : DbContext
             Id = Guid.NewGuid(),
             Email = moderEmail,
             Name = moderName,
-            IsActive = true,
             HashPassword = moderPassword,
             RoleId = moderRoleEntity.Id,
             Salt = moderSalt

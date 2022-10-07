@@ -6,8 +6,7 @@ using Postter.Common.Auth;
 using Postter.Common.Helpers;
 using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.DAO;
-using Postter.Infrastructure.DTO;
-using Postter.Infrastructure.Repository.PersonRepository;
+using Postter.Infrastructure.Repository.AccountRepository;
 using Postter.Infrastructure.Repository.RoleRepository;
 
 namespace Postter.UseCases.UseCaseAccount;
@@ -30,7 +29,7 @@ public class UseCaseAccount : IUseCaseAccount
     /// Зарегистрировать нового пользователя
     /// </summary>
     /// <param name="model">RegistrationModel</param>
-    public async Task Registration(RegistrationModel model)
+    public async Task<AccountUi> Registration(RegistrationModel model)
     {
         bool isUniquenessEmail = await _accountRepository.CheckMailUniqueness(model.Email);
         _assert.ThrowIfFalse(isUniquenessEmail, "Пользователь с данной почтой уже существует в системе");
@@ -49,7 +48,7 @@ public class UseCaseAccount : IUseCaseAccount
             RoleId = (int)RolesEnum.User
         };
 
-        await _accountRepository.AddPerson(newAccountEntity);
+        return await _accountRepository.AddPerson(newAccountEntity);
     }
 
     /// <summary>

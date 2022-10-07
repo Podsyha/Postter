@@ -8,7 +8,7 @@ public sealed class UpdateAccountInfoModel
     /// <summary>
     /// Id пользователя
     /// </summary>
-    public Guid Id { get; set; }
+    internal Guid Id { get; set; }
     /// <summary>
     /// Имя
     /// </summary>
