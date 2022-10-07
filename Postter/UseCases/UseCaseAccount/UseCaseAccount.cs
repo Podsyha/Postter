@@ -107,8 +107,8 @@ public class UseCaseAccount : IUseCaseAccount
     public async Task<ClaimsIdentity> GetIdentity(string email, string password)
     {
         AccountEntity accountEntity = await _accountRepository.GetPersonAsync(email, password);
-
         if (accountEntity == null) return null;
+        _assert.ThrowIfFalse(accountEntity.IsActive, "Аккаунт удалён");
 
         List<Claim> claims = new()
         {

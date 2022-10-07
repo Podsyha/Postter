@@ -10,11 +10,7 @@ namespace Postter.Common.Attribute;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="roles"></param>
-    public CustomAuthorizeAttribute(RolesEnum roles)
+    public CustomAuthorizeAttribute(params RolesEnum[] roles)
     {
         _roles = roles;
     }
@@ -23,12 +19,8 @@ public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter
     {
     }
 
-    private readonly RolesEnum _roles;
+    private readonly RolesEnum[] _roles;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="context"></param>
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
@@ -38,10 +30,14 @@ public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter
         if (!context.HttpContext.User.Identity.IsAuthenticated)
             throw new UnauthorizedAccessException();
 
-        if (_roles != 0)
-        {
-            if (!context.HttpContext.User.Claims.Any(x => x.Value == _roles.ToString()))
-                throw new UnauthorizedAccessException();
-        }
+        if (_roles == null)
+            return;
+
+        foreach (RolesEnum rolesEnum in _roles)
+            if (_roles.Any(role => context.HttpContext.User.Claims.Any(x => x.Value == rolesEnum.ToString())))
+                return;
+
+
+        throw new UnauthorizedAccessException();
     }
 }

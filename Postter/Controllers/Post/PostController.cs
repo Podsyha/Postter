@@ -59,7 +59,7 @@ public class PostController : CustomController
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost("/add-post")]
-    [CustomAuthorize]
+    [CustomAuthorize()]
     public async Task<IActionResult> AddPost(AddPostModel model)
     {
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());

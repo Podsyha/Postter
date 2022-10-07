@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Infrastructure.DAO;
