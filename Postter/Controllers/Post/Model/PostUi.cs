@@ -29,4 +29,8 @@ public sealed class PostUi
     /// Кол-во комментариев под постом
     /// </summary>
     public int CountComments { get; set; }
+    /// <summary>
+    /// Дата добавления поста
+    /// </summary>
+    public DateTime DateAdded { get; set; }
 }

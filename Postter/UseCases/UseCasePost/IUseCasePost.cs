@@ -16,7 +16,7 @@ public interface IUseCasePost
     /// </summary>
     /// <param name="authorId"></param>
     /// <returns></returns>
-    Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId);
+    Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
     /// <summary>
     /// Получить модель поста
     /// </summary>

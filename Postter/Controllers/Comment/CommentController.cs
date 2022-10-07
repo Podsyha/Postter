@@ -24,6 +24,33 @@ public class CommentController : CustomController
 
     private readonly IUseCaseComment _useCaseComment;
 
+    [HttpGet("/comment-ui")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetCommentUi(Guid commentId)
+    {
+        CommentUi post = await _useCaseComment.GetCommentUiAsync(commentId);
+
+        return Ok(post);
+    }
+
+    [HttpGet("/author-сomments-ui")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAuthorCommentUi([FromQuery]GetAuthorCommentsUiModel model)
+    {
+        CollectionCommentUi posts = await _useCaseComment.GetAuthorCommentsUiAsync(model.AuthorId, model.Page, model.Count);
+
+        return Ok(posts);
+    }
+    
+    [HttpGet("/post-сomments-ui")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetPostCommentsUi([FromQuery]GetPostCommentsUiModel model)
+    {
+        CollectionCommentUi posts = await _useCaseComment.GetPostCommentsUiAsync(model.PostId, model.Page, model.Count);
+
+        return Ok(posts);
+    }
+    
     [HttpGet("/comment")]
     [AllowAnonymous]
     public async Task<IActionResult> GetComment(Guid commentId)

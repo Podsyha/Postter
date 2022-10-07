@@ -6,6 +6,27 @@ namespace Postter.UseCases.UseCaseComment;
 public interface IUseCaseComment
 {
     /// <summary>
+    /// Получить UI модель комментария
+    /// </summary>
+    /// <param name="commentId">Id комментария</param>
+    /// <returns></returns>
+    Task<CommentUi> GetCommentUiAsync(Guid commentId);
+    /// <summary>
+    /// Получить все UI комменты пользователя
+    /// </summary>
+    /// <param name="authorId">Id автора коммента</param>
+    /// <param name="page">Страница</param>
+    /// <param name="count">Кол-во комментов на странице</param>
+    /// <returns></returns>
+    Task<CollectionCommentUi> GetAuthorCommentsUiAsync(Guid authorId, int page, int count);
+    /// <summary>
+    /// Получить все UI комменты поста
+    /// </summary>
+    /// <param name="postId">Id поста</param>
+    /// <param name="page">Страница</param>
+    /// <param name="count">Кол-во комментов на странице</param>
+    Task<CollectionCommentUi> GetPostCommentsUiAsync(Guid postId, int page, int count);
+    /// <summary>
     /// Получить коммент. Без проверки на null
     /// </summary>
     /// <param name="commentId">Id коммента</param>

@@ -16,43 +16,56 @@ public class PostRepository : AppDbFunc, IPostRepository
             .Include(x => x.Comments)
             .Include(x => x.Likes);
     }
-    
+
     private readonly IAssert _assert;
     private readonly IQueryable<PostEntity> _queryInclude;
 
 
     public async Task<PostUi> GetPostUiAsync(Guid postId)
     {
-        IQueryable<PostUi> post = _queryInclude.Select(x => new PostUi()
-        {
-            Id = x.Id,
-            AuthorId = x.AuthorId,
-            AuthorName = x.Author.Name,
-            AuthorImageUri = x.Author.ImageUri,
-            CountComments = x.Comments.Count,
-            CountLikes = x.Likes.Count
-        });
+        IQueryable<PostUi> post = _queryInclude
+            .Where(x => x.Id == postId)
+            .Select(x => new PostUi()
+            {
+                Id = x.Id,
+                AuthorId = x.AuthorId,
+                AuthorName = x.Author.Name,
+                AuthorImageUri = x.Author.ImageUri,
+                CountComments = x.Comments.Count,
+                CountLikes = x.Likes.Count,
+                DateAdded = x.DateAdded
+            });
 
         return await post.FirstOrDefaultAsync();
     }
 
-    public async Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId)
+    public async Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count)
     {
-        IQueryable<PostUi> post = _queryInclude
+        IQueryable<PostUi> query = _queryInclude
             .Where(x => x.AuthorId == authorId)
             .Select(x => new PostUi()
-        {
-            Id = x.Id,
-            AuthorId = x.AuthorId,
-            AuthorName = x.Author.Name,
-            AuthorImageUri = x.Author.ImageUri,
-            CountComments = x.Comments.Count,
-            CountLikes = x.Likes.Count
-        });
+            {
+                Id = x.Id,
+                AuthorId = x.AuthorId,
+                AuthorName = x.Author.Name,
+                AuthorImageUri = x.Author.ImageUri,
+                CountComments = x.Comments.Count,
+                CountLikes = x.Likes.Count,
+                DateAdded = x.DateAdded
+            })
+            .Skip((page - 1) * count)
+            .Take(count);
 
-        return await post.ToListAsync();
+        ICollection<PostUi> posts = await query.ToListAsync();
+        CollectionPostUi collectionPosts = new()
+        {
+            Posts = posts,
+            CountPosts = posts.Count
+        };
+
+        return collectionPosts;
     }
-    
+
     public async Task<PostEntity> GetPostAsync(Guid postId)
     {
         PostEntity post = await _dbContext.Post
@@ -91,12 +104,12 @@ public class PostRepository : AppDbFunc, IPostRepository
         await SaveChangeAsync();
     }
 
-    
+
     public async Task DeletePostAsync(Guid postId)
     {
         PostEntity post = await _dbContext.Post
             .FirstOrDefaultAsync(x => x.Id == postId);
-        
+
         RemoveModel(post);
 
         await SaveChangeAsync();

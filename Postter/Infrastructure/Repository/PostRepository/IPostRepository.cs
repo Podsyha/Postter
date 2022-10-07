@@ -15,8 +15,10 @@ public interface IPostRepository
     /// Получить все UI модели поста пользователя
     /// </summary>
     /// <param name="authorId"></param>
+    /// <param name="page">Номер страницы</param>
+    /// <param name="count">Число загружаемых постов</param>
     /// <returns></returns>
-    Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId);
+    Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
     /// <summary>
     /// Получить модель поста. Без проверки на null
     /// </summary>

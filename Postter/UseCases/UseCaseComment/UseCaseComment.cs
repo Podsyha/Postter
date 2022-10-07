@@ -13,14 +13,23 @@ public class UseCaseComment : IUseCaseComment
         _assert = assert;
     }
 
-    
+
     private readonly ICommentRepository _commentRepository;
     private readonly IAssert _assert;
-    
+
     public async Task<CommentEntity> GetCommentAsync(Guid commentId)
     {
         return await _commentRepository.FindCommentAsync(commentId);
     }
+
+    public async Task<CommentUi> GetCommentUiAsync(Guid commentUi) =>
+        await _commentRepository.GetCommentUiAsync(commentUi);
+    
+    public async Task<CollectionCommentUi> GetAuthorCommentsUiAsync(Guid authorId, int page, int count) =>
+        await _commentRepository.GetAuthorCommentsUiAsync(authorId, page, count);
+    
+    public async Task<CollectionCommentUi> GetPostCommentsUiAsync(Guid postId, int page, int count) =>
+        await _commentRepository.GetPostCommentsUiAsync(postId, page, count);
 
     public async Task<List<CommentEntity>> GetAuthorCommentsAsync(Guid authorId)
     {
@@ -45,7 +54,7 @@ public class UseCaseComment : IUseCaseComment
             AuthorId = newComment.AuthorId,
             PostId = newComment.PostId
         };
-        
+
         await _commentRepository.AddCommentAsync(comment);
     }
 
@@ -58,7 +67,7 @@ public class UseCaseComment : IUseCaseComment
     {
         CommentEntity comment = await _commentRepository.GetCommentAsync(commentId);
         _assert.ThrowIfFalse(comment.AuthorId == userId, "Вы не можете удалять комментарии других пользователей");
-        
+
         await _commentRepository.DeleteCommentAsync(commentId);
     }
 }

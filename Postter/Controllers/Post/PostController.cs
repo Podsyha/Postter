@@ -36,9 +36,9 @@ public class PostController : CustomController
 
     [HttpGet("/get-author-posts-ui")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetAuthorPostsUi(Guid authorId)
+    public async Task<IActionResult> GetAuthorPostsUi([FromQuery]GetAuthorPostsUiModel model)
     {
-        List<PostUi> posts = await _useCasePost.GetAuthorPostsUiAsync(authorId);
+        CollectionPostUi posts = await _useCasePost.GetAuthorPostsUiAsync(model.AuthorId, model.Page, model.Count);
 
         return Ok(posts);
     }

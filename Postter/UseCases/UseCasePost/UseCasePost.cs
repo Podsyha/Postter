@@ -19,8 +19,8 @@ public class UseCasePost : IUseCasePost
     public async Task<PostUi> GetPostUiAsync(Guid postId) =>
         await _postRepository.GetPostUiAsync(postId);
 
-    public async Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId) =>
-        await _postRepository.GetAuthorPostsUiAsync(authorId);
+    public async Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count) =>
+        await _postRepository.GetAuthorPostsUiAsync(authorId, page, count);
 
     public async Task<PostEntity> GetPostAsync(Guid postId) =>
         await _postRepository.GetPostAsync(postId);
