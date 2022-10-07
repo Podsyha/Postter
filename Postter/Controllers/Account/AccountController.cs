@@ -58,7 +58,7 @@ public class AccountController : CustomController
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("/account")]
-    [Authorize]
+    [CustomAuthorize]
     public async Task<AccountUi> GetPersonUiAsync(Guid id) =>
         await _useCaseAccount.GetPersonUiAsync(id);
 
@@ -83,7 +83,7 @@ public class AccountController : CustomController
     /// <param name="accountId">Id пользователя</param>
     /// <returns></returns>
     [HttpDelete("/delete-account")]
-    [CustomAuthorize(RolesEnum.Admin)]
+    [CustomAuthorize(RolesEnum.Admin, RolesEnum.Moder)]
     public async Task<IActionResult> DeleteAccount(Guid accountId)
     {
         await _useCaseAccount.DeleteAccount(accountId);
