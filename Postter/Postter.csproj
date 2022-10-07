@@ -22,7 +22,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\Like\Model" />
       <Folder Include="Infrastructure\DTO" />
     </ItemGroup>
 

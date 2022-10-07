@@ -11,11 +11,13 @@ using Postter.Common.Helpers;
 using Postter.Common.Middlewares;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.Repository.CommentRepository;
+using Postter.Infrastructure.Repository.LikeRepository;
 using Postter.Infrastructure.Repository.PersonRepository;
 using Postter.Infrastructure.Repository.PostRepository;
 using Postter.Infrastructure.Repository.RoleRepository;
 using Postter.UseCases.UseCaseAccount;
 using Postter.UseCases.UseCaseComment;
+using Postter.UseCases.UseCaseLike;
 using Postter.UseCases.UseCasePost;
 using Postter.UseCases.UseCaseRole;
 
@@ -98,11 +100,13 @@ builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
 builder.Services.AddTransient<ICommentRepository, CommentRepository>();
+builder.Services.AddTransient<ILikeRepository, LikeRepository>();
 // UseCase
 builder.Services.AddTransient<IUseCaseAccount, UseCaseAccount>();
 builder.Services.AddTransient<IUseCaseRole, UseCaseRole>();
 builder.Services.AddTransient<IUseCasePost, UseCasePost>();
 builder.Services.AddTransient<IUseCaseComment, UseCaseComment>();
+builder.Services.AddTransient<IUseCaseLike, UseCaseLike>();
 
 var app = builder.Build();
 
