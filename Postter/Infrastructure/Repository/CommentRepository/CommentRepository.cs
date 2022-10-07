@@ -131,17 +131,17 @@ public class CommentRepository : AppDbFunc, ICommentRepository
             .Where(x => x.Id == commentId);
 
         CommentEntity comment = await query.FirstOrDefaultAsync();
-
         _assert.IsNull(comment);
 
         return comment;
     }
 
-    public async Task AddCommentAsync(CommentEntity newComment)
+    public async Task<CommentUi> AddCommentAsync(CommentEntity newComment)
     {
         await AddModelAsync(newComment);
-
         await SaveChangeAsync();
+
+        return await GetCommentUiAsync(newComment.Id);
     }
 
     public async Task DeleteCommentAsync(Guid commentId)

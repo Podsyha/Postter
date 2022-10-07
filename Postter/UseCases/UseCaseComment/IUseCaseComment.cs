@@ -51,11 +51,12 @@ public interface IUseCaseComment
     /// <param name="commentId">Id коммента</param>
     /// <returns></returns>
     Task<CommentEntity> FindCommentAsync(Guid commentId);
+
     /// <summary>
     /// Добавить коммент
     /// </summary>
     /// <param name="newComment">Коммент</param>
-    Task AddCommentAsync(AddCommentModel newComment);
+    Task<CommentUi> AddCommentAsync(AddCommentModel newComment);
     /// <summary>
     /// Удалить коммент админом или модером
     /// </summary>

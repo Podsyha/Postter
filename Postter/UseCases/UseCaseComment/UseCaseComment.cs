@@ -47,7 +47,7 @@ public class UseCaseComment : IUseCaseComment
         return await _commentRepository.FindCommentAsync(commentId);
     }
 
-    public async Task AddCommentAsync(AddCommentModel newComment)
+    public async Task<CommentUi> AddCommentAsync(AddCommentModel newComment)
     {
         CommentEntity comment = new()
         {
@@ -56,7 +56,7 @@ public class UseCaseComment : IUseCaseComment
             PostId = newComment.PostId
         };
 
-        await _commentRepository.AddCommentAsync(comment);
+        return await _commentRepository.AddCommentAsync(comment);
     }
 
     public async Task DeleteCommentAsync(Guid commentId)

@@ -38,11 +38,12 @@ public interface IPostRepository
     /// <param name="postId"></param>
     /// <returns></returns>
     Task<PostEntity> FindPostAsync(Guid postId);
+
     /// <summary>
     /// Добавить сущность поста
     /// </summary>
     /// <param name="newPostEntity">Пост</param>
-    Task AddPostAsync(PostEntity newPostEntity);
+    Task<PostUi> AddPostAsync(PostEntity newPostEntity);
     /// <summary>
     /// Удалить пост
     /// </summary>

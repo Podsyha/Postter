@@ -32,7 +32,7 @@ public class UseCaseLike : IUseCaseLike
     public async Task<List<LikeEntity>> GetPostLikesAsync(Guid postId) =>
         await _likeRepository.GetPostLikesAsync(postId);
 
-    public async Task AddLikeAsync(AddLikeModel addLike)
+    public async Task<LikeUi> AddLikeAsync(AddLikeModel addLike)
     {
         bool isLiked = await _likeRepository.CheckLikedPost(addLike.AuthorId, addLike.PostId);
         _assert.ThrowIfTrue(isLiked, "Пост уже лайкнут");
@@ -43,7 +43,7 @@ public class UseCaseLike : IUseCaseLike
             PostId = addLike.PostId
         };
 
-        await _likeRepository.AddLikesAsync(like);
+        return await _likeRepository.AddLikesAsync(like);
     }
 
     public async Task DeleteLikesAsync(Guid likeId) =>

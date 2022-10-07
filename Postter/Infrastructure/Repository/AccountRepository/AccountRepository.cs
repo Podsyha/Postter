@@ -37,7 +37,8 @@ public class AccountRepository : AppDbFunc, IAccountRepository
                 Name = x.Name,
                 ImageUri = x.ImageUri,
                 IsActive = x.IsActive,
-                RoleName = x.Role.Name
+                RoleName = x.Role.Name,
+                DateAdded = x.DateAdded
             });
 
         return await query.FirstOrDefaultAsync();
@@ -190,7 +191,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
         await AddModelAsync(newAccountEntity);
         await SaveChangeAsync();
 
-        return DaoToUi(newAccountEntity);
+        return await GetPersonUiAsync(newAccountEntity.Id);
     }
 
     /// <summary>
@@ -204,21 +205,5 @@ public class AccountRepository : AppDbFunc, IAccountRepository
         account.IsActive = false;
         
         await SaveChangeAsync();
-    }
-    
-    private AccountUi DaoToUi(AccountEntity newAccountEntity)
-    {
-        var fields = typeof(RolesEnum).GetFields();
-        
-        return new()
-        {
-            Id = newAccountEntity.Id,
-            About = newAccountEntity.About,
-            Email = newAccountEntity.Email,
-            Name = newAccountEntity.Name,
-            ImageUri = newAccountEntity.ImageUri,
-            IsActive = newAccountEntity.IsActive,
-            RoleName = fields[newAccountEntity.RoleId].Name
-        };
     }
 }

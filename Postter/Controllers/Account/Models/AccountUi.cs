@@ -30,4 +30,8 @@ public sealed class AccountUi
     /// Роль
     /// </summary>
     public string RoleName { get; set; }
+    /// <summary>
+    /// Дата создания
+    /// </summary>
+    public DateTime DateAdded { get; set; }
 }

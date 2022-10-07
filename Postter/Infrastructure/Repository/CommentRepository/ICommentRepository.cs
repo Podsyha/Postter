@@ -51,11 +51,12 @@ public interface ICommentRepository
     /// <param name="commentId">Id коммента</param>
     /// <returns></returns>
     Task<CommentEntity> FindCommentAsync(Guid commentId);
+
     /// <summary>
     /// Добавить коммент
     /// </summary>
     /// <param name="newComment">Коммент</param>
-    Task AddCommentAsync(CommentEntity newComment);
+    Task<CommentUi> AddCommentAsync(CommentEntity newComment);
     /// <summary>
     /// Удалить коммент
     /// </summary>

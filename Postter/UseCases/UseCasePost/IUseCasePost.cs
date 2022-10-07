@@ -30,11 +30,12 @@ public interface IUseCasePost
     /// <param name="authorId"></param>
     /// <returns></returns>
     Task<List<PostEntity>> GetAuthorPostsAsync(Guid authorId);
+
     /// <summary>
     /// Добавить сущность поста
     /// </summary>
     /// <param name="model">Модельс оздания поста</param>
-    Task AddPostAsync(AddPostModel model);
+    Task<PostUi> AddPostAsync(AddPostModel model);
     /// <summary>
     /// Удалить пост по ID поста
     /// </summary>

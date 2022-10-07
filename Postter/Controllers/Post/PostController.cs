@@ -63,9 +63,9 @@ public class PostController : CustomController
     public async Task<IActionResult> AddPost(AddPostModel model)
     {
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());
-        await _useCasePost.AddPostAsync(model);
+        PostUi post = await _useCasePost.AddPostAsync(model);
 
-        return Ok();
+        return Ok(post);
     }
 
     /// <summary>

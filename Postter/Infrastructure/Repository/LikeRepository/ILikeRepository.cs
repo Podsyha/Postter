@@ -57,11 +57,12 @@ public interface ILikeRepository
     /// <param name="likeId">Id лайка</param>
     /// <returns></returns>
     Task<LikeEntity> FindLikeAsync(Guid likeId);
+
     /// <summary>
     /// Добавить лайк
     /// </summary>
     /// <param name="newLike">Коммент</param>
-    Task AddLikesAsync(LikeEntity newLike);
+    Task<LikeUi> AddLikesAsync(LikeEntity newLike);
     /// <summary>
     /// Удалить лайк
     /// </summary>

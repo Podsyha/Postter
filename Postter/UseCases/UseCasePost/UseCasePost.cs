@@ -29,7 +29,7 @@ public class UseCasePost : IUseCasePost
     public async Task<List<PostEntity>> GetAuthorPostsAsync(Guid authorId) =>
         await _postRepository.GetAuthorPostsAsync(authorId);
 
-    public async Task AddPostAsync(AddPostModel model)
+    public async Task<PostUi> AddPostAsync(AddPostModel model)
     {
         PostEntity post = new()
         {
@@ -37,7 +37,7 @@ public class UseCasePost : IUseCasePost
             Text = model.Text
         };
 
-        await _postRepository.AddPostAsync(post);
+        return await _postRepository.AddPostAsync(post);
     }
     
     public async Task DeletePostAsync(Guid postId) =>

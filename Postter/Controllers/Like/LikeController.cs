@@ -54,9 +54,9 @@ public class LikeController : CustomController
     public async Task<IActionResult> AddLike(AddLikeModel model)
     {
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());
-        await _useCaseLike.AddLikeAsync(model);
+        LikeUi like = await _useCaseLike.AddLikeAsync(model);
 
-        return Ok();
+        return Ok(like);
     }
 
     /// <summary>

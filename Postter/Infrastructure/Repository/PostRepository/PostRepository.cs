@@ -100,11 +100,12 @@ public class PostRepository : AppDbFunc, IPostRepository
         return post;
     }
 
-    public async Task AddPostAsync(PostEntity newPostEntity)
+    public async Task<PostUi> AddPostAsync(PostEntity newPostEntity)
     {
         await AddModelAsync(newPostEntity);
-
         await SaveChangeAsync();
+
+        return await GetPostUiAsync(newPostEntity.Id);
     }
 
 

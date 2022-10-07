@@ -44,11 +44,12 @@ public interface IUseCaseLike
     /// <param name="postId">Id поста лайков</param>
     /// <returns></returns>
     Task<List<LikeEntity>> GetPostLikesAsync(Guid postId);
+
     /// <summary>
     /// Добавить лайк
     /// </summary>
     /// <param name="addLike">Коммент</param>
-    Task AddLikeAsync(AddLikeModel addLike);
+    Task<LikeUi> AddLikeAsync(AddLikeModel addLike);
     /// <summary>
     /// Удалить лайк
     /// </summary>
