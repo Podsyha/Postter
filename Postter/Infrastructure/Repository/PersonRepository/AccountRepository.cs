@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
 using Postter.Common.Helpers;
+using Postter.Controllers.Account.Models;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
 namespace Postter.Infrastructure.Repository.PersonRepository;
 
-public class PersonRepository : AppDbFunc, IPersonRepository
+public class AccountRepository : AppDbFunc, IAccountRepository
 {
-    public PersonRepository(AppDbContext dbContext, IAssert assert, IRegistrationHelper registrationHelper) : base(dbContext, assert)
+    public AccountRepository(AppDbContext dbContext, IAssert assert, IRegistrationHelper registrationHelper) 
+        : base(dbContext, assert)
     {
         _assert = assert;
         _registrationHelper = registrationHelper;
@@ -16,7 +18,30 @@ public class PersonRepository : AppDbFunc, IPersonRepository
 
     private readonly IAssert _assert;
     private readonly IRegistrationHelper _registrationHelper;
+    
+    /// <summary>
+    /// Получить модель пользователя. Без првоерки на null
+    /// </summary>
+    /// <param name="id">Id пользователя</param>
+    /// <returns></returns>
+    public async Task<AccountUi> GetPersonUiAsync(Guid id)
+    {
+        IQueryable<AccountUi> query = _dbContext.Person
+            .Include(x => x.Role)
+            .Where(person => person.Id == id)
+            .Select(x => new AccountUi()
+            {
+                Id = x.Id,
+                About = x.About,
+                Email = x.Email,
+                Name = x.Name,
+                ImageUri = x.ImageUri,
+                IsActive = x.IsActive,
+                RoleName = x.Role.Name
+            });
 
+        return await query.FirstOrDefaultAsync();
+    }
 
     /// <summary>
     /// Получить модель пользователя. Без првоерки на null

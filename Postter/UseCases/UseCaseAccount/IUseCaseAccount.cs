@@ -6,6 +6,12 @@ namespace Postter.UseCases.UseCaseAccount;
 
 public interface IUseCaseAccount
 {
+    ///<summary>
+    /// Получить UI модель пользователя. Без првоерки на null
+    /// </summary>
+    /// <param name="id">Id пользователя</param>
+    /// <returns></returns>
+    Task<AccountUi> GetPersonUiAsync(Guid id);
     JwtSecurityToken GetToken(ClaimsIdentity identity);
     Task<ClaimsIdentity> GetIdentity(string email, string password);
     Task GiveTheUserARole(string email, string role);

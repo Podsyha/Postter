@@ -14,14 +14,14 @@ namespace Postter.UseCases.UseCaseAccount;
 
 public class UseCaseAccount : IUseCaseAccount
 {
-    public UseCaseAccount(IPersonRepository personRepository, IAssert assert, IRoleRepository roleRepository)
+    public UseCaseAccount(IAccountRepository accountRepository, IAssert assert, IRoleRepository roleRepository)
     {
-        _personRepository = personRepository;
+        _accountRepository = accountRepository;
         _assert = assert;
         _roleRepository = roleRepository;
     }
 
-    private readonly IPersonRepository _personRepository;
+    private readonly IAccountRepository _accountRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IAssert _assert;
 
@@ -32,7 +32,7 @@ public class UseCaseAccount : IUseCaseAccount
     /// <param name="model">RegistrationModel</param>
     public async Task Registration(RegistrationModel model)
     {
-        bool isUniquenessEmail = await _personRepository.CheckMailUniqueness(model.Email);
+        bool isUniquenessEmail = await _accountRepository.CheckMailUniqueness(model.Email);
         _assert.ThrowIfFalse(isUniquenessEmail, "Пользователь с данной почтой уже существует в системе");
 
         RegistrationHelper helper = new();
@@ -49,7 +49,7 @@ public class UseCaseAccount : IUseCaseAccount
             RoleId = (int)RolesEnum.User
         };
 
-        await _personRepository.AddPerson(newAccountEntity);
+        await _accountRepository.AddPerson(newAccountEntity);
     }
 
     /// <summary>
@@ -58,8 +58,8 @@ public class UseCaseAccount : IUseCaseAccount
     /// <param name="accountId">Id пользователя</param>
     /// <returns></returns>
     public async Task DeleteAccount(Guid accountId) =>
-        await _personRepository.DeleteAccount(accountId);
-    
+        await _accountRepository.DeleteAccount(accountId);
+
     /// <summary>
     /// Обновить базовую информацию о пользователе
     /// </summary>
@@ -67,13 +67,16 @@ public class UseCaseAccount : IUseCaseAccount
     /// <returns></returns>
     public async Task UpdateAccountInfo(UpdateAccountInfoModel model)
     {
-        AccountEntity accountEntity = await _personRepository.FindPersonAsync(model.Id);
+        AccountEntity accountEntity = await _accountRepository.FindPersonAsync(model.Id);
 
         accountEntity.About = model.About;
         accountEntity.Name = model.Name;
-        
-        await _personRepository.UpdatePersonInfo(accountEntity);
+
+        await _accountRepository.UpdatePersonInfo(accountEntity);
     }
+
+    public async Task<AccountUi> GetPersonUiAsync(Guid id) =>
+        await _accountRepository.GetPersonUiAsync(id);
 
     /// <summary>
     /// Получить токен аутентификации
@@ -103,7 +106,7 @@ public class UseCaseAccount : IUseCaseAccount
     /// <returns></returns>
     public async Task<ClaimsIdentity> GetIdentity(string email, string password)
     {
-        AccountEntity accountEntity = await _personRepository.GetPersonAsync(email, password);
+        AccountEntity accountEntity = await _accountRepository.GetPersonAsync(email, password);
 
         if (accountEntity == null) return null;
 
@@ -129,7 +132,7 @@ public class UseCaseAccount : IUseCaseAccount
     /// <param name="role">необходимая роль</param>
     public async Task GiveTheUserARole(string email, string role)
     {
-        AccountEntity accountEntity = await _personRepository.GetPersonAsync(email);
+        AccountEntity accountEntity = await _accountRepository.GetPersonAsync(email);
 
         _assert.IsNull(accountEntity, $"Не найден пользователь с email: {email}");
 
@@ -139,6 +142,6 @@ public class UseCaseAccount : IUseCaseAccount
         _assert.IsNull(currentRoleEntity, $"Не найдена роль: {role}");
 
         accountEntity.RoleId = currentRoleEntity.Id;
-        await _personRepository.UpdatePersonInfo(accountEntity);
+        await _accountRepository.UpdatePersonInfo(accountEntity);
     }
 }

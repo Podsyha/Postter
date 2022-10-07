@@ -97,7 +97,7 @@ builder.Services.AddTransient<IAssert, Assert>();
 builder.Services.AddTransient<IRegistrationHelper, RegistrationHelper>();
 // Infrasctructure
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
-builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
 builder.Services.AddTransient<ICommentRepository, CommentRepository>();
 builder.Services.AddTransient<ILikeRepository, LikeRepository>();

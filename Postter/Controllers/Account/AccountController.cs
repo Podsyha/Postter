@@ -25,8 +25,7 @@ public class AccountController : CustomController
 
     private readonly IUseCaseAccount _useCaseAccount;
 
-    
-    
+
     /// <summary>
     /// Получить токен аутентификации
     /// </summary>
@@ -52,7 +51,12 @@ public class AccountController : CustomController
 
         return Ok(response);
     }
-    
+
+    [HttpGet("/account-ui")]
+    [Authorize]
+    public async Task<AccountUi> GetPersonUiAsync(Guid id) =>
+        await _useCaseAccount.GetPersonUiAsync(id);
+
     /// <summary>
     /// Зарегистрировать нового пользователя
     /// </summary>
@@ -78,7 +82,7 @@ public class AccountController : CustomController
     public async Task<IActionResult> DeleteAccount(Guid accountId)
     {
         await _useCaseAccount.DeleteAccount(accountId);
-        
+
         return Ok();
     }
 
@@ -92,9 +96,9 @@ public class AccountController : CustomController
     public async Task<IActionResult> UpdateAccountInfo(UpdateAccountInfoModel model)
     {
         CheckCurrentUser(model.Id);
-        
+
         await _useCaseAccount.UpdateAccountInfo(model);
-        
+
         return Ok();
     }
 
@@ -108,7 +112,7 @@ public class AccountController : CustomController
     public async Task<IActionResult> GiveTheUserARole(string email, string role)
     {
         await _useCaseAccount.GiveTheUserARole(email, role);
-        
+
         return Ok();
     }
 }
