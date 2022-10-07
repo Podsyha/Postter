@@ -1,9 +1,22 @@
-﻿using Postter.Infrastructure.DAO;
+﻿using Postter.Controllers.Post.Model;
+using Postter.Infrastructure.DAO;
 
 namespace Postter.Infrastructure.Repository.PostRepository;
 
 public interface IPostRepository
 {
+    /// <summary>
+    /// Получить UI модель поста
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
+    Task<PostUi> GetPostUiAsync(Guid postId);
+    /// <summary>
+    /// Получить все UI модели поста пользователя
+    /// </summary>
+    /// <param name="authorId"></param>
+    /// <returns></returns>
+    Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId);
     /// <summary>
     /// Получить модель поста. Без проверки на null
     /// </summary>

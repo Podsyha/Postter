@@ -16,6 +16,12 @@ public class UseCasePost : IUseCasePost
     private readonly IPostRepository _postRepository;
     private readonly IAssert _assert;
 
+    public async Task<PostUi> GetPostUiAsync(Guid postId) =>
+        await _postRepository.GetPostUiAsync(postId);
+
+    public async Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId) =>
+        await _postRepository.GetAuthorPostsUiAsync(authorId);
+
     public async Task<PostEntity> GetPostAsync(Guid postId) =>
         await _postRepository.GetPostAsync(postId);
 

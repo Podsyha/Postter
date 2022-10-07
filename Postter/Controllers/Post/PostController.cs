@@ -24,6 +24,25 @@ public class PostController : CustomController
 
     private readonly IUseCasePost _useCasePost;
 
+
+    [HttpGet("/get-post-ui")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetPostUi(Guid postId)
+    {
+        PostUi post = await _useCasePost.GetPostUiAsync(postId);
+
+        return Ok(post);
+    }
+
+    [HttpGet("/get-author-posts-ui")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetAuthorPostsUi(Guid authorId)
+    {
+        List<PostUi> posts = await _useCasePost.GetAuthorPostsUiAsync(authorId);
+
+        return Ok(posts);
+    }
+    
     [HttpGet("/get-post")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPost(Guid postId)

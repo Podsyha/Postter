@@ -6,6 +6,18 @@ namespace Postter.UseCases.UseCasePost;
 public interface IUseCasePost
 {
     /// <summary>
+    /// Получить UI модель поста
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
+    Task<PostUi> GetPostUiAsync(Guid postId);
+    /// <summary>
+    /// Получить все UI модели поста пользователя
+    /// </summary>
+    /// <param name="authorId"></param>
+    /// <returns></returns>
+    Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId);
+    /// <summary>
     /// Получить модель поста
     /// </summary>
     /// <param name="postId">Id поста</param>

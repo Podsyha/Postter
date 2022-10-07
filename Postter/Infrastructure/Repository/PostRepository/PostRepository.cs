@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
+using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
@@ -10,10 +11,47 @@ public class PostRepository : AppDbFunc, IPostRepository
     public PostRepository(AppDbContext dbContext, IAssert assert) : base(dbContext, assert)
     {
         _assert = assert;
+        _queryInclude = _dbContext.Post
+            .Include(x => x.Author)
+            .Include(x => x.Comments)
+            .Include(x => x.Likes);
     }
     
     private readonly IAssert _assert;
-    
+    private readonly IQueryable<PostEntity> _queryInclude;
+
+
+    public async Task<PostUi> GetPostUiAsync(Guid postId)
+    {
+        IQueryable<PostUi> post = _queryInclude.Select(x => new PostUi()
+        {
+            Id = x.Id,
+            AuthorId = x.AuthorId,
+            AuthorName = x.Author.Name,
+            AuthorImageUri = x.Author.ImageUri,
+            CountComments = x.Comments.Count,
+            CountLikes = x.Likes.Count
+        });
+
+        return await post.FirstOrDefaultAsync();
+    }
+
+    public async Task<List<PostUi>> GetAuthorPostsUiAsync(Guid authorId)
+    {
+        IQueryable<PostUi> post = _queryInclude
+            .Where(x => x.AuthorId == authorId)
+            .Select(x => new PostUi()
+        {
+            Id = x.Id,
+            AuthorId = x.AuthorId,
+            AuthorName = x.Author.Name,
+            AuthorImageUri = x.Author.ImageUri,
+            CountComments = x.Comments.Count,
+            CountLikes = x.Likes.Count
+        });
+
+        return await post.ToListAsync();
+    }
     
     public async Task<PostEntity> GetPostAsync(Guid postId)
     {
