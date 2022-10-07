@@ -1,4 +1,5 @@
-﻿using Postter.Controllers.Post.Model;
+﻿using Postter.Controllers.Model;
+using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
 
 namespace Postter.UseCases.UseCasePost;
@@ -16,7 +17,7 @@ public interface IUseCasePost
     /// </summary>
     /// <param name="authorId"></param>
     /// <returns></returns>
-    Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
+    Task<CollectionEntityUi<PostUi>> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
     /// <summary>
     /// Получить модель поста
     /// </summary>

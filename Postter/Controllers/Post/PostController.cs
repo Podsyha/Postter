@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
+using Postter.Controllers.Model;
 using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
@@ -38,7 +39,7 @@ public class PostController : CustomController
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorPostsUi([FromQuery]GetAuthorPostsUiModel model)
     {
-        CollectionPostUi posts = await _useCasePost.GetAuthorPostsUiAsync(model.AuthorId, model.Page, model.Count);
+        CollectionEntityUi<PostUi> posts = await _useCasePost.GetAuthorPostsUiAsync(model.AuthorId, model.Page, model.Count);
 
         return Ok(posts);
     }

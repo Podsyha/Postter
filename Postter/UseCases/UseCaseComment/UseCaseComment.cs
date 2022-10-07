@@ -1,5 +1,6 @@
 ﻿using Postter.Common.Assert;
 using Postter.Controllers.Comment.Model;
+using Postter.Controllers.Model;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.Repository.CommentRepository;
 
@@ -25,10 +26,10 @@ public class UseCaseComment : IUseCaseComment
     public async Task<CommentUi> GetCommentUiAsync(Guid commentUi) =>
         await _commentRepository.GetCommentUiAsync(commentUi);
     
-    public async Task<CollectionCommentUi> GetAuthorCommentsUiAsync(Guid authorId, int page, int count) =>
+    public async Task<CollectionEntityUi<CommentUi>> GetAuthorCommentsUiAsync(Guid authorId, int page, int count) =>
         await _commentRepository.GetAuthorCommentsUiAsync(authorId, page, count);
     
-    public async Task<CollectionCommentUi> GetPostCommentsUiAsync(Guid postId, int page, int count) =>
+    public async Task<CollectionEntityUi<CommentUi>> GetPostCommentsUiAsync(Guid postId, int page, int count) =>
         await _commentRepository.GetPostCommentsUiAsync(postId, page, count);
 
     public async Task<List<CommentEntity>> GetAuthorCommentsAsync(Guid authorId)

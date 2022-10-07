@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
+using Postter.Controllers.Model;
 using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
@@ -39,8 +40,9 @@ public class PostRepository : AppDbFunc, IPostRepository
         return await post.FirstOrDefaultAsync();
     }
 
-    public async Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count)
+    public async Task<CollectionEntityUi<PostUi>> GetAuthorPostsUiAsync(Guid authorId, int page, int count)
     {
+        int totalCount = _dbContext.Post.Count(x => x.AuthorId == authorId);
         IQueryable<PostUi> query = _queryInclude
             .Where(x => x.AuthorId == authorId)
             .Select(x => new PostUi()
@@ -55,12 +57,13 @@ public class PostRepository : AppDbFunc, IPostRepository
             })
             .Skip((page - 1) * count)
             .Take(count);
-
-        ICollection<PostUi> posts = await query.ToListAsync();
-        CollectionPostUi collectionPosts = new()
+        
+        double totalPages = Convert.ToDouble(totalCount) / Convert.ToDouble(count);
+        CollectionEntityUi<PostUi> collectionPosts = new()
         {
-            Posts = posts,
-            CountPosts = posts.Count
+            Items = await query.ToListAsync(),
+            TotalCount = totalCount,
+            TotalPages = Math.Ceiling(totalPages)
         };
 
         return collectionPosts;

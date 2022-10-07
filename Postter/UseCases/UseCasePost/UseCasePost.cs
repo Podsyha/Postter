@@ -1,4 +1,5 @@
 ﻿using Postter.Common.Assert;
+using Postter.Controllers.Model;
 using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.Repository.PostRepository;
@@ -19,7 +20,7 @@ public class UseCasePost : IUseCasePost
     public async Task<PostUi> GetPostUiAsync(Guid postId) =>
         await _postRepository.GetPostUiAsync(postId);
 
-    public async Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count) =>
+    public async Task<CollectionEntityUi<PostUi>> GetAuthorPostsUiAsync(Guid authorId, int page, int count) =>
         await _postRepository.GetAuthorPostsUiAsync(authorId, page, count);
 
     public async Task<PostEntity> GetPostAsync(Guid postId) =>

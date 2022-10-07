@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postter.Common.Assert;
 using Postter.Controllers.Comment.Model;
+using Postter.Controllers.Model;
 using Postter.Infrastructure.Context;
 using Postter.Infrastructure.DAO;
 
@@ -36,8 +37,9 @@ public class CommentRepository : AppDbFunc, ICommentRepository
         return await commentQuery.FirstOrDefaultAsync();
     }
     
-    public async Task<CollectionCommentUi> GetAuthorCommentsUiAsync(Guid authorId, int page, int count)
+    public async Task<CollectionEntityUi<CommentUi>> GetAuthorCommentsUiAsync(Guid authorId, int page, int count)
     {
+        int totalCount = _dbContext.Comment.Count(x => x.AuthorId == authorId);
         IQueryable<CommentUi> query = _queryInclude
             .Where(x => x.AuthorId == authorId)
             .Select(x => new CommentUi()
@@ -52,19 +54,21 @@ public class CommentRepository : AppDbFunc, ICommentRepository
             })
             .Skip((page - 1) * count)
             .Take(count);
-
-        ICollection<CommentUi> comments = await query.ToListAsync();
-        CollectionCommentUi collectionPosts = new()
+        
+        double totalPages = Convert.ToDouble(totalCount) / Convert.ToDouble(count);
+        CollectionEntityUi<CommentUi> collectionPosts = new()
         {
-            Comments = comments,
-            CommentCount = comments.Count
+            Items = await query.ToListAsync(),
+            TotalCount = totalCount,
+            TotalPages = Math.Ceiling(totalPages)
         };
 
         return collectionPosts;
     }
     
-    public async Task<CollectionCommentUi> GetPostCommentsUiAsync(Guid postId, int page, int count)
+    public async Task<CollectionEntityUi<CommentUi>> GetPostCommentsUiAsync(Guid postId, int page, int count)
     {
+        int totalCount = _dbContext.Comment.Count(x => x.PostId == postId);
         IQueryable<CommentUi> query = _queryInclude
             .Where(x => x.PostId == postId)
             .Select(x => new CommentUi()
@@ -79,15 +83,16 @@ public class CommentRepository : AppDbFunc, ICommentRepository
             })
             .Skip((page - 1) * count)
             .Take(count);
-
-        ICollection<CommentUi> comments = await query.ToListAsync();
-        CollectionCommentUi collectionPosts = new()
+        
+        double totalPages = Convert.ToDouble(totalCount) / Convert.ToDouble(count);
+        CollectionEntityUi<CommentUi> collectionComments = new()
         {
-            Comments = comments,
-            CommentCount = comments.Count
+            Items = await query.ToListAsync(),
+            TotalCount = totalCount,
+            TotalPages = Math.Ceiling(totalPages)
         };
 
-        return collectionPosts;
+        return collectionComments;
     }
     
     public async Task<CommentEntity> GetCommentAsync(Guid commentId)

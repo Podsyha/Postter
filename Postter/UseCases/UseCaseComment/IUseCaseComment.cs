@@ -1,4 +1,5 @@
 ﻿using Postter.Controllers.Comment.Model;
+using Postter.Controllers.Model;
 using Postter.Infrastructure.DAO;
 
 namespace Postter.UseCases.UseCaseComment;
@@ -18,14 +19,14 @@ public interface IUseCaseComment
     /// <param name="page">Страница</param>
     /// <param name="count">Кол-во комментов на странице</param>
     /// <returns></returns>
-    Task<CollectionCommentUi> GetAuthorCommentsUiAsync(Guid authorId, int page, int count);
+    Task<CollectionEntityUi<CommentUi>> GetAuthorCommentsUiAsync(Guid authorId, int page, int count);
     /// <summary>
     /// Получить все UI комменты поста
     /// </summary>
     /// <param name="postId">Id поста</param>
     /// <param name="page">Страница</param>
     /// <param name="count">Кол-во комментов на странице</param>
-    Task<CollectionCommentUi> GetPostCommentsUiAsync(Guid postId, int page, int count);
+    Task<CollectionEntityUi<CommentUi>> GetPostCommentsUiAsync(Guid postId, int page, int count);
     /// <summary>
     /// Получить коммент. Без проверки на null
     /// </summary>

@@ -1,4 +1,5 @@
-﻿using Postter.Controllers.Post.Model;
+﻿using Postter.Controllers.Model;
+using Postter.Controllers.Post.Model;
 using Postter.Infrastructure.DAO;
 
 namespace Postter.Infrastructure.Repository.PostRepository;
@@ -18,7 +19,7 @@ public interface IPostRepository
     /// <param name="page">Номер страницы</param>
     /// <param name="count">Число загружаемых постов</param>
     /// <returns></returns>
-    Task<CollectionPostUi> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
+    Task<CollectionEntityUi<PostUi>> GetAuthorPostsUiAsync(Guid authorId, int page, int count);
     /// <summary>
     /// Получить модель поста. Без проверки на null
     /// </summary>

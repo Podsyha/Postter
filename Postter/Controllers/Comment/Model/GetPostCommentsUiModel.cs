@@ -1,4 +1,6 @@
-﻿namespace Postter.Controllers.Comment.Model;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Postter.Controllers.Comment.Model;
 
 /// <summary>
 /// Модель для получения UI комментариев поста
@@ -12,9 +14,11 @@ public class GetPostCommentsUiModel
     /// <summary>
     /// Страница
     /// </summary>
+    [Range(1, int.MaxValue, ErrorMessage = "Введите значение больше {0}")]
     public int Page { get; set; }
     /// <summary>
     /// Кол-во загружаемых комментариев на странице
     /// </summary>
+    [Range(1, int.MaxValue, ErrorMessage = "Введите значение больше {0}")]
     public int Count { get; set; }
 }

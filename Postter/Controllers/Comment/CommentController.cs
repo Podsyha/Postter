@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Comment.Model;
+using Postter.Controllers.Model;
 using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCaseComment;
@@ -37,7 +38,7 @@ public class CommentController : CustomController
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorCommentUi([FromQuery]GetAuthorCommentsUiModel model)
     {
-        CollectionCommentUi posts = await _useCaseComment.GetAuthorCommentsUiAsync(model.AuthorId, model.Page, model.Count);
+        CollectionEntityUi<CommentUi> posts = await _useCaseComment.GetAuthorCommentsUiAsync(model.AuthorId, model.Page, model.Count);
 
         return Ok(posts);
     }
@@ -46,7 +47,7 @@ public class CommentController : CustomController
     [AllowAnonymous]
     public async Task<IActionResult> GetPostCommentsUi([FromQuery]GetPostCommentsUiModel model)
     {
-        CollectionCommentUi posts = await _useCaseComment.GetPostCommentsUiAsync(model.PostId, model.Page, model.Count);
+        CollectionEntityUi<CommentUi> posts = await _useCaseComment.GetPostCommentsUiAsync(model.PostId, model.Page, model.Count);
 
         return Ok(posts);
     }
