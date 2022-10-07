@@ -5,7 +5,6 @@ using Postter.Common.Attribute;
 using Postter.Common.Helpers.ApiResponse;
 using Postter.Controllers.Like.Model;
 using Postter.Controllers.Model;
-using Postter.Infrastructure.DAO;
 using Postter.Infrastructure.DTO;
 using Postter.UseCases.UseCaseLike;
 
@@ -25,39 +24,31 @@ public class LikeController : CustomController
 
     private readonly IUseCaseLike _useCaseLike;
 
-    [HttpGet("/author-likes-ui")]
+    /// <summary>
+    /// Получить лайки пользователя
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("/author-likes")]
     [AllowAnonymous]
     public async Task<CollectionEntityUi<LikeUi>> GetAuthorLikesUiAsync([FromQuery] GetAuthorLikesUiModel model) =>
         await _useCaseLike.GetAuthorLikesUiAsync(model.AuthorId, model.Page, model.Count);
-
-    [HttpGet("/author-post-likes-ui")]
-    [AllowAnonymous]
-    public async Task<CollectionEntityUi<LikeUi>> GetAuthorPostLikesUiAsync([FromQuery] GetAuthorPostLikesUiModel model) =>
-        await _useCaseLike.GetAuthorPostLikesUiAsync(model.AuthorId, model.PostId, model.Page, model.Count);
-
-    [HttpGet("/post-likes-ui")]
+    
+    /// <summary>
+    /// Получить лайки на посте
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("/post-likes")]
     [AllowAnonymous]
     public async Task<CollectionEntityUi<LikeUi>> GetPostLikesUiAsync([FromQuery]GetPostLikesUiModel model) =>
         await _useCaseLike.GetPostLikesUiAsync(model.PostId, model.Page, model.Count);
 
-    [HttpGet("/author-likes")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetAuthorLikes(Guid commentId)
-    {
-        List<LikeEntity> posts = await _useCaseLike.GetAuthorLikesAsync(commentId);
-
-        return Ok(posts);
-    }
-
-    [HttpGet("/post-likes")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetPostLikes(Guid authorId)
-    {
-        List<LikeEntity> posts = await _useCaseLike.GetPostLikesAsync(authorId);
-
-        return Ok(posts);
-    }
-
+    /// <summary>
+    /// Добавить лайк
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     [HttpPost("/like")]
     [CustomAuthorize]
     public async Task<IActionResult> AddLike(AddLikeModel model)
@@ -68,6 +59,10 @@ public class LikeController : CustomController
         return Ok();
     }
 
+    /// <summary>
+    /// Удалить лайк
+    /// </summary>
+    /// <param name="likeId"></param>
     [HttpDelete("/like")]
     [CustomAuthorize]
     public async Task DeleteLikes(Guid likeId)

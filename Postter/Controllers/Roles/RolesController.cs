@@ -9,7 +9,7 @@ using Postter.UseCases.UseCaseRole;
 namespace Postter.Controllers.Roles;
 
 /// <summary>
-/// Контроллер ролей
+/// Контроллер ролей для тестирования
 /// </summary>
 [ApiController]
 [Route("[controller]")]

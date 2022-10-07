@@ -2,7 +2,7 @@
 
 namespace Postter.Controllers.Comment.Model;
 
-public class AddCommentModel
+public sealed class AddCommentModel
 {
     /// <summary>
     /// Id автора коммента

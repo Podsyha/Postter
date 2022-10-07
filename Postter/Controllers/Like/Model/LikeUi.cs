@@ -3,7 +3,7 @@
 /// <summary>
 /// Модель лайка для UI
 /// </summary>
-public class LikeUi
+public sealed class LikeUi
 {
     /// <summary>
     /// Id лайка

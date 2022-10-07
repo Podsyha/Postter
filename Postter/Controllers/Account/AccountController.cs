@@ -51,8 +51,13 @@ public class AccountController : CustomController
 
         return Ok(response);
     }
-
-    [HttpGet("/account-ui")]
+    
+    /// <summary>
+    /// Получить модель пользователя
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("/account")]
     [Authorize]
     public async Task<AccountUi> GetPersonUiAsync(Guid id) =>
         await _useCaseAccount.GetPersonUiAsync(id);

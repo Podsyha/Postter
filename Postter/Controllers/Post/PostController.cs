@@ -24,9 +24,13 @@ public class PostController : CustomController
     }
 
     private readonly IUseCasePost _useCasePost;
-
-
-    [HttpGet("/get-post-ui")]
+    
+    /// <summary>
+    /// Получить пост
+    /// </summary>
+    /// <param name="postId"></param>
+    /// <returns></returns>
+    [HttpGet("/get-post")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPostUi(Guid postId)
     {
@@ -35,7 +39,12 @@ public class PostController : CustomController
         return Ok(post);
     }
 
-    [HttpGet("/get-author-posts-ui")]
+    /// <summary>
+    /// Получить посты автора
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("/get-author-posts")]
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorPostsUi([FromQuery]GetAuthorPostsUiModel model)
     {
@@ -43,25 +52,12 @@ public class PostController : CustomController
 
         return Ok(posts);
     }
-    
-    [HttpGet("/get-post")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetPost(Guid postId)
-    {
-        PostEntity post = await _useCasePost.GetPostAsync(postId);
 
-        return Ok(post);
-    }
-
-    [HttpGet("/get-author-posts")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetAuthorPosts(Guid authorId)
-    {
-        List<PostEntity> posts = await _useCasePost.GetAuthorPostsAsync(authorId);
-
-        return Ok(posts);
-    }
-
+    /// <summary>
+    /// Добавить пост
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     [HttpPost("/add-post")]
     [CustomAuthorize]
     public async Task<IActionResult> AddPost(AddPostModel model)
@@ -72,6 +68,10 @@ public class PostController : CustomController
         return Ok();
     }
 
+    /// <summary>
+    /// Удалить пост
+    /// </summary>
+    /// <param name="postId"></param>
     [HttpDelete("/delete-post")]
     [CustomAuthorize]
     public async Task DeletePost(Guid postId)

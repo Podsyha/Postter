@@ -5,7 +5,7 @@ namespace Postter.Controllers.Comment.Model;
 /// <summary>
 /// Модель для получения UI комментариев автора
 /// </summary>
-public class GetAuthorCommentsUiModel
+public sealed class GetAuthorCommentsUiModel
 {
     /// <summary>
     /// Id автора комментариев

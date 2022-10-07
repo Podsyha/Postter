@@ -24,8 +24,13 @@ public class CommentController : CustomController
     }
 
     private readonly IUseCaseComment _useCaseComment;
-
-    [HttpGet("/comment-ui")]
+    
+    /// <summary>
+    /// Получить комментарий
+    /// </summary>
+    /// <param name="commentId"></param>
+    /// <returns></returns>
+    [HttpGet("/comment")]
     [AllowAnonymous]
     public async Task<IActionResult> GetCommentUi(Guid commentId)
     {
@@ -33,8 +38,13 @@ public class CommentController : CustomController
 
         return Ok(post);
     }
-
-    [HttpGet("/author-сomments-ui")]
+    
+    /// <summary>
+    /// Получить комментарии пользователя 
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("/author-сomments")]
     [AllowAnonymous]
     public async Task<IActionResult> GetAuthorCommentUi([FromQuery]GetAuthorCommentsUiModel model)
     {
@@ -43,7 +53,12 @@ public class CommentController : CustomController
         return Ok(posts);
     }
     
-    [HttpGet("/post-сomments-ui")]
+    /// <summary>
+    /// Получить комментарии поста
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpGet("/post-сomments")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPostCommentsUi([FromQuery]GetPostCommentsUiModel model)
     {
@@ -52,33 +67,11 @@ public class CommentController : CustomController
         return Ok(posts);
     }
     
-    [HttpGet("/comment")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetComment(Guid commentId)
-    {
-        CommentEntity post = await _useCaseComment.GetCommentAsync(commentId);
-
-        return Ok(post);
-    }
-
-    [HttpGet("/author-сomments")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetAuthorComment(Guid authorId)
-    {
-        List<CommentEntity> posts = await _useCaseComment.GetAuthorCommentsAsync(authorId);
-
-        return Ok(posts);
-    }
-    
-    [HttpGet("/post-сomments")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetPostComments(Guid postId)
-    {
-        List<CommentEntity> posts = await _useCaseComment.GetPostCommentsAsync(postId);
-
-        return Ok(posts);
-    }
-
+    /// <summary>
+    /// Добавить комментарий
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
     [HttpPost("/comment")]
     [CustomAuthorize]
     public async Task<IActionResult> AddComment(AddCommentModel model)
@@ -89,6 +82,10 @@ public class CommentController : CustomController
         return Ok();
     }
 
+    /// <summary>
+    /// Удалить комментарий
+    /// </summary>
+    /// <param name="commentId"></param>
     [HttpDelete("/comment")]
     [CustomAuthorize]
     public async Task DeleteComment(Guid commentId)

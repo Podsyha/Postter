@@ -2,7 +2,7 @@
 
 namespace Postter.Controllers.Post.Model;
 
-public class AddPostModel
+public sealed class AddPostModel
 {
     /// <summary>
     /// Id автора поста
