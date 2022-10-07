@@ -24,6 +24,9 @@ public class UseCaseLike : IUseCaseLike
 
     public async Task AddLikeAsync(AddLikeModel addLike)
     {
+        bool isLiked = await _likeRepository.CheckLikedPost(addLike.AuthorId, addLike.PostId);
+        _assert.ThrowIfTrue(isLiked, "Пост уже лайкнут");
+        
         LikeEntity like = new()
         {
             AuthorId = addLike.AuthorId,

@@ -17,11 +17,22 @@ public class LikeRepository : AppDbFunc, ILikeRepository
 
     private readonly IAssert _assert;
     private readonly IQueryable<LikeEntity> _likeQuery;
-    
+
     public async Task<List<LikeEntity>> GetAuthorLikesAsync(Guid authorId)
     {
         IQueryable<LikeEntity> query = _likeQuery
             .Where(x => x.AuthorId == authorId);
+
+        List<LikeEntity> likes = await query.ToListAsync();
+
+        return likes;
+    }
+
+    public async Task<List<LikeEntity>> GetAuthorPostLikesAsync(Guid authorId, Guid postId)
+    {
+        IQueryable<LikeEntity> query = _likeQuery
+            .Where(x => x.AuthorId == authorId)
+            .Where(x => x.PostId == postId);
 
         List<LikeEntity> likes = await query.ToListAsync();
 
@@ -37,7 +48,7 @@ public class LikeRepository : AppDbFunc, ILikeRepository
 
         return likes;
     }
-    
+
     public async Task<LikeEntity> FindLikeAsync(Guid likeId)
     {
         IQueryable<LikeEntity> query = _likeQuery
@@ -60,7 +71,14 @@ public class LikeRepository : AppDbFunc, ILikeRepository
     public async Task DeleteLikesAsync(Guid likeId)
     {
         RemoveModel(await FindLikeAsync(likeId));
-        
+
         await SaveChangeAsync();
+    }
+
+    public async Task<bool> CheckLikedPost(Guid authorId, Guid postId)
+    {
+        List<LikeEntity> authorLikes = await GetAuthorPostLikesAsync(authorId, postId);
+
+        return authorLikes.Any();
     }
 }

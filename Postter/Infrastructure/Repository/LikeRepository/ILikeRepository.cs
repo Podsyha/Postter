@@ -16,7 +16,13 @@ public interface ILikeRepository
     /// <param name="postId">Id поста лайков</param>
     /// <returns></returns>
     Task<List<LikeEntity>> GetPostLikesAsync(Guid postId);
-
+    /// <summary>
+    /// Получить лайки пользователя у поста
+    /// </summary>
+    /// <param name="authorId">Id пользователя</param>
+    /// <param name="postId">Id поста</param>
+    /// <returns></returns>
+    Task<List<LikeEntity>> GetAuthorPostLikesAsync(Guid authorId, Guid postId);
     /// <summary>
     /// Найти лайк. Проверка на null
     /// </summary>
@@ -34,4 +40,11 @@ public interface ILikeRepository
     /// <param name="likeId">Id коммента</param>
     /// <returns></returns>
     Task DeleteLikesAsync(Guid likeId);
+    /// <summary>
+    /// True - пост уже лайкнут пользователем
+    /// </summary>
+    /// <param name="authorId">Id пользователя</param>
+    /// <param name="postId">Id поста</param>
+    /// <returns></returns>
+    Task<bool> CheckLikedPost(Guid authorId, Guid postId);
 }
