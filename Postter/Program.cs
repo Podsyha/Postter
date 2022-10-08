@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Postter.Common.Assert;
+using Postter.Common.Attribute;
 using Postter.Common.Auth;
 using Postter.Common.Helpers;
 using Postter.Common.Middlewares;
@@ -95,6 +96,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Common
 builder.Services.AddTransient<IAssert, Assert>();
 builder.Services.AddTransient<IRegistrationHelper, RegistrationHelper>();
+builder.Services.AddTransient<ICustomAuthorizeAttribute, CustomAuthorizeAttribute>();
 // Infrasctructure
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();

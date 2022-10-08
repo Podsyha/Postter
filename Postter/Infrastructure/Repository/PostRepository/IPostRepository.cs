@@ -33,13 +33,6 @@ public interface IPostRepository
     /// <returns></returns>
     Task<List<PostEntity>> GetAuthorPostsAsync(Guid authorId);
     /// <summary>
-    /// Найти модель поста. Проверка на null
-    /// </summary>
-    /// <param name="postId"></param>
-    /// <returns></returns>
-    Task<PostEntity> FindPostAsync(Guid postId);
-
-    /// <summary>
     /// Добавить сущность поста
     /// </summary>
     /// <param name="newPostEntity">Пост</param>

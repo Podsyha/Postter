@@ -18,12 +18,15 @@ namespace Postter.Controllers.Account;
 [Route("[controller]")]
 public class AccountController : CustomController
 {
-    public AccountController(IUseCaseAccount useCaseAccount)
+    public AccountController(IUseCaseAccount useCaseAccount, ICustomAuthorizeAttribute customAuthorize)
     {
         _useCaseAccount = useCaseAccount;
+        _customAuthorize = customAuthorize;
     }
 
+    
     private readonly IUseCaseAccount _useCaseAccount;
+    private readonly ICustomAuthorizeAttribute _customAuthorize;
 
 
     /// <summary>
@@ -48,6 +51,8 @@ public class AccountController : CustomController
             username = identity.Name,
             accountId = identity.GetUserId()
         };
+        
+        _customAuthorize.AddToken(new Guid(response.accountId), response.access_token);
 
         return Ok(response);
     }
@@ -90,6 +95,8 @@ public class AccountController : CustomController
             token = GetTokenByIdentity(model.Email, model.Password)
         };
 
+        _customAuthorize.AddToken(response.account.Id, response.token);
+
         return Ok(response);
     }
 
@@ -103,6 +110,7 @@ public class AccountController : CustomController
     public async Task<IActionResult> DeleteAccount(Guid accountId)
     {
         await _useCaseAccount.DeleteAccount(accountId);
+        _customAuthorize.RemoveToken(accountId);
 
         return Ok();
     }

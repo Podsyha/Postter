@@ -50,6 +50,7 @@ public class UseCaseAccount : IUseCaseAccount
 
         return await _accountRepository.AddPerson(newAccountEntity);
     }
+    
 
     /// <summary>
     /// Удалить аккаунт
@@ -107,7 +108,8 @@ public class UseCaseAccount : IUseCaseAccount
     {
         AccountEntity accountEntity = await _accountRepository.GetPersonAsync(email, password);
         if (accountEntity == null) return null;
-        _assert.ThrowIfFalse(accountEntity.IsActive, "Аккаунт удалён");
+        if (!accountEntity.IsActive)
+            throw new UnauthorizedAccessException();
 
         List<Claim> claims = new()
         {

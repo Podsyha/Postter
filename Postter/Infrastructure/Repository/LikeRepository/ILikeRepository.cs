@@ -45,13 +45,6 @@ public interface ILikeRepository
     /// <returns></returns>
     Task<List<LikeEntity>> GetPostLikesAsync(Guid postId);
     /// <summary>
-    /// Получить лайки пользователя у поста
-    /// </summary>
-    /// <param name="authorId">Id пользователя</param>
-    /// <param name="postId">Id поста</param>
-    /// <returns></returns>
-    Task<List<LikeEntity>> GetAuthorPostLikesAsync(Guid authorId, Guid postId);
-    /// <summary>
     /// Найти лайк. Проверка на null
     /// </summary>
     /// <param name="likeId">Id лайка</param>

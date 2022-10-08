@@ -89,17 +89,6 @@ public class PostRepository : AppDbFunc, IPostRepository
         return posts;
     }
 
-    public async Task<PostEntity> FindPostAsync(Guid postId)
-    {
-        PostEntity post = await _dbContext.Post
-            .Include(x => x.Author)
-            .FirstOrDefaultAsync(x => x.Id == postId);
-
-        _assert.IsNull(post, $"Пост не найден.");
-
-        return post;
-    }
-
     public async Task<PostUi> AddPostAsync(PostEntity newPostEntity)
     {
         await AddModelAsync(newPostEntity);

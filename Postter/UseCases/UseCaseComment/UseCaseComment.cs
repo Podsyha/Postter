@@ -17,12 +17,8 @@ public class UseCaseComment : IUseCaseComment
 
     private readonly ICommentRepository _commentRepository;
     private readonly IAssert _assert;
-
-    public async Task<CommentEntity> GetCommentAsync(Guid commentId)
-    {
-        return await _commentRepository.FindCommentAsync(commentId);
-    }
-
+    
+    
     public async Task<CommentUi> GetCommentUiAsync(Guid commentUi) =>
         await _commentRepository.GetCommentUiAsync(commentUi);
     
@@ -41,12 +37,7 @@ public class UseCaseComment : IUseCaseComment
     {
         return await _commentRepository.GetPostCommentsAsync(postId);
     }
-
-    public async Task<CommentEntity> FindCommentAsync(Guid commentId)
-    {
-        return await _commentRepository.FindCommentAsync(commentId);
-    }
-
+    
     public async Task<CommentUi> AddCommentAsync(AddCommentModel newComment)
     {
         CommentEntity comment = new()

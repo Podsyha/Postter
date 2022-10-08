@@ -25,29 +25,10 @@ public interface IAccountRepository
     /// <returns></returns>
     Task<AccountEntity> GetPersonAsync(string email);
     /// <summary>
-    /// Получить модель пользователя. Без првоерки на null
-    /// </summary>
-    /// <param name="id">Id пользователя</param>
-    /// <returns></returns>
-    Task<AccountEntity> GetPersonAsync(Guid id);
-    /// <summary>
     /// Обновить сущность пользователя
     /// </summary>
     /// <param name="accountEntity"></param>
     Task UpdatePersonInfo(AccountEntity accountEntity);
-    /// <summary>
-    /// Найти модель пользователя. Проверка на null
-    /// </summary>
-    /// <param name="password"></param>
-    /// <param name="email"></param>
-    /// <returns></returns>
-    Task<AccountEntity> FindPersonAsync(string password, string email);
-    /// <summary>
-    /// Найти модель пользователя. Проверка на null
-    /// </summary>
-    /// <param name="email"></param>
-    /// <returns></returns>
-    Task<AccountEntity> FindPersonAsync(string email);
     /// <summary>
     /// Найти модель пользователя. Проверка на null
     /// </summary>

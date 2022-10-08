@@ -9,16 +9,18 @@ namespace Postter.Infrastructure.Repository.AccountRepository;
 
 public class AccountRepository : AppDbFunc, IAccountRepository
 {
-    public AccountRepository(AppDbContext dbContext, IAssert assert, IRegistrationHelper registrationHelper) 
+    public AccountRepository(AppDbContext dbContext, IAssert assert, IRegistrationHelper registrationHelper)
         : base(dbContext, assert)
     {
         _assert = assert;
         _registrationHelper = registrationHelper;
     }
 
+    
     private readonly IAssert _assert;
     private readonly IRegistrationHelper _registrationHelper;
-    
+
+
     /// <summary>
     /// Получить модель пользователя. Без првоерки на null
     /// </summary>
@@ -54,11 +56,11 @@ public class AccountRepository : AppDbFunc, IAccountRepository
     {
         AccountEntity currentAccountEntity = await _dbContext.Person
             .FirstOrDefaultAsync(x => x.Email == email);
-        
+
         _assert.IsNull(currentAccountEntity, $"Не найден пользователь с email: {email}");
 
         string hashPass = _registrationHelper.generateHashPass(password, currentAccountEntity.Salt);
-        
+
         AccountEntity accountEntity = await _dbContext.Person
             .Include(x => x.Role)
             .Where(person => person.Email == email && person.HashPassword == hashPass)
@@ -66,7 +68,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
 
         return accountEntity;
     }
-    
+
     /// <summary>
     /// Получить модель пользователя. Без првоерки на null
     /// </summary>
@@ -77,12 +79,12 @@ public class AccountRepository : AppDbFunc, IAccountRepository
         IQueryable<AccountEntity> query = _dbContext.Person
             .Include(x => x.Role)
             .Where(person => person.Email == email);
-        
+
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
 
         return accountEntity;
     }
-    
+
     /// <summary>
     /// Получить модель пользователя. Без првоерки на null
     /// </summary>
@@ -93,7 +95,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
         IQueryable<AccountEntity> query = _dbContext.Person
             .Include(x => x.Role)
             .Where(person => person.Id == id);
-        
+
         AccountEntity accountEntity = await query.FirstOrDefaultAsync();
 
         return accountEntity;
@@ -107,7 +109,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
     {
         AccountEntity currentAccountEntity = await FindPersonAsync(accountEntity.Email);
         currentAccountEntity = accountEntity;
-        
+
         await _dbContext.SaveChangesAsync();
     }
 
@@ -121,11 +123,11 @@ public class AccountRepository : AppDbFunc, IAccountRepository
     {
         AccountEntity currentAccountEntity = await _dbContext.Person
             .FirstOrDefaultAsync(x => x.Email == email);
-        
+
         _assert.IsNull(currentAccountEntity, $"Не найден пользователь с email: {email}");
 
         string hashPass = _registrationHelper.generateHashPass(password, currentAccountEntity.Salt);
-        
+
         AccountEntity accountEntity = await _dbContext.Person
             .Include(x => x.Role)
             .Where(person => person.Email == email && person.HashPassword == hashPass)
@@ -135,7 +137,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
 
         return accountEntity;
     }
-    
+
     /// <summary>
     /// Найти модель пользователя. Проверка на null
     /// </summary>
@@ -152,7 +154,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
 
         return accountEntity;
     }
-    
+
     /// <summary>
     /// Найти модель пользователя. Проверка на null
     /// </summary>
@@ -203,7 +205,7 @@ public class AccountRepository : AppDbFunc, IAccountRepository
     {
         AccountEntity account = await FindPersonAsync(accountId);
         account.IsActive = false;
-        
+
         await SaveChangeAsync();
     }
 }
