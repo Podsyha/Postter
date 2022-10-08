@@ -137,9 +137,9 @@ namespace Postter.Migrations
                 columns: new[] { "Id", "About", "DateAdded", "Email", "HashPassword", "ImageUri", "IsActive", "Name", "RoleId", "Salt" },
                 values: new object[,]
                 {
-                    { new Guid("7ac78bb7-f08a-4bcb-86e1-e8dae9fea83f"), null, new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3798), "admin@gmail.com", "9979D7C69F617A036E3EC961F4D7A9EE", "testlink.com/testdirectory/testimage.png", true, "Admin Adminskiy", 1, "Xd@ukrgJd1aO_kYFVGnN" },
-                    { new Guid("c58a783e-d856-4f60-927d-7712a22f72a6"), null, new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3822), "moder@gmail.com", "9120EC0BFE6A0136CF53353C7029597D", "testlink.com/testdirectory/testimage.png", true, "Moderator Zloy i Derzkiy", 3, "2#wurZM(71rg*JvE%vWF" },
-                    { new Guid("f6c01696-67b1-48d9-a943-421d280467f9"), null, new DateTime(2022, 10, 7, 14, 57, 45, 600, DateTimeKind.Utc).AddTicks(3821), "user@gmail.com", "DBBFB1C16831E0B1D0260E867ABC2CAC", "testlink.com/testdirectory/testimage.png", true, "User Prostetskiy", 2, "yWH@mt7QgJm^lmcmnuWD" }
+                    { new Guid("7e72d42b-b55f-4e49-b564-f16aacea2b83"), null, new DateTime(2022, 10, 8, 10, 28, 27, 735, DateTimeKind.Utc).AddTicks(179), "moder@gmail.com", "91C2EF5472FC966356373C13A62C5595", "testlink.com/testdirectory/testimage.png", true, "Moderator Zloy i Derzkiy", 3, "Bc06Ju&RlWBWq2L8apSl" },
+                    { new Guid("8c67adfd-a27c-4212-95a3-e16e8af1d47a"), null, new DateTime(2022, 10, 8, 10, 28, 27, 735, DateTimeKind.Utc).AddTicks(151), "admin@gmail.com", "BF56F4B77EA7868B792B52605837401B", "testlink.com/testdirectory/testimage.png", true, "Admin Adminskiy", 1, "6*KKO9iqbI8(2ZWugv8T" },
+                    { new Guid("aee566b6-1814-46cd-8d7c-afcc035bbeb5"), null, new DateTime(2022, 10, 8, 10, 28, 27, 735, DateTimeKind.Utc).AddTicks(177), "user@gmail.com", "60A3A344B1E3EBC0D967E826D05526EF", "testlink.com/testdirectory/testimage.png", true, "User Prostetskiy", 2, "oZ!2A_MPvDm*RPc_NMbu" }
                 });
 
             migrationBuilder.CreateIndex(
