@@ -24,7 +24,7 @@ public class RoleController : CustomController
 
     [HttpGet("/roles")]
     [CustomAuthorize(RolesEnum.Admin)]
-    public async Task<List<RoleEntity>> GetAllRoles() => 
+    public async Task<ICollection<RoleEntity>> GetAllRoles() => 
         await _useCaseRole.GetAllRoles();
     
     [HttpGet("/admin-check")]

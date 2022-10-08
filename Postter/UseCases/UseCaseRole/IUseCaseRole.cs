@@ -4,5 +4,9 @@ namespace Postter.UseCases.UseCaseRole;
 
 public interface IUseCaseRole
 {
-    Task<List<RoleEntity>> GetAllRoles();
+    /// <summary>
+    /// Получить лист всех ролей
+    /// </summary>
+    /// <returns></returns>
+    Task<ICollection<RoleEntity>> GetAllRoles();
 }
