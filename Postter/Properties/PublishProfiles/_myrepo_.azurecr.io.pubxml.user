@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Этот файл используется процессом публикации или упаковки вашего веб-проекта. Можно настроить поведение этого процесса,
+изменив этот файл MSBuild. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <History>False|2022-10-08T11:03:42.5705261Z;False|2022-10-08T16:02:58.8073827+05:00;False|2022-10-08T16:01:41.1094004+05:00;</History>
+  </PropertyGroup>
+</Project>
