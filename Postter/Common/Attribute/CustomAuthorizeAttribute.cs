@@ -63,6 +63,6 @@ public class CustomAuthorizeAttribute : System.Attribute, IAuthorizationFilter, 
                 return;
 
 
-        throw new UnauthorizedAccessException();
+        throw new DirectoryNotFoundException();
     }
 }
