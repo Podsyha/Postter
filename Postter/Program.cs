@@ -94,9 +94,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 // Other services
 // Common
-builder.Services.AddTransient<IAssert, Assert>();
-builder.Services.AddTransient<IRegistrationHelper, RegistrationHelper>();
-builder.Services.AddTransient<ICustomAuthorizeAttribute, CustomAuthorizeAttribute>();
+builder.Services.AddScoped<IAssert, Assert>();
+builder.Services.AddScoped<IRegistrationHelper, RegistrationHelper>();
+builder.Services.AddScoped<ICustomAuthorizeAttribute, CustomAuthorizeAttribute>();
 // Infrasctructure
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
