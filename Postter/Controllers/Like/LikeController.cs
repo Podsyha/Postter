@@ -75,7 +75,7 @@ public class LikeController : CustomController
     /// <param name="likeId"></param>
     [HttpDelete("/like")]
     [CustomAuthorize]
-    public async Task DeleteLikes(Guid likeId)
+    public async Task<IActionResult> DeleteLikes(Guid likeId)
     {
         if (IsCurrentRole(RolesEnum.Admin) || IsCurrentRole(RolesEnum.Moder))
         {
@@ -86,5 +86,7 @@ public class LikeController : CustomController
             Guid authorId = new Guid(HttpContext.User.Identity.GetUserId());
             await _useCaseLike.DeleteLikesAsync(likeId, authorId);
         }
+        
+        return NoContent();
     }
 }

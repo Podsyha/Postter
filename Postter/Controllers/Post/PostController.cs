@@ -28,13 +28,13 @@ public class PostController : CustomController
     /// <summary>
     /// Получить пост
     /// </summary>
-    /// <param name="postId"></param>
+    /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("/get-post")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetPostUi(Guid postId)
+    public async Task<IActionResult> GetPostUi([FromQuery] Guid id)
     {
-        PostUi post = await _useCasePost.GetPostUiAsync(postId);
+        PostUi post = await _useCasePost.GetPostUiAsync(id);
 
         return Ok(post);
     }
@@ -74,7 +74,7 @@ public class PostController : CustomController
     /// <param name="postId"></param>
     [HttpDelete("/delete-post")]
     [CustomAuthorize]
-    public async Task DeletePost(Guid postId)
+    public async Task<IActionResult> DeletePost(Guid postId)
     {
         if (IsCurrentRole(RolesEnum.Admin) || IsCurrentRole(RolesEnum.Moder))
         {
@@ -85,5 +85,7 @@ public class PostController : CustomController
             Guid authorId = new Guid(HttpContext.User.Identity.GetUserId());
             await _useCasePost.DeletePostAsync(postId, authorId);
         }
+        
+        return NoContent();
     }
 }

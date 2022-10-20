@@ -27,13 +27,13 @@ public class CommentController : CustomController
     /// <summary>
     /// Получить комментарий
     /// </summary>
-    /// <param name="commentId"></param>
+    /// <param name="id">ID комментария</param>
     /// <returns></returns>
     [HttpGet("/comment")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCommentUi(Guid commentId)
+    public async Task<IActionResult> GetCommentUi(Guid id)
     {
-        CommentUi post = await _useCaseComment.GetCommentUiAsync(commentId);
+        CommentUi post = await _useCaseComment.GetCommentUiAsync(id);
 
         return Ok(post);
     }
@@ -41,7 +41,7 @@ public class CommentController : CustomController
     /// <summary>
     /// Получить комментарии пользователя 
     /// </summary>
-    /// <param name="model"></param>
+    /// <param name="model">Модель для получения UI комментариев автора</param>
     /// <returns></returns>
     [HttpGet("/author-сomments")]
     [AllowAnonymous]
@@ -55,7 +55,7 @@ public class CommentController : CustomController
     /// <summary>
     /// Получить комментарии поста
     /// </summary>
-    /// <param name="model"></param>
+    /// <param name="model">Модель для получения UI комментариев поста</param>
     /// <returns></returns>
     [HttpGet("/post-сomments")]
     [AllowAnonymous]
@@ -84,19 +84,21 @@ public class CommentController : CustomController
     /// <summary>
     /// Удалить комментарий
     /// </summary>
-    /// <param name="commentId"></param>
+    /// <param name="id">ID комментария</param>
     [HttpDelete("/comment")]
     [CustomAuthorize]
-    public async Task DeleteComment(Guid commentId)
+    public async Task<IActionResult> DeleteComment(Guid id)
     {
         if (IsCurrentRole(RolesEnum.Admin) || IsCurrentRole(RolesEnum.Moder))
         {
-            await _useCaseComment.DeleteCommentAsync(commentId);
+            await _useCaseComment.DeleteCommentAsync(id);
         }
         else
         {
             Guid authorId = new Guid(HttpContext.User.Identity.GetUserId());
-            await _useCaseComment.DeleteCommentAsync(commentId, authorId);
+            await _useCaseComment.DeleteCommentAsync(id, authorId);
         }
+
+        return NoContent();
     }
 }

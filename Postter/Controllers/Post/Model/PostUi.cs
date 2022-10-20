@@ -14,6 +14,10 @@ public sealed class PostUi
     /// </summary>
     public Guid AuthorId { get; set; }
     /// <summary>
+    /// Текст поста
+    /// </summary>
+    public string Text { get; set; }
+    /// <summary>
     /// Имя автора поста
     /// </summary>
     public string AuthorName { get; set; }

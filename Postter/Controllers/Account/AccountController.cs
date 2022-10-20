@@ -36,7 +36,7 @@ public class AccountController : CustomController
     /// <param name="password">Пароль</param>
     [HttpGet("/token")]
     [AllowAnonymous]
-    public async Task<IActionResult> Token(string email, string password)
+    public async Task<IActionResult> Token([FromQuery] string email, [FromQuery] string password)
     {
         ClaimsIdentity identity = await _useCaseAccount.GetIdentity(email, password);
         if (identity == null)
@@ -64,7 +64,7 @@ public class AccountController : CustomController
     /// <returns></returns>
     [HttpGet("/account")]
     [CustomAuthorize]
-    public async Task<AccountUi> GetPersonUiAsync(Guid id) =>
+    public async Task<AccountUi> GetPersonUiAsync([FromQuery] Guid id) =>
         await _useCaseAccount.GetPersonUiAsync(id);
 
     /// <summary>
@@ -112,7 +112,7 @@ public class AccountController : CustomController
         await _useCaseAccount.DeleteAccount(accountId);
         _customAuthorize.RemoveToken(accountId);
 
-        return Ok();
+        return NoContent();
     }
 
     /// <summary>
