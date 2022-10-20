@@ -45,6 +45,16 @@ public class LikeController : CustomController
         await _useCaseLike.GetPostLikesUiAsync(model.PostId, model.Page, model.Count);
 
     /// <summary>
+    /// Получить лайки на посте
+    /// </summary>
+    /// <param name="id">ID лайка</param>
+    /// <returns></returns>
+    [HttpGet("/like")]
+    [AllowAnonymous]
+    public async Task<LikeUi> GetLikeUiAsync([FromQuery]Guid id) =>
+        await _useCaseLike.GetLikeUiAsync(id);
+    
+    /// <summary>
     /// Добавить лайк
     /// </summary>
     /// <param name="model"></param>
@@ -56,7 +66,7 @@ public class LikeController : CustomController
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());
         LikeUi like = await _useCaseLike.AddLikeAsync(model);
 
-        return Ok(like);
+        return CreatedAtAction(nameof(GetLikeUiAsync), new { id = like.Id }, like);
     }
 
     /// <summary>

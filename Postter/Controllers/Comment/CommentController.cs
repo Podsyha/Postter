@@ -78,7 +78,7 @@ public class CommentController : CustomController
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());
         CommentUi comment = await _useCaseComment.AddCommentAsync(model);
 
-        return Ok(comment);
+        return CreatedAtAction(nameof(GetCommentUi), new { id = comment.Id }, comment);
     }
 
     /// <summary>

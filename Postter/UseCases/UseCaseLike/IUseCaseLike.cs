@@ -15,6 +15,12 @@ public interface IUseCaseLike
     /// <returns></returns>
     Task<CollectionEntityUi<LikeUi>> GetAuthorLikesUiAsync(Guid authorId, int page, int count);
     /// <summary>
+    /// Получить UI лайк
+    /// </summary>
+    /// <param name="id">Id лайка</param>
+    /// <returns></returns>
+    Task<LikeUi> GetLikeUiAsync(Guid id);
+    /// <summary>
     /// Получить все UI лайки поста
     /// </summary>
     /// <param name="postId">Id поста</param>

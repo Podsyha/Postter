@@ -50,7 +50,12 @@ public interface ILikeRepository
     /// <param name="likeId">Id лайка</param>
     /// <returns></returns>
     Task<LikeEntity> FindLikeAsync(Guid likeId);
-
+    /// <summary>
+    /// Получить лайк
+    /// </summary>
+    /// <param name="likeId">Id лайка</param>
+    /// <returns></returns>
+    Task<LikeUi> GetLikeAsync(Guid likeId);
     /// <summary>
     /// Добавить лайк
     /// </summary>

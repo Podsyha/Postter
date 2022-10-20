@@ -73,7 +73,7 @@ public class AccountController : CustomController
     /// <returns></returns>
     [HttpGet("/self-account")]
     [CustomAuthorize]
-    public async Task<AccountUi> GetPersonUiAsync()
+    public async Task<AccountUi> GetSelfPersonUiAsync()
     {
         Guid id = new Guid(HttpContext.User.Identity.GetUserId());
         
@@ -97,7 +97,7 @@ public class AccountController : CustomController
 
         _customAuthorize.AddToken(response.account.Id, response.token);
 
-        return Ok(response);
+        return CreatedAtAction(nameof(GetPersonUiAsync), new { id = response.account.Id }, response);
     }
 
     /// <summary>

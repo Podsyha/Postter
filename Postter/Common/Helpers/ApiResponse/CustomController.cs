@@ -15,6 +15,13 @@ public class CustomController : ControllerBase
         return base.Ok(response);
     }
 
+    public override CreatedAtActionResult CreatedAtAction(string actionName, object routeValues, object value)
+    {
+        ApiResponse response = new(value, null);
+        
+        return base.CreatedAtAction(actionName, routeValues, response);
+    }
+
     public override BadRequestObjectResult BadRequest(object error)
     {
         ApiResponse response = new(null, error);

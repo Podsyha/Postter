@@ -19,7 +19,10 @@ public class UseCaseLike : IUseCaseLike
 
     public async Task<CollectionEntityUi<LikeUi>> GetAuthorLikesUiAsync(Guid authorId, int page, int count) =>
         await _likeRepository.GetAuthorLikesUiAsync(authorId, page, count);
-    
+
+    public async Task<LikeUi> GetLikeUiAsync(Guid id) =>
+        await _likeRepository.GetLikeAsync(id);
+
     public async Task<CollectionEntityUi<LikeUi>> GetPostLikesUiAsync(Guid postId, int page, int count)=>
         await _likeRepository.GetPostLikesUiAsync(postId, page, count);
 

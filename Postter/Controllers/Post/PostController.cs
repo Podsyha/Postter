@@ -65,7 +65,7 @@ public class PostController : CustomController
         model.AuthorId = new Guid(HttpContext.User.Identity.GetUserId());
         PostUi post = await _useCasePost.AddPostAsync(model);
 
-        return Ok(post);
+        return CreatedAtAction(nameof(GetPostUi), new { id = post.Id }, post);
     }
 
     /// <summary>

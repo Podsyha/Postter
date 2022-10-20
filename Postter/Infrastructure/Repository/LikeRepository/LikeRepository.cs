@@ -164,6 +164,24 @@ public class LikeRepository : AppDbFunc, ILikeRepository
         return like;
     }
 
+    public async Task<LikeUi> GetLikeAsync(Guid likeId)
+    {
+        IQueryable<LikeUi> query = _queryInclude
+            .Where(x => x.Id == likeId)
+            .Select(x => new LikeUi()
+            {
+                Id = x.Id,
+                AuthorId = x.AuthorId,
+                AuthorName = x.Author.Name,
+                PostId = x.PostId,
+                AuthorImageUri = x.Author.ImageUri
+            });
+        
+        LikeUi like = await query.FirstOrDefaultAsync();
+
+        return like;
+    }
+
     public async Task<LikeUi> AddLikesAsync(LikeEntity newLike)
     {
         await AddModelAsync(newLike);
