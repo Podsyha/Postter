@@ -98,9 +98,9 @@ builder.Services.AddMvc(options =>
 
 // Other services
 // Common
-builder.Services.AddScoped<IAssert, Assert>();
-builder.Services.AddScoped<IRegistrationHelper, RegistrationHelper>();
-builder.Services.AddScoped<ICustomAuthorizeAttribute, CustomAuthorizeAttribute>();
+builder.Services.AddSingleton<IAssert, Assert>();
+builder.Services.AddSingleton<IRegistrationHelper, RegistrationHelper>();
+builder.Services.AddSingleton<ICustomAuthorizeAttribute, CustomAuthorizeAttribute>();
 // Infrasctructure
 builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
